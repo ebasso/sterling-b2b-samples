@@ -1,0 +1,14 @@
+<process name="XAPI_CreateUser_Example01">
+  <sequence name="Sequence Start">
+    <operation name="XAPI Service">
+      <participant name="XAPIService"/>
+      <output message="XAPIServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="api">createUserHierarchy</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+  </sequence>
+</process>
