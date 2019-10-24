@@ -1,0 +1,37 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <User Activateflag="Y" BillingaddressKey="" BusinessKey=""
+     ChangePassNext="" ContactaddressKey="" CreatorOrganizationKey=""
+     DataSecurityGroupId="" DepartmentCode="" GeneratePassword=""
+     Imagefile="" Localecode="en" Loginid="xapi_user01" Longdesc="" MenuId=""
+     NoteKey="" OrganizationKey="" ParentUserKey="" Password="passw0rd"
+     PasswordPolicyId="" PasswordPolicyKey="" PreferenceKey=""
+     Pwdlastchangedon="" SessionTimeout="1800" SuperUser="" Theme=""
+     UserKey="" Username="xapi_user01" Usertype="">
+ <ContactPersonInfo AddressLine1="" AddressLine2="" AddressLine3=""
+     AddressLine4="" AddressLine5="" AddressLine6=""
+     AlternateEmailID="" Beeper="" City="" Company="" Country=""
+     DayFaxNo="" DayPhone="" Department="" EMailID="xapi_user01@example.com" ErrorTxt=""
+     EveningFaxNo="" EveningPhone="" FirstName="xapi_user01" HttpUrl=""
+     IsCommercialAddress="" JobTitle="" LastName="xapi_user01" MiddleName=""
+     MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey=""
+     PreferredShipAddress="" State="" Suffix="" TaxGeoCode=""
+     Title="" UseCount="" VerificationStatus="" ZipCode=""/>
+ <BillingPersonInfo AddressLine1="" AddressLine2="" AddressLine3=""
+     AddressLine4="" AddressLine5="" AddressLine6=""
+     AlternateEmailID="" Beeper="" City="" Company="" Country=""
+     DayFaxNo="" DayPhone="" Department="" EMailID="xapi_user01@example.com" ErrorTxt=""
+     EveningFaxNo="" EveningPhone="" FirstName="xapi_user01" HttpUrl=""
+     IsCommercialAddress="" JobTitle="" LastName="xapi_user01" MiddleName=""
+     MobilePhone="" OtherPhone="" PersonID="" PersonInfoKey=""
+     PreferredShipAddress="" State="" Suffix="" TaxGeoCode=""
+     Title="" UseCount="" VerificationStatus="" ZipCode=""/>
+ <QueueSubscriptionList>
+    <QueueSubscription QueueKey="" QueueSubscriptionKey=""/>
+ </QueueSubscriptionList>
+ <ResourcePermissionList>
+    <ResourcePermission ResourceKey="" Rights="" UserKey=""/>
+ </ResourcePermissionList>
+ <UserGroupLists>
+    <UserGroupList UserGroupListKey="" UsergroupId="fg_operators" UsergroupKey="fg_operators"/>
+ </UserGroupLists>
+ </User>
