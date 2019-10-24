@@ -7,9 +7,9 @@ Steps:
 
 1) Login o Sterling B2B Console
 
-2) Create a BP named *XAPI_CreateUser_Example01* and use code from **BP_XAPI_CreateUser_Example01.xml**
+2) Create a BP named **XAPI_CreateUser_Example01** and use code from *BP_XAPI_CreateUser_Example01.xml*
 
-3) Run the BP and provide XAPI_createUser_input.xml as input
+3) Run the BP and provide **XAPI_createUser_input.xml** as input
 
 4) Check if BP run successfully.
 
