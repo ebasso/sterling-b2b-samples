@@ -1,0 +1,16 @@
+<process name="BP_Convert_Json2Xml_input">
+<sequence>
+<operation name="Request">
+<participant name='xmljsontransformer'/>
+<output message='xout'>
+<assign to='.' from='PrimaryDocument/@SCIObjectID'></assign>
+<assign to='inputtype'>JSON</assign>
+<assign to='outputpath'>output.xml</assign>
+<assign to='.' from='*' />
+</output>
+<input message="xin">
+<assign to='.' from='*' />
+</input>
+</operation>
+</sequence>
+</process>

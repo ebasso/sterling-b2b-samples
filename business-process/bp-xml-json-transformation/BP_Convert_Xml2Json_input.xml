@@ -1,0 +1,16 @@
+<process name="BP_Convert_Xml2Json_input">
+  <sequence>
+    <operation name="Request">
+    <participant name='xmljsontransformer'/> 
+    <output message='xout'>
+    <assign to='input'>&lt;message&gt;Hello World!&lt;/message&gt;</assign>
+    <assign to='inputtype'>XML</assign>  
+    <assign to='outputpath'>output.json</assign>
+    <assign to='.' from='*'/> 
+    </output>
+    <input message="xin">
+    <assign to='.' from='*'/>
+    </input>
+    </operation>
+ </sequence>
+</process>
