@@ -15,3 +15,9 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 | BPs Name                        |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
 | bp-xml-json-transformation      | Examples of BPs that convert XML to Json format, using XML Json Transformer Service |
+
+# Filegateway Scenarios
+
+| Scenarios                       |            Description of Role                                          |
+|---------------------------------|-------------------------------------------------------------------------|
+| polling-file-from-sftp-parner   | Poll a file from a SFTP Partner and delivery it internally  |

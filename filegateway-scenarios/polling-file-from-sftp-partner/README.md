@@ -38,7 +38,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 * REMOTE_SFTP_PARTNER_HOSTKEY: remote SSH hostkey 
 * Demo_SFTP_Partner
 
- 6) Create a new Business Process: Demo_Polling_Using_SFTP_Get, using file **polling_using_sftp_get.bpml** 
+ 6) Create a new Business Process: **Demo_Polling_Using_SFTP_Get**, using file **polling_using_sftp_get.bpml** 
 
  7) Run BP.
 
