@@ -17,13 +17,13 @@
       <participant name="SFTPClientBeginSession"/>
       <output message="SFTPClientBeginSessionServiceTypeInputMessage">
         <assign to="SFTPClientAdapter">SFTPClientAdapter</assign>
-        <assign to="RemoteHost">127.0.0.1</assign>
+        <assign to="RemoteHost">REMOTE_SFTP_SERVER</assign>
         <!-- Using revealObscured XPath function here, this will reveal the password obtained from the ObscureParameter service -->
         <assign to="RemotePasswd" from="revealObscured(admin)"></assign>
-        <assign to="RemotePort">2022</assign>
-        <assign to="RemoteUserId">cardealer</assign>
-        <assign to="PreferredAuthenticationMethod">password</assign>
-        <assign to="KnownHostKeyId">11367615095d48b49node1</assign>
+        <assign to="RemotePort">REMOTE_SFTP_SERVER_PORT</assign>
+        <assign to="RemoteUserId">REMOTE_SFTP_PARTNER_NAME</assign>
+        <assign to="PreferredAuthenticationMethod">REMOTE_SFTP_PARTNER_PASSWORD</assign>
+        <assign to="KnownHostKeyId">REMOTE_SFTP_PARTNER_HOSTKEY</assign>
         <assign to="." from="*"></assign>
       </output>
       <input message="inmsg">
@@ -61,7 +61,7 @@
             <assign to="Extractable">YES</assign>
             <assign to="MessageName" from="/ProcessData/GetDocInfoResults/DocumentName/text()"></assign>
             <assign to="DocumentId" from="/ProcessData/GetDocInfoResults/DocumentId/text()"></assign>
-            <assign to="MailboxPath">/Demo_Parceiro_SFTP</assign>
+            <assign to="MailboxPath">/Demo_SFTP_Partner</assign>
         </output>
         <input message="inmsg">
             <assign to="." from="*"></assign>
