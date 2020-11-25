@@ -38,7 +38,8 @@ You need to open content_based_01.mxl on Map Editor and generate .txo file.
 
 4) Create a Routing Channel Template. See example: rct.txt
 
- Routing Channel Template:
+```
+Routing Channel Template:
     Template Name: **Demo_Content_Based_Routing_01**
     Consumer Identification: **Dynamic**
     Business Process Name: **BP_Content_Based_Routing**
@@ -63,6 +64,7 @@ You need to open content_based_01.mxl on Map Editor and generate .txo file.
             Consumer File Structure: Unknown{${ProducerFilename}}
             Layer: Unknown
                 File name format: ${ProducerFileName}
+```
 
 5) Create a Route Channel.
 

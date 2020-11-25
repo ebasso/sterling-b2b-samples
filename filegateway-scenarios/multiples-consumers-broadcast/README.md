@@ -29,13 +29,14 @@ and include partners: Demo_InternalPartner_01, Demo_InternalPartner_02.
 
 5) Create a Routing Channel Template. See example: rct.txt
 
+```
  Routing Channel Template:
-    Template Name: Demo_Multiples_Consumers_Broadcast
-    Consumer Identification: Dynamic
+    Template Name: **Demo_Multiples_Consumers_Broadcast**
+    Consumer Identification: **Dynamic**
 
     Special Character Handling: No special character handling is specified
     Provisioning Fact List:
-        Fact Name: ConsumerBroadcastGroup
+        Fact Name: **ConsumerBroadcastGroup**
         Display Label: Consumer Broadcast Group
         Description: Provide Name of the Broadcast Group
     Group Permissions:
@@ -55,6 +56,7 @@ and include partners: Demo_InternalPartner_01, Demo_InternalPartner_02.
             Consumer File Structure: Unknown{${ProducerFilename}}
             Layer: Unknown
                 File name format: ${ProducerFileName}
+```
 
 6) Create a Route Channel.
 
