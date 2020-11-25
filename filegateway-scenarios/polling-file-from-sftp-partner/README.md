@@ -15,7 +15,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 # Steps to Run:
 
-On Remote SSH Server
+**On Remote SSH Server**
 
  1) Create a user on remote SSH server
    
@@ -23,11 +23,11 @@ On Remote SSH Server
  
  3) Import Remote SSH HostKey on B2Bi Dashboard
 
-On Filegateway
+**On Filegateway**
 
  4) Create a Local Partner/Mailbox to receive Files. Example: Demo_SFTP_Partner
 
-On B2Bi Dashboard
+**On B2Bi Dashboard**
 
  5) Change parameters on file: **polling_using_sftp_get.bpml** 
 
