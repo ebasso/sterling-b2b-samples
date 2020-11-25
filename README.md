@@ -20,4 +20,6 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 | Scenarios                       |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
+| content-based-routing-01        | File routed based on content inside the file. |
+| multiples-consumers-broadcast   | Broadcast one file to multiple partners.|
 | polling-file-from-sftp-parner   | Poll a file from a SFTP Partner and delivery it internally  |
