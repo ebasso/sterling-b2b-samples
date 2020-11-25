@@ -31,12 +31,12 @@ and include partners: Demo_InternalPartner_01, Demo_InternalPartner_02.
 
 ```
  Routing Channel Template:
-    Template Name: **Demo_Multiples_Consumers_Broadcast**
-    Consumer Identification: **Dynamic**
+    Template Name: Demo_Multiples_Consumers_Broadcast
+    Consumer Identification: Dynamic
 
     Special Character Handling: No special character handling is specified
     Provisioning Fact List:
-        Fact Name: **ConsumerBroadcastGroup**
+        Fact Name: ConsumerBroadcastGroup
         Display Label: Consumer Broadcast Group
         Description: Provide Name of the Broadcast Group
     Group Permissions:
@@ -60,13 +60,13 @@ and include partners: Demo_InternalPartner_01, Demo_InternalPartner_02.
 
 6) Create a Route Channel.
 
-    Routing Channel Template: Demo_Multiples_Consumers_Broadcast
-    Producer: Demo_Operations_01
-    Consumer Broadcast Group: Demo_BroadCastGroup
+* Routing Channel Template: Demo_Multiples_Consumers_Broadcast
+* Producer: Demo_Operations_01
+* Consumer Broadcast Group: Demo_BroadCastGroup
 
 **Running**
 
-1) Logon on Myfilegateway with user Demo_Operations_01, and upload any file.
+1) Logon on Myfilegateway with user **Demo_Operations_01**, and upload any file.
 
 2) After delivery, check files on mailboxes:
 

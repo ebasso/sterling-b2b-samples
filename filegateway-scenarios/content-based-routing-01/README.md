@@ -36,14 +36,14 @@ You need to open content_based_01.mxl on Map Editor and generate .txo file.
 
 3) Create a Partner to Receive Files: Demo_InternalPartner_02
 
-4) Create a Routing Channel Template. See example: rct.txt
+4) Create a Routing Channel Template. See example: 
 
 ```
 Routing Channel Template:
-    Template Name: **Demo_Content_Based_Routing_01**
-    Consumer Identification: **Dynamic**
-    Business Process Name: **BP_Content_Based_Routing**
-    Process Data Element Name: **ConsumerName**
+    Template Name: Demo_Content_Based_Routing_01
+    Consumer Identification: Dynamic
+    Business Process Name: BP_Content_Based_Routing
+    Process Data Element Name: ConsumerName
     
     Special Character Handling: No special character handling is specified
     Provisioning Fact List:
@@ -68,12 +68,12 @@ Routing Channel Template:
 
 5) Create a Route Channel.
 
-    Routing Channel Template: Demo_Content_Based_Routing_01
-    Producer: Demo_ContentBased_01
+* Routing Channel Template: Demo_Content_Based_Routing_01
+* Producer: Demo_ContentBased_01
 
 **Running**
 
-1) Logon on Myfilegateway with user Demo_ContentBased_01, and upload files testdata-01.csv, testdata-02.csv.
+1) Logon on Myfilegateway with user **Demo_ContentBased_01**, and upload files testdata-01.csv, testdata-02.csv.
 
 2) After delivery, check files on mailbox:
 
