@@ -1,8 +1,6 @@
 # IBM Sterling File Gateway Scenarios
 
-Broadcast one file to multiple partners.
-
-This support different protocols, only define on Demo_InternalPartner_NN.
+Put a file on network shared directory
 
 
 # Important 
