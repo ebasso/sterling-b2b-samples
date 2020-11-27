@@ -47,6 +47,13 @@ YOU MUST HAVE APIUser Permission
 
 9) Click **Browse** to select ***AFTExtensionsCustomer.xml*** file and ***AFTExtensionsCustomer.properties*** file and click **SaveCustomSFGExtensions**.
 
+10) Run <install_dir>/bin/setupfiles.sh.
+    
+
+11) Run <install_dir>/bin/deployer.sh.
+
+12) Restart B2Bi
+
 
 **On Filegateway - First Time Only**
 
