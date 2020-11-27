@@ -22,27 +22,30 @@ https://www.ibm.com/support/pages/how-configure-file-system-adapter-write-shared
 
 **On Dashboard**
 
-1) Create a new Business Process: **SFG_RouteViaFileSystem**, using file **SFG_RouteViaFileSystem.bpml** 
+1) Create a new File System Adapter: **Generic_FSA_Adapter**
+
+
+2) Create a new Business Process: **SFG_RouteViaFileSystem**, using file **SFG_RouteViaFileSystem.bpml** 
 
 **On Dashboard Customizations**
 
-2) Open B2Bi Dashboard
+3) Open B2Bi Dashboard
 
-3) Select **Customization > Customization**. 
+4) Select **Customization > Customization**. 
 
-4) Click the **Click Here To Access** link. 
+5) Click the **Click Here To Access** link. 
 
-5) In the Customization login screen, enter the User Name and Password and click Login.
+6) In the Customization login screen, enter the User Name and Password and click Login.
 
 ```
 YOU MUST HAVE APIUser Permission
 ```
 
-6) Click **CustomSFGExtensions**. The CustomSFGExtensions list page is displayed.
+7) Click **CustomSFGExtensions**. The CustomSFGExtensions list page is displayed.
    
-7) Click the **AFTExtensions Customer file** link. On the **General** tab, click **Edit**.
+8) Click the **AFTExtensions Customer file** link. On the **General** tab, click **Edit**.
 
-8) Click **Browse** to select ***AFTExtensionsCustomer.xml*** file and ***AFTExtensionsCustomer.properties*** file and click **SaveCustomSFGExtensions**.
+9) Click **Browse** to select ***AFTExtensionsCustomer.xml*** file and ***AFTExtensionsCustomer.properties*** file and click **SaveCustomSFGExtensions**.
 
 
 **On Filegateway - First Time Only**

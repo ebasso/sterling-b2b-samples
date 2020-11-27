@@ -1,12 +1,3 @@
-
-<!--
-    SFG_RouteViaFileSystem
-    
-    Expected process data content:
-    DocumentId     - Document ID for the message to add
-    ProfileId      - ID for the profile containing the necessary FTP client adapter settings
-    RemoteFileName - Filename to be used when the file is delivered
--->
 <process name="SFG_RouteViaFileSystem">
     
     <sequence>
@@ -14,7 +5,7 @@
 		<operation name="File System Adapter">
         <participant name="Generic_FSA_Adapter"/>
           <output message="FileSystemInputMessage">
-            <assign to="extractionFolder" from="fsa.label.fsaprotocol.remotefilesystem/text()"/>
+            <assign to="extractionFolder" from="RemoteFileSystem/text()"/>
 			<assign to="assignFilename">true</assign>
             <assign to="assignedFilename" from="DestinationMessageName/text()"/>
             <assign to="Action">FS_EXTRACT</assign>
