@@ -1,0 +1,6 @@
+<process name = "BP_Dynamic_ConsumerName_PrimaryDoc">
+  <sequence>
+    <assign to="." from="DocToDOM(PrimaryDocument)"/> 
+    <assign to="ConsumerName" from="/ProcessData/ConfirmedBooking/Consumer/Name/text()"></assign>
+  </sequence>
+</process>

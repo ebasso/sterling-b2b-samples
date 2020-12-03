@@ -1,0 +1,5 @@
+<process name = "BP_Dynamic_ConsumerName">
+  <sequence>
+    <assign to="ConsumerName">Demo_InternalPartner_01</assign>
+  </sequence>
+</process>
