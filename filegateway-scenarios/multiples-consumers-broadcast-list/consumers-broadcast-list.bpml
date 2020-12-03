@@ -1,0 +1,7 @@
+<process name = "BP_Consumer_Broadcast_List">
+<sequence>
+<assign to="ConsumerNameList/ConsumerName">Demo_InternalPartner_01</assign>
+<assign to="ConsumerNameList/ConsumerName" append ="true">Demo_InternalPartner_02</assign>
+<assign to="ConsumerNameList/ConsumerName" append ="true">Demo_InternalPartner_03</assign>
+</sequence>
+</process>
