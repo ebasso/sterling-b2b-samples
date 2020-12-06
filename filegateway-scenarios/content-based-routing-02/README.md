@@ -60,7 +60,7 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 # Running
 
-1) Logon on Myfilegateway with user **Demo_Producer_DR_01**, and upload file **testdata-01.xml**
+1) Logon on Myfilegateway with user **Demo_Producer_CB2_01**, and upload file **testdata-01.xml**
 
 2) After delivery, check files on mailboxes:
 
