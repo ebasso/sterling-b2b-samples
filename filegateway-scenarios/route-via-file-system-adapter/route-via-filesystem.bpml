@@ -1,10 +1,10 @@
-<process name="Demo_RouteViaFileSystem">
+<process name="Demo_BP_RouteViaFileSystem">
     <sequence>
 	
         <operation name="File System Adapter">
             <participant name="Generic_FSA_Adapter"/>
                 <output message="FileSystemInputMessage">
-                    <assign to="extractionFolder" from="RemoteFileSystem/text()"/>
+                    <assign to="extractionFolder" from="fsa_RemoteFileSystem/text()"/>
                     <assign to="assignFilename">true</assign>
                     <assign to="assignedFilename" from="DestinationMessageName/text()"/>
                     <assign to="Action">FS_EXTRACT</assign>
@@ -55,5 +55,3 @@
         </onFault>
     </sequence>
 </process>
-
-  

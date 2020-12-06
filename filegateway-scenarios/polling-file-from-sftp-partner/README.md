@@ -43,21 +43,36 @@ You can schedule this BP to run every 30 minutes to check for files.
 * REMOTE_SFTP_PARTNER_HOSTKEY: remote SSH hostkey Key ID 
 * MAILBOX_PATH: /Demo_Local_SFTP
 
-My Exemple:
+
+From:
 ```
-        <assign to="RemoteHost">127.0.0.1</assign>
-        <assign to="RemotePort">22</assign>
-        <assign to="RemoteUserId">Demo_Remote_SFTP</assign>
-        <assign to="RemotePasswd">passw0rd</assign> 
-        <assign to="KnownHostKeyId">442297176384f4ba2node1</assign>
-        ...
-        ...
-        <operation name="Mailbox Add Service">
-           ...
-           <assign to="MailboxPath">/Demo_Local_SFTP</assign>
+ <assign to="RemoteHost">REMOTE_SFTP_SERVER</assign>
+ <assign to="RemotePort">REMOTE_SFTP_SERVER_PORT</assign>
+ <assign to="RemoteUserId">REMOTE_SFTP_PARTNER_NAME</assign>
+ <assign to="RemotePasswd">REMOTE_SFTP_PARTNER_PASSWORD</assign> 
+ <assign to="KnownHostKeyId">REMOTE_SFTP_PARTNER_HOSTKEY</assign>
+ ...
+ ...
+ <operation name="Mailbox Add Service">
+   ...
+   <assign to="MailboxPath">MAILBOX_PATH</assign>
 ```  
 
-2) Create a new Business Process: **Demo_BP_Polling_Using_SFTP_Get**, using file **polling_using_sftp_get.bpml** 
+To My Example:
+```
+ <assign to="RemoteHost">127.0.0.1</assign>
+ <assign to="RemotePort">22</assign>
+ <assign to="RemoteUserId">Demo_Remote_SFTP</assign>
+ <assign to="RemotePasswd">passw0rd</assign> 
+ <assign to="KnownHostKeyId">442297176384f4ba2node1</assign>
+ ...
+ ...
+ <operation name="Mailbox Add Service">
+   ...
+   <assign to="MailboxPath">/Demo_Local_SFTP</assign>
+```  
+
+1) Create a new Business Process: **Demo_BP_Polling_Using_SFTP_Get**, using file **polling_using_sftp_get.bpml** 
 
 
 # Running

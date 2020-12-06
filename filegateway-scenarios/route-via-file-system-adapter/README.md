@@ -1,6 +1,9 @@
 # IBM Sterling File Gateway Scenarios
 
-Put a file on network shared directory
+In this scenario, we enable SFG to put a file on network shared directory to a Partner.
+
+We need to add a Custom Protocol on SFG. And after need to define this protocol to a partner.
+
 
 
 # Important 
@@ -24,8 +27,22 @@ https://www.ibm.com/support/pages/how-configure-file-system-adapter-write-shared
 
 1) Create a new File System Adapter: **Generic_FSA_Adapter**
 
+```
+Service Type:            File System Adapter
+System Name:             Generic_FSA_Adapter
+Description:             Generic FSA Adapter used on SFG
+Group Name:              None
+Collection folder:       c:\
+Filename filter          *.xyz
+Collect files from sub folders within and including the collection folder? No
+Use the absolute file path name for the document name? No
+Start a business process once files are collected? No
+Extraction folder:       c:\
+Unobscure File Contents? No
+Filenaming convention Use the original filename as the extracted filename 
+```
 
-2) Create a new Business Process: **Demo_RouteViaFileSystem**, using file **route-via-filesystem.bpml** 
+2) Create a new Business Process: **Demo_BP_RouteViaFileSystem**, using file **route-via-filesystem.bpml** 
 
 **On Dashboard Customizations**
 
@@ -57,19 +74,40 @@ YOU MUST HAVE APIUser Permission
 
 **On Filegateway - First Time Only**
 
-```
-Enable **File System Adapter** on Community Protocols
-```
+
+1) Enable **File System Adapter** on Community Protocols
+
+**On Server machine - First Time Only**
+
+
+1) Create a  directory on server machine MS Windows or Linux
+
+My case SI is running on Limux, with user siuser
+
+ mkdir -p /home/siuser/FSADemo
 
 **On Filegateway**
 
 1) Create a Partner to Send Files: Demo_Producer_01
 
-2) Create a Partner to Receive Files: Demo_Consumer_FSA_01
+2) Create a Partner to Receive Files, choose **File System Adapter**, and specify Remote Folder Name
 
-choose **File System Adapter**, and specify
-
-* Remote Folder Name: \\<HOSTNAME>\<network_shared_drive>
+```
+Partner Name:          Demo_Consumer_FSA_01
+Phone:                 55555
+Email Address:         demo@demo.com
+User Name:             Demo_Consumer_FSA_01
+Authentication Type:   Local
+Session Timeout (min): 15
+Given Name:            Demo_Consumer
+Surname:               FSA_01
+Partner Role:          Consumer of Data
+Connection Direction:  Listen Connection
+Transport Method:      File System Adapter
+Remote Folder Name:    /home/siuser/FSADemo
+Does Demo_Consumer_FSA_01 require data to be signed by the Router: no
+Does Demo_Consumer_FSA_01 require data to be encrypted by the Router : no
+```
 
 3) Create a Routing Channel Template.
 
@@ -99,7 +137,7 @@ choose **File System Adapter**, and specify
                 File name format: ${ProducerFileName}
 ```
 
-6) Create a Route Channel.
+4) Create a Route Channel.
 
 * Routing Channel Template: Demo_RouteFileViaFSA
 * Producer: Demo_Producer_01
@@ -109,9 +147,7 @@ choose **File System Adapter**, and specify
 
 1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/fsa**
 
-2) After delivery, check files on mailboxes:
-
-* On Demo_Consumer_FSA_01s
+2) After delivery, check files on mailboxes **Demo_Consumer_FSA_01s** and filesystem **/tmp/fsademo**.
 
 
 
