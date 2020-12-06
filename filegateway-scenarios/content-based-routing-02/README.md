@@ -27,7 +27,7 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 ```
  Routing Channel Template:
-    Template Name: Demo_Dynamic_RCT_using_BP 
+    Template Name: Demo_Content_Based_Routing_02 
     Consumer Identification: Dynamic
     Business Process Name: Demo_BP_Content_Based_Routing_XML
     Process Data Element Name: ConsumerName
@@ -37,7 +37,7 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
     Group Permissions:
         Producer Group: All Partners
         Consumer Group: All Partners
-    Producer Mailbox Path: /${ProducerName}/dynrct
+    Producer Mailbox Path: /${ProducerName}
     Producer File Structures:
         Producer File Structure: Unknown{.+}
         Layer: Unknown
