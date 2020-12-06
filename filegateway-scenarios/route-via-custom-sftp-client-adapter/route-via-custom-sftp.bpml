@@ -1,0 +1,80 @@
+<process name="Demo_BP_RouteViaCustomSFTP">
+    <rule name="changeDirectory?">
+        <condition>normalize-space(/ProcessData/SftpBeginSessionServiceResults/TPProfile/Directory/text()) != ''</condition>
+    </rule>
+    	
+    <sequence>
+        <operation name="SFTP BEGIN SESSION SERVICE">
+            <participant name="SFTPClientBeginSession"/>
+            <output message="BeginSessionRequest">
+                <assign to="SFTPClientAdapter" from="/ProcessData/customsftp_SFTPClientAdapter/text()"></assign>
+                <assign to="ProfileId" from="/ProcessData/customsftp_ProfileId/text()"></assign> 
+                <assign to="." from="*"/>
+            </output>
+            <input message="inmsg">
+                <assign to="SftpBeginSessionServiceResults" from="*"></assign>
+            </input>
+        </operation>
+        <choice name="Check to change directory">
+            <select>
+                <case ref="changeDirectory?" activity="changeDir"/>
+            </select>
+            <operation name="changeDir">
+                <participant name="SFTPClientCd"/> 
+                <output message="CdRequest"> 
+                    <assign to="SessionToken" from="/ProcessData/SftpBeginSessionServiceResults/SessionToken/text()"/> 
+                    <assign to="Directory" from="/ProcessData/SftpBeginSessionServiceResults/TPProfile/Directory/text()"/> 
+                </output> 
+                <input message="inmsg"> 
+                    <assign to="SFTPClientCdResults" from="*"></assign> 
+                </input> 
+            </operation>
+        </choice>
+        <operation name="SFTP PUT SERVICE">
+            <participant name="SFTPClientPut"/>
+            <output message="PutRequest">
+                <assign to="SessionToken" from="SftpBeginSessionServiceResults/SessionToken/text()"></assign>
+                <assign to="RemoteFileName" from="DestinationMessageName/text()"/>
+                <assign to="." from="*"/>
+            </output>
+            <input message="inmsg">
+                <assign to="PutResult" from="*"></assign>
+            </input>
+        </operation>
+
+        <operation name="SFTP END SESSION SERVICE">
+            <participant name="SFTPClientEndSession"/>
+            <output message="EndSessionRequest">
+                <assign to="SessionToken" from="SftpBeginSessionServiceResults/SessionToken/text()"></assign>
+            </output>
+            <input message="inmsg">
+                <assign to="SftpEndSessionServiceResults" from="*"></assign>
+            </input>
+        </operation>
+
+        <onFault>
+      	    <sequence name="onFault Sequence">
+                <operation name="SFTP END SESSION SERVICE">
+                    <participant name="SFTPClientEndSession"/>
+                    <output message="EndSessionRequest">
+                        <assign to="SessionToken" from="SftpBeginSessionServiceResults/SessionToken/text()"></assign>
+                        <assign to="." from="ResponseTimeout"></assign>
+                    </output>
+                    <input message="inmsg">
+                        <assign to="SftpEndSessionServiceResults" from="*"></assign>
+                    </input>
+                </operation>
+                <operation name="generateException">
+                    <participant name="BPExceptionService"/>
+                    <output message="Xout">
+                        <assign to="exceptionCode">Error, SFTP PUT</assign>
+                        <assign to="." from="*"/>
+                    </output>
+                    <input message="Xin">
+                        <assign to="." from="*"/>
+                    </input>
+                </operation>
+	          </sequence>
+        </onFault>
+    </sequence>
+</process>

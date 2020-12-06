@@ -1,0 +1,23 @@
+<AFTExtensions>
+
+<!-- Custom SFTP Protocol-->
+<AFTExtension name="customsftp" type="consumer-delivery-protocol"
+      label="customsftp.protocol.label.protocol" bp="Demo_BP_RouteViaCustomSFTP">
+  <GROUP title="customsftp.instance.group1.title">
+    <VARDEF varname="customsftp_ProfileId" type="String" htmlType="select" label="customsftp.label.protocol.sshremoteprofile" 
+    required="yes" options="SSHRemoteProfiles"/> 
+
+    <VARDEF varname="customsftp_SFTPClientAdapter" type="String" htmlType="select" label="customsftp.label.protocol.sftpclientadapter" 
+        required="yes" options="SFTPClientAdapterList"/>
+  </GROUP>
+</AFTExtension>
+
+<OPTION name="SSHRemoteProfiles" class="com.sterlingcommerce.woodstock.ui.SSHRemoteProfileLister"/> 
+
+<OPTION name="SFTPClientAdapterList" class="com.sterlingcommerce.woodstock.ui.ServiceLister"/> 
+   
+</AFTExtensions>
+
+
+
+
