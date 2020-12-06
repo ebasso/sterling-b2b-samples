@@ -17,11 +17,14 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 **On Remote SSH Server**
 
-1) Create a user on remote SSH server. Example: Demo_Remote_SFTP
+1) Create a user on remote SSH server. Example: 
+
+* Username: Demo_Remote_SFTP
+* Password: passw0rd
    
 2) Create a file on user's home directory . Example **example_sftp.txt**
  
-3) Import Remote SSH HostKey on B2Bi Dashboard.
+3) Import Remote SSH HostKey on B2Bi Dashboard. Menu **Administration > Trading Partner > SSH > Known Host Key**
 
 4) Open the key, and take note of value **Key ID**
 
@@ -43,7 +46,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 My Exemple:
 ```
         <assign to="RemoteHost">127.0.0.1</assign>
-        <assign to="RemotePort">222</assign>
+        <assign to="RemotePort">22</assign>
         <assign to="RemoteUserId">Demo_Remote_SFTP</assign>
         <assign to="RemotePasswd">passw0rd</assign> 
         <assign to="KnownHostKeyId">442297176384f4ba2node1</assign>
