@@ -19,9 +19,9 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 **On Filegateway**
 
-1) Create a Partner to Send Files: Demo_Producer_DR_01
+1) Create a Partner to Send Files: Demo_Producer_CB2_01
 
-2) Create a Partner to Receive Files: Demo_Consumer_DR_01
+2) Create a Partner to Receive Files: Demo_Consumer_CB2_02
 
 3) Create a Routing Channel Template.
 
@@ -56,7 +56,7 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 6) Create a Route Channel.
 
 * Routing Channel Template: Demo_Dynamic_RCT_using_BP
-* Producer: Demo_Producer_DR_01
+* Producer: Demo_Producer_CB2_01
 
 # Running
 
@@ -64,4 +64,4 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 2) After delivery, check files on mailboxes:
 
-* On Demo_Consumer_DR_01
+* On Demo_Consumer_CB2_02
