@@ -1,4 +1,4 @@
-<process name = "Demo_Coleta_Arquivo_via_SFTP"> 
+<process name = "Demo_BP_Polling_Using_SFTP_Get"> 
     
 <sequence name="Demo_SFTP_Get">
  <!-- Get obscured password -->

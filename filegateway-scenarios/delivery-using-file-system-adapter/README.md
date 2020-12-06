@@ -11,9 +11,9 @@ https://www.ibm.com/support/pages/how-configure-file-system-adapter-write-shared
 
 # Files
 
-| BP Name                         |            Description of Role                                          |
+| File name                         |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| SFG_RouteViaFileSystem.bpml     | Business Process that do File System Adapter delivery to partner |
+| route-via-filesystem.bpml      | Business Process that do File System Adapter delivery to partner |
 | AFTExtensionsCustomer.xml       | Sample file AFTExtensionsCustomer.xml |
 | AFTExtensionsCustomer.properties| Sample file AFTExtensionsCustomer.properties |
 
@@ -25,7 +25,7 @@ https://www.ibm.com/support/pages/how-configure-file-system-adapter-write-shared
 1) Create a new File System Adapter: **Generic_FSA_Adapter**
 
 
-2) Create a new Business Process: **SFG_RouteViaFileSystem**, using file **SFG_RouteViaFileSystem.bpml** 
+2) Create a new Business Process: **Demo_RouteViaFileSystem**, using file **route-via-ileSystem.bpml** 
 
 **On Dashboard Customizations**
 
@@ -63,9 +63,9 @@ Enable **File System Adapter** on Community Protocols
 
 **On Filegateway**
 
-1) Create a Partner to Send Files: Demo_Ops_01
+1) Create a Partner to Send Files: Demo_Producer_01
 
-2) Create a Partner to Receive Files: Demo_Partner_FSA_01
+2) Create a Partner to Receive Files: Demo_Consumer_FSA_01
 
 choose **File System Adapter**, and specify
 
@@ -83,7 +83,7 @@ choose **File System Adapter**, and specify
     Group Permissions:
         Producer Group: All Partners
         Consumer Group: All Partners
-    Producer Mailbox Path: /${ProducerName}/fsdemo
+    Producer Mailbox Path: /${ProducerName}/fsademo
     Producer File Structures:
         Producer File Structure: Unknown{.+}
         Layer: Unknown
@@ -102,16 +102,16 @@ choose **File System Adapter**, and specify
 6) Create a Route Channel.
 
 * Routing Channel Template: Demo_RouteFile
-* Producer: Demo_Ops_01
-* Consumer: Demo_Partner_FSA_01
+* Producer: Demo_Producer_01
+* Consumer: Demo_Consumer_FSA_01
 
 **Running**
 
-1) Logon on Myfilegateway with user **Demo_Ops_01**, and upload any file to virtual directory **/fsdemo**
+1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/fsademo**
 
 2) After delivery, check files on mailboxes:
 
-* On Demo_Partner_FSA_01
+* On Demo_Consumer_FSA_01s
 
 
 

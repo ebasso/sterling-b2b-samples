@@ -1,10 +1,11 @@
-<process name="BP_Content_Based_Routing">
+<process name="Demo_BP_Content_Based_Routing">
   <sequence>
-    <assign name="Assign" to="ArquivoOriginal" from="PrimaryDocument/@SCIObjectID"></assign>
+    <assign name="Assign" to="OriginalDocument" from="PrimaryDocument/@SCIObjectID"></assign>
+
     <operation name="Translation">
       <participant name="Translation"/>
       <output message="TranslationTypeInputMessage">
-        <assign to="map_name" from="'Map_Content_Based_Routing'"/>
+        <assign to="map_name" from="'Demo_Map_Content_Based_Routing'"/>
         <assign to="validate_input">NO</assign>
         <assign to="." from="*"></assign>
       </output>
@@ -12,6 +13,7 @@
         <assign to="." from="*"></assign>
       </input>
     </operation>
-    <assign name="Assign" to="PrimaryDocument" from="ArquivoOriginal/@*"></assign>
+    
+    <assign name="Assign" to="PrimaryDocument" from="OriginalDocument/@SCIObjectID"></assign>
   </sequence>
 </process>

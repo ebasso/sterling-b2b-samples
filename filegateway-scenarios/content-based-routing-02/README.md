@@ -5,15 +5,17 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 # Files
 
-| BP Name                         |            Description of Role                                          |
+| Filename                        |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| dynamic-consumername.bpml       |  Business Process that generate a ConsumerName|
+| content-based-routing-02.bpml   |  Business Process that generate a ConsumerName from PrimaryDocument|
 
 
 # Steps to Run:
 
+**On B2Bi Dashboard**
 
-1) Create a new Business Process: **Demo_BP_Dynamic_ConsumerName**, using file **dynamic-consumername.bpml** 
+1) Create a new Business Process: **Demo_BP_Content_Based_Routing_XML**, using file **content-based-routing-02.bpml** 
+
 
 **On Filegateway**
 
@@ -27,7 +29,7 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
  Routing Channel Template:
     Template Name: Demo_Dynamic_RCT_using_BP 
     Consumer Identification: Dynamic
-    Business Process Name: Demo_BP_Dynamic_ConsumerName
+    Business Process Name: Demo_BP_Content_Based_Routing_XML
     Process Data Element Name: ConsumerName
 
     Special Character Handling: No special character handling is specified
@@ -58,34 +60,8 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 **Running**
 
-1) Logon on Myfilegateway with user **Demo_Producer_DR_01**, and upload any file.
+1) Logon on Myfilegateway with user **Demo_Producer_DR_01**, and upload file **testdata-01.xml**
 
 2) After delivery, check files on mailboxes:
 
 * On Demo_Consumer_DR_01
-
-
-**Second example**
-
-
-1) Create a file 
-
-2) Delete the Channel: Demo_Dynamic_RCT_using_BP
-
-3) Change the Routing Channel Template.
-
-```
- Routing Channel Template:
-    Template Name: Demo_Dynamic_RCT_using_BP 
-    Consumer Identification: Dynamic
-    Business Process Name: Demo_BP_Dynamic_ConsumerName_PrimaryDoc
-    Process Data Element Name: ConsumerName
-```
-
-4) Create a Route Channel.
-
-* Routing Channel Template: Demo_Dynamic_RCT_using_BP
-* Producer: Demo_Producer_DR_01
-
-5) Run  this example upload file **testdata-01.xml**
-    

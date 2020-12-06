@@ -1,11 +1,11 @@
-<process name="BP_Convert_Xml2Json_input">
+<process name="Demo_BP_Convert_Json2Xml_input">
   <sequence>
     <operation name="Request">
     <participant name='xmljsontransformer'/> 
     <output message='xout'>
-    <assign to='input'>&lt;message&gt;Hello World!&lt;/message&gt;</assign>
-    <assign to='inputtype'>XML</assign>  
-    <assign to='outputpath'>output.json</assign>
+    <assign to='input'>{"student":{"name":"Anakin Skywalker","age":"22"}}</assign>
+    <assign to='inputtype'>JSON</assign> 
+    <assign to='outputpath'>output.xml</assign> 
     <assign to='.' from='*'/> 
     </output>
     <input message="xin">

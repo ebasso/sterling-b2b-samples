@@ -1,11 +1,11 @@
 <AFTExtensions>
 
    <AFTExtension name="fsa-protocol" type="consumer-delivery-protocol"
-         label="fsa.protocol.label.fsaprotocol" bp="SFG_RouteViaFileSystem">
+         label="fsa.protocol.label.protocol" bp="Demo_RouteViaFileSystem">
 
      <GROUP title="fsa.instance.group1.title">
        <VARDEF varname="RemoteFileSystem" type="String" htmlType="text"
-           validator="ALPHANUMERIC" size="150" maxsize="250" label="fsa.label.fsaprotocol.remotefilesystem"
+           validator="ALPHANUMERIC" size="150" maxsize="250" label="fsa.label.protocol.remotefilesystem"
            required="yes"/>
      </GROUP>
 

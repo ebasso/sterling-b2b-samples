@@ -1,4 +1,4 @@
-<process name="BP_Convert_Json2Xml_input">
+<process name="Demo_BP_Convert_Json2Xml_input">
 <sequence>
 <operation name="Request">
 <participant name='xmljsontransformer'/>

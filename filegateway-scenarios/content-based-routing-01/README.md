@@ -11,8 +11,8 @@ Looking at header of csv files, you can view the name of the partner that will d
 
 | BP Name                         |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| content_based_routing_01.bpml   | Business Process that do Content Based Routing to partner |
-| content_based_01.mxl            | Map that extract Partner name and define ConsumerName |
+| content-based-routing-01.bpml   | Business Process that do Content Based Routing to partner |
+| content-based-01.mxl            | Map that extract Partner name and define ConsumerName |
 | testdata-01.csv                 | CSV file example file to Demo_InternalPartner_01|
 | testdata-02.csv                 | CSV file example file to Demo_InternalPartner_02|
 
@@ -22,19 +22,19 @@ Looking at header of csv files, you can view the name of the partner that will d
 
 **On B2Bi Dashboard**
 
-1) Create a new Business Process: **BP_Content_Based_Routing**, using file **content_based_routing_01.bpml** 
+1) Create a new Business Process: **Demo_BP_Content_Based_Routing**, using file **content-based-routing-01.bpml** 
 
-2) Create a new Map file:  **Map_Content_Based_Routing** using  **content_based_01.mxl**  and **content_based_01.txo** 
+2) Create a new Map file:  **Demo_Map_Content_Based_Routing** using  **content-based-01.mxl**  and **content-based-01.txo** 
 
-You need to open content_based_01.mxl on Map Editor and generate .txo file.
+You need to open content-based-01.mxl on Map Editor and generate .txo file.
 
 **On Filegateway**
 
-1) Create a Partner to Send Files: Demo_ContentBased_01
+1) Create a Partner to Send Files: Demo_Producer_CB_01
 
-2) Create a Partner to Receive Files: Demo_InternalPartner_01
+2) Create a Partner to Receive Files: Demo_Consumer_CB_01
 
-3) Create a Partner to Receive Files: Demo_InternalPartner_02
+3) Create a Partner to Receive Files: Demo_Consumer_CB_02
 
 4) Create a Routing Channel Template. See example: 
 
@@ -42,7 +42,7 @@ You need to open content_based_01.mxl on Map Editor and generate .txo file.
 Routing Channel Template:
     Template Name: Demo_Content_Based_Routing_01
     Consumer Identification: Dynamic
-    Business Process Name: BP_Content_Based_Routing
+    Business Process Name: Demo_BP_Content_Based_Routing
     Process Data Element Name: ConsumerName
     
     Special Character Handling: No special character handling is specified
@@ -69,15 +69,15 @@ Routing Channel Template:
 5) Create a Route Channel.
 
 * Routing Channel Template: Demo_Content_Based_Routing_01
-* Producer: Demo_ContentBased_01
+* Producer: Demo_Producer_CB_01
 
 **Running**
 
-1) Logon on Myfilegateway with user **Demo_ContentBased_01**, and upload files testdata-01.csv, testdata-02.csv.
+1) Logon on Myfilegateway with user **Demo_Producer_CB_01**, and upload files testdata-01.csv, testdata-02.csv.
 
 2) After delivery, check files on mailbox:
 
-* On Demo_InternalPartner_01, file must be testdata-01.csv 
-* On Demo_InternalPartner_02, file must be testdata-02.csv 
+* On Demo_Consumer_CB_01, file must be testdata-01.csv 
+* On Demo_Consumer_CB_02, file must be testdata-02.csv 
 
 

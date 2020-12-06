@@ -1,0 +1,59 @@
+<process name="Demo_RouteViaFileSystem">
+    <sequence>
+	
+        <operation name="File System Adapter">
+            <participant name="Generic_FSA_Adapter"/>
+                <output message="FileSystemInputMessage">
+                    <assign to="extractionFolder" from="RemoteFileSystem/text()"/>
+                    <assign to="assignFilename">true</assign>
+                    <assign to="assignedFilename" from="DestinationMessageName/text()"/>
+                    <assign to="Action">FS_EXTRACT</assign>
+                    <assign to="." from="*"></assign>
+                </output>
+                <input message="inmsg">
+                    <assign to="." from="*"></assign>
+                </input>
+        </operation>
+	  
+        <operation name="FileGatewayRouteEventService">
+            <participant name="FileGatewayRouteEventService"/>
+            <output message="output">
+                <assign to="." from="RouteEntityKey"/>
+                <assign to="." from="RouteEntityType"/>
+                <assign to="." from="RouteDataflowId"/>
+                <assign to="." from="RouteMetadata"/>
+                <assign to="EventCode">CUST_0003</assign>
+                <assign to="ExceptionLevel">Normal</assign>
+                <assign to="EventAttributes/ProducerName" from="ProducerName/text()" append="true"/>
+                <assign to="EventAttributes/ConsumerFilename" from="DestinationMessageName/text()"/>
+            </output>
+            <input message="input">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+ 
+		<onFault>
+            <sequence name="onFault Sequence">
+			    <operation name="FileGatewayRouteEventService">
+                      <participant name="FileGatewayRouteEventService"/>
+                      <output message="output">
+                          <assign to="." from="RouteEntityKey"/>
+                          <assign to="." from="RouteEntityType"/>
+                          <assign to="." from="RouteDataflowId"/>
+                          <assign to="." from="RouteMetadata"/>
+                          <assign to="EventCode">CUST_0053</assign>
+                          <assign to="ExceptionLevel">Normal</assign>
+                          <assign to="EventAttributes/ProducerName" from="ProducerName/text()" append="true"/>
+                          <assign to="EventAttributes/ConsumerFilename" from="DestinationMessageName/text()"/>
+                      </output>
+                      <input message="input">
+                          <assign to="." from="*"/>
+                      </input>
+                </operation>
+                
+            </sequence>
+        </onFault>
+    </sequence>
+</process>
+
+  

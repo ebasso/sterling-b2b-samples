@@ -14,16 +14,20 @@ This support different protocols, only define on Demo_InternalPartner_NN.
 
 # Steps to Run:
 
+**On B2Bi Dashboard**
+
+1) Create a new Business Process: **Demo_BP_Consumer_Broadcast_Lists**, using file **consumers-broadcast-list.bpml** 
+
 
 **On Filegateway**
 
-1) Create a Partner to Send Files: Demo_Operations_01
+1) Create a Partner to Send Files: Demo_Producer_01
 
-2) Create a Partner to Receive Files: Demo_InternalPartner_01
+2) Create a Partner to Receive Files: Demo_Consumer_01
 
-3) Create a Partner to Receive Files: Demo_InternalPartner_02
+3) Create a Partner to Receive Files: Demo_Consumer_02
 
-4) Create a Partner to Receive Files: Demo_InternalPartner_03
+4) Create a Partner to Receive Files: Demo_Consumer_03
 
 5) Create a Routing Channel Template.
 
@@ -31,7 +35,7 @@ This support different protocols, only define on Demo_InternalPartner_NN.
  Routing Channel Template:
     Template Name: Demo_Multiples_Consumers_Broadcast_List
     Consumer Identification: Dynamic
-    Business Process Name: BP_Consumer_Broadcast_List
+    Business Process Name: Demo_BP_Consumer_Broadcast_List
     Process Data Element Name: ConsumerNameList/ConsumerName
 
     Special Character Handling: No special character handling is specified
@@ -66,6 +70,6 @@ This support different protocols, only define on Demo_InternalPartner_NN.
 
 2) After delivery, check files on mailboxes:
 
-* On Demo_InternalPartner_01
-* On Demo_InternalPartner_02
-* On Demo_InternalPartner_03
+* On Demo_Consumer_01
+* On Demo_Consumer_02
+* On Demo_Consumer_03

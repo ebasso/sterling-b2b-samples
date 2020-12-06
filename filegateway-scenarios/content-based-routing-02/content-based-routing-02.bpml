@@ -1,0 +1,6 @@
+<process name = "Demo_BP_Content_Based_Routing_XML">
+  <sequence>
+    <assign to="." from="DocToDOM(PrimaryDocument)"/> 
+    <assign to="ConsumerName" from="/ProcessData/Customer/Name/text()"></assign>
+  </sequence>
+</process>
