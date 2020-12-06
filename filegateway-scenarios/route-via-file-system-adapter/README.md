@@ -11,9 +11,9 @@ https://www.ibm.com/support/pages/how-configure-file-system-adapter-write-shared
 
 # Files
 
-| File name                         |            Description of Role                                          |
+| File name                       |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| route-via-filesystem.bpml      | Business Process that do File System Adapter delivery to partner |
+| route-via-filesystem.bpml       | Business Process that do File System Adapter delivery to partner |
 | AFTExtensionsCustomer.xml       | Sample file AFTExtensionsCustomer.xml |
 | AFTExtensionsCustomer.properties| Sample file AFTExtensionsCustomer.properties |
 
@@ -25,7 +25,7 @@ https://www.ibm.com/support/pages/how-configure-file-system-adapter-write-shared
 1) Create a new File System Adapter: **Generic_FSA_Adapter**
 
 
-2) Create a new Business Process: **Demo_RouteViaFileSystem**, using file **route-via-ileSystem.bpml** 
+2) Create a new Business Process: **Demo_RouteViaFileSystem**, using file **route-via-filesystem.bpml** 
 
 **On Dashboard Customizations**
 
@@ -83,7 +83,7 @@ choose **File System Adapter**, and specify
     Group Permissions:
         Producer Group: All Partners
         Consumer Group: All Partners
-    Producer Mailbox Path: /${ProducerName}/fsademo
+    Producer Mailbox Path: /${ProducerName}/fsa
     Producer File Structures:
         Producer File Structure: Unknown{.+}
         Layer: Unknown
@@ -107,7 +107,7 @@ choose **File System Adapter**, and specify
 
 # Running
 
-1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/fsademo**
+1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/fsa**
 
 2) After delivery, check files on mailboxes:
 

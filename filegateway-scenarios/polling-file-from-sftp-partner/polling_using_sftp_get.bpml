@@ -61,7 +61,7 @@
             <assign to="Extractable">YES</assign>
             <assign to="MessageName" from="/ProcessData/GetDocInfoResults/DocumentName/text()"></assign>
             <assign to="DocumentId" from="/ProcessData/GetDocInfoResults/DocumentId/text()"></assign>
-            <assign to="MailboxPath">/Demo_SFTP_Partner</assign>
+            <assign to="MailboxPath">MAILBOX_PATH</assign>
         </output>
         <input message="inmsg">
             <assign to="." from="*"></assign>

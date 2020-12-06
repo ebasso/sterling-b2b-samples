@@ -17,7 +17,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 **On Remote SSH Server**
 
- 1) Create a user on remote SSH server
+ 1) Create a user on remote SSH server. Example: Demo_Remote_SFTP
    
  2) Create a file on user's home directory . Example **example_sftp.txt**
  
@@ -25,7 +25,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 **On Filegateway**
 
- 4) Create a Local Partner/Mailbox to receive Files. Example: Demo_SFTP_Partner
+ 1) Create a Local Partner/Mailbox to receive Files. Example: Demo_Local_SFTP
 
 **On B2Bi Dashboard**
 
@@ -36,7 +36,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 * REMOTE_SFTP_PARTNER_NAME: remote username 
 * REMOTE_SFTP_PARTNER_PASSWORD: remote password
 * REMOTE_SFTP_PARTNER_HOSTKEY: remote SSH hostkey 
-* Demo_SFTP_Partner
+* MAILBOX_PATH: /Demo_Local_SFTP
 
  6) Create a new Business Process: **Demo_BP_Polling_Using_SFTP_Get**, using file **polling_using_sftp_get.bpml** 
 

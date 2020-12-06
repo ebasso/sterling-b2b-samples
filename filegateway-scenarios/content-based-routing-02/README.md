@@ -21,9 +21,11 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 1) Create a Partner to Send Files: Demo_Producer_CB2_01
 
-2) Create a Partner to Receive Files: Demo_Consumer_CB2_02
+2) Create a Partner to Receive Files: Demo_Consumer_CB2_01
 
-3) Create a Routing Channel Template.
+3) Create a Partner to Receive Files: Demo_Consumer_CB2_02
+
+4) Create a Routing Channel Template.
 
 ```
  Routing Channel Template:
@@ -60,8 +62,9 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 
 # Running
 
-1) Logon on Myfilegateway with user **Demo_Producer_CB2_01**, and upload file **testdata-01.xml**
+1) Logon on Myfilegateway with user **Demo_Producer_CB2_01**, and upload file **testdata-01.xml** and **testdata-02.xml**
 
 2) After delivery, check files on mailboxes:
 
+* On Demo_Consumer_CB2_01
 * On Demo_Consumer_CB2_02
