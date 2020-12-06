@@ -10,35 +10,55 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 | BP Name                         |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| polling_using_sftp_get.bpml      | Business Process that do a SFTP get on partner |
+| polling_using_sftp_get.bpml     | Business Process that do a SFTP get on partner |
 
 
 # Steps to Run:
 
 **On Remote SSH Server**
 
- 1) Create a user on remote SSH server. Example: Demo_Remote_SFTP
+1) Create a user on remote SSH server. Example: Demo_Remote_SFTP
    
- 2) Create a file on user's home directory . Example **example_sftp.txt**
+2) Create a file on user's home directory . Example **example_sftp.txt**
  
- 3) Import Remote SSH HostKey on B2Bi Dashboard
+3) Import Remote SSH HostKey on B2Bi Dashboard.
+
+4) Open the key, and take note of value **Key ID**
 
 **On Filegateway**
 
- 1) Create a Local Partner/Mailbox to receive Files. Example: Demo_Local_SFTP
+1) Create a Local Partner/Mailbox to receive Files. Example: Demo_Local_SFTP
 
 **On B2Bi Dashboard**
 
- 5) Change parameters on file: **polling_using_sftp_get.bpml** 
+1) Change parameters on file: **polling_using_sftp_get.bpml** 
 
 * REMOTE_SFTP_SERVER:  remote sftp server
 * REMOTE_SFTP_SERVER_PORT: remote sftp server port, default: 22
 * REMOTE_SFTP_PARTNER_NAME: remote username 
 * REMOTE_SFTP_PARTNER_PASSWORD: remote password
-* REMOTE_SFTP_PARTNER_HOSTKEY: remote SSH hostkey 
+* REMOTE_SFTP_PARTNER_HOSTKEY: remote SSH hostkey Key ID 
 * MAILBOX_PATH: /Demo_Local_SFTP
 
- 6) Create a new Business Process: **Demo_BP_Polling_Using_SFTP_Get**, using file **polling_using_sftp_get.bpml** 
+My Exemple:
+```
+        <assign to="RemoteHost">127.0.0.1</assign>
+        <assign to="RemotePort">222</assign>
+        <assign to="RemoteUserId">Demo_Remote_SFTP</assign>
+        <assign to="RemotePasswd">passw0rd</assign> 
+        <assign to="KnownHostKeyId">442297176384f4ba2node1</assign>
+        ...
+        ...
+        <operation name="Mailbox Add Service">
+           ...
+           <assign to="MailboxPath">/Demo_Local_SFTP</assign>
+```  
 
- 7) Run BP.
+2) Create a new Business Process: **Demo_BP_Polling_Using_SFTP_Get**, using file **polling_using_sftp_get.bpml** 
 
+
+# Running
+
+1) Logon on  B2Bi Dashboard and run Business Process: **Demo_BP_Polling_Using_SFTP_Get**,
+
+2) Logon on Myfilegateway with user **Demo_Local_SFTP**, and check for file  **example_sftp.txt** on download tab

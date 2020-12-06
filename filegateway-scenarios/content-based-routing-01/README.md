@@ -24,9 +24,9 @@ Looking at header of csv files, you can view the name of the partner that will d
 
 1) Create a new Business Process: **Demo_BP_Content_Based_Routing**, using file **content-based-routing-01.bpml** 
 
-2) Create a new Map file:  **Demo_Map_Content_Based_Routing** using  **content-based-01.mxl**  and **content-based-01.txo** 
+2) Create a new Map file:  **Demo_Map_Content_Based_Routing** using  **Demo_Map_Content_Based_Routing.mxl**  and **Demo_Map_Content_Based_Routing.txo** 
 
-You need to open content-based-01.mxl on Map Editor and generate .txo file.
+You need to open Demo_Map_Content_Based_Routing.mxl on Map Editor to generate a new .txo file.
 
 **On Filegateway**
 

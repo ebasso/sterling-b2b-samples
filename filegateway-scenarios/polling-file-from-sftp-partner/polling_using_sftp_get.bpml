@@ -18,12 +18,14 @@
       <output message="SFTPClientBeginSessionServiceTypeInputMessage">
         <assign to="SFTPClientAdapter">SFTPClientAdapter</assign>
         <assign to="RemoteHost">REMOTE_SFTP_SERVER</assign>
-        <!-- Using revealObscured XPath function here, this will reveal the password obtained from the ObscureParameter service -->
-        <assign to="RemotePasswd" from="revealObscured(admin)"></assign>
         <assign to="RemotePort">REMOTE_SFTP_SERVER_PORT</assign>
         <assign to="RemoteUserId">REMOTE_SFTP_PARTNER_NAME</assign>
-        <assign to="PreferredAuthenticationMethod">REMOTE_SFTP_PARTNER_PASSWORD</assign>
+        <!-- Using revealObscured XPath function here, this will reveal the password obtained from the ObscureParameter service 
+        <assign to="RemotePasswd" from="revealObscured(admin)"></assign> 
+        -->
+        <assign to="RemotePasswd">REMOTE_SFTP_PARTNER_PASSWORD</assign> 
         <assign to="KnownHostKeyId">REMOTE_SFTP_PARTNER_HOSTKEY</assign>
+        <assign to="PreferredAuthenticationMethod">password</assign>
         <assign to="." from="*"></assign>
       </output>
       <input message="inmsg">

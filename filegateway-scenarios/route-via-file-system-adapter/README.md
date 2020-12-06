@@ -75,8 +75,8 @@ choose **File System Adapter**, and specify
 
 ```
  Routing Channel Template:
-    Template Name: Demo_RouteFile
-    Consumer Identification: Static
+    Template Name: Demo_RouteFileViaFSA
+    Consumer Identification: Not Dynamic
 
     Special Character Handling: No special character handling is specified
     Provisioning Fact List:
@@ -101,7 +101,7 @@ choose **File System Adapter**, and specify
 
 6) Create a Route Channel.
 
-* Routing Channel Template: Demo_RouteFile
+* Routing Channel Template: Demo_RouteFileViaFSA
 * Producer: Demo_Producer_01
 * Consumer: Demo_Consumer_FSA_01
 

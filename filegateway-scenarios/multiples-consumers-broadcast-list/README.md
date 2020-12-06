@@ -62,11 +62,11 @@ This support different protocols, only define on Demo_InternalPartner_NN.
 6) Create a Route Channel.
 
 * Routing Channel Template: Demo_Multiples_Consumers_Broadcast_List
-* Producer: Demo_Operations_01s
+* Producer: Demo_Producer_01
 
 # Running
 
-1) Logon on Myfilegateway with user **Demo_Operations_01**, and upload any file.
+1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file.
 
 2) After delivery, check files on mailboxes:
 
