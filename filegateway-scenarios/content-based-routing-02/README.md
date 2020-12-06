@@ -58,7 +58,7 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 * Routing Channel Template: Demo_Dynamic_RCT_using_BP
 * Producer: Demo_Producer_DR_01
 
-**Running**
+# Running
 
 1) Logon on Myfilegateway with user **Demo_Producer_DR_01**, and upload file **testdata-01.xml**
 

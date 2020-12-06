@@ -105,7 +105,7 @@ choose **File System Adapter**, and specify
 * Producer: Demo_Producer_01
 * Consumer: Demo_Consumer_FSA_01
 
-**Running**
+# Running
 
 1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/fsademo**
 

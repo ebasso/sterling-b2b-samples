@@ -71,7 +71,7 @@ Routing Channel Template:
 * Routing Channel Template: Demo_Content_Based_Routing_01
 * Producer: Demo_Producer_CB_01
 
-**Running**
+# Running
 
 1) Logon on Myfilegateway with user **Demo_Producer_CB_01**, and upload files testdata-01.csv, testdata-02.csv.
 

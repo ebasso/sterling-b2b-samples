@@ -18,6 +18,8 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 # Filegateway Scenarios
 
+Samples scenarios to be used on IBM Sterling FileGateway
+
 | Scenarios                          |            Description of Role                                          |
 |------------------------------------|-------------------------------------------------------------------------|
 | content-based-routing-01           | File routed based on content inside a CSV file. |

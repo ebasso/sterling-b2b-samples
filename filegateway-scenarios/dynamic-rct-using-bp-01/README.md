@@ -56,36 +56,10 @@ Deliver a file to a Consumer identified by a Business Process(BP), inside Dynami
 * Routing Channel Template: Demo_Dynamic_RCT_using_BP
 * Producer: Demo_Producer_DR_01
 
-**Running**
+# Running
 
 1) Logon on Myfilegateway with user **Demo_Producer_DR_01**, and upload any file.
 
 2) After delivery, check files on mailboxes:
 
 * On Demo_Consumer_DR_01
-
-
-**Second example**
-
-
-1) Create a file 
-
-2) Delete the Channel: Demo_Dynamic_RCT_using_BP
-
-3) Change the Routing Channel Template.
-
-```
- Routing Channel Template:
-    Template Name: Demo_Dynamic_RCT_using_BP 
-    Consumer Identification: Dynamic
-    Business Process Name: Demo_BP_Dynamic_ConsumerName_PrimaryDoc
-    Process Data Element Name: ConsumerName
-```
-
-4) Create a Route Channel.
-
-* Routing Channel Template: Demo_Dynamic_RCT_using_BP
-* Producer: Demo_Producer_DR_01
-
-5) Run  this example upload file **testdata-01.xml**
-    

@@ -56,7 +56,7 @@ and include partners: Demo_Consumer_01, Demo_Consumer_02.
 * Producer: Demo_Producer_01
 * Consumer Broadcast Group: Demo_BroadCastGroup
 
-**Running**
+# Running
 
 1) Logon on Myfilegateway with user **Demo_Operations_01**, and upload any file.
 

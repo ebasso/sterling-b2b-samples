@@ -32,7 +32,7 @@ You can schedule this BP to run every 30 minutes to check for files.
  5) Change parameters on file: **polling_using_sftp_get.bpml** 
 
 * REMOTE_SFTP_SERVER:  remote sftp server
-* REMOTE_SFTP_SERVER_PORT: remote sftp server port, default: 222
+* REMOTE_SFTP_SERVER_PORT: remote sftp server port, default: 22
 * REMOTE_SFTP_PARTNER_NAME: remote username 
 * REMOTE_SFTP_PARTNER_PASSWORD: remote password
 * REMOTE_SFTP_PARTNER_HOSTKEY: remote SSH hostkey 
