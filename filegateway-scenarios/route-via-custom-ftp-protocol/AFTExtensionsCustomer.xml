@@ -1,0 +1,57 @@
+<!-- Custom FTP Protocol-->
+<AFTExtension name="customftp" type="consumer-delivery-protocol"
+         label="customftp.protocol.label.protocol" bp="Demo_BP_RouteViaCustomFTP">
+
+     <GROUP title="customftp.instance.group1.title">
+        <VARDEF varname="customftp_RemoteHost"      type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+         required="yes" label="customftp.label.protocol.remotehost"/>
+        <VARDEF varname="customftp_RemotePort"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes" label="customftp.label.protocol.remoteport" />
+        <VARDEF varname="customftp_ConnectionType"         type="String" htmlType="select" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes"  label="customftp.label.protocol.connectionType" defaultVal="passive" options="CUSTOMFTPCONNECTIONTYPE" />
+        <VARDEF varname="customftp_RemoteUserId" type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes" label="customftp.label.protocol.remoteuserid" />      
+        <VARDEF varname="customftp_RemotePasswd"               type="String" htmlType="password" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes" label="customftp.label.protocol.remotepasswd" />
+        <VARDEF varname="customftp_Directory"              type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no"  label="customftp.label.protocol.directory" />
+        <VARDEF varname="customftp_LocalDataPortRange"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no" label="customftp.label.protocol.localDataPortRange" />
+        <VARDEF varname="customftp_LocalControlPortRange"  type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no" label="customftp.label.protocol.localControlPortRange" />
+        <VARDEF varname="customftp_NoOfRetries"            type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes" label="customftp.label.protocol.noOfRetries" defaultVal="3"/>
+        <VARDEF varname="customftp_RetriesInterval"        type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes" label="customftp.label.protocol.retriesInterval" defaultVal="1" />                  
+        <VARDEF varname="customftp_FtpRename"              type="String" htmlType="select" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="yes" label="customftp.label.protocol.ftpRename" defaultVal="no" options="CUSTOMFTPYESNO"/>
+       <VARDEF varname="customftp_QuoteCommand"            type="String" htmlType="text" validator="ALPHANUMERIC" size="50" maxsize="250" 
+          required="no" label="customftp.label.protocol.quotecommand" />
+        
+       <!--
+       <VARDEF varname="FTPClientAdapter" type="String" htmlType="select" label="customsftp.label.protocol.ftpclientadapter" 
+            required="yes" options="FTPClientAdapterList"/>
+       <VARDEF varname="CACertificateId" type="String" htmlType="select" validator="ALPHANUMERIC" size="30" maxsize="250"                                                   
+            required="no" label="customftps.label.protocol.cacertificateid" options="CACertListerbyID"/>    
+       --> 
+
+     </GROUP>
+</AFTExtension>
+
+
+<OPTION name="CUSTOMFTPCONNECTIONTYPE">
+  <ELE value="active" displayname="customftp.custom.active"/>
+  <ELE value="passive" displayname="customftp.custom.passive"/>
+</OPTION>
+  
+<OPTION name="CUSTOMFTPYESNO">
+  <ELE value="yes" displayname="customftp.custom.yes"/>
+  <ELE value="no" displayname="customftp.custom.no"/>
+</OPTION>
+
+<!--
+  <OPTION name="FTPClientAdapterList" class="com.sterlingcommerce.woodstock.ui.ServiceLister"/> 
+  <OPTION name="CACertListerbyID" class="com.sterlingcommerce.woodstock.ui.CACertLister"/> 
+-->
+
+</AFTExtensions>

@@ -8,7 +8,7 @@
     required="yes" options="SSHRemoteProfiles"/> 
 
     <VARDEF varname="customsftp_SFTPClientAdapter" type="String" htmlType="select" label="customsftp.label.protocol.sftpclientadapter" 
-        required="yes" options="SFTPClientAdapterList"/>
+        required="yes" options="SFTPClientAdapterList" defaultVal="SFTPClientAdapter"/>
   </GROUP>
 </AFTExtension>
 

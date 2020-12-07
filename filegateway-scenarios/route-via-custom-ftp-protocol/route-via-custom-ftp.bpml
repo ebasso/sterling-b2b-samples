@@ -1,0 +1,124 @@
+<process name="Demo_BP_RouteViaCustomFTP">
+    <rule name="renameFile?">
+        <condition>string(/ProcessData/customftp_FtpRename) = 'yes'</condition>
+    </rule>
+    <rule name="changeDirectory?">
+        <condition>normalize-space(/ProcessData/FtpBeginSessionServiceResults/TPProfile/Directory/text()) != ''</condition>
+    </rule>
+    
+    <sequence>
+<!-- Get obscured password -->
+    <operation name="Obscure Password">
+      <participant name="FTPClientObscureParameter"/>
+      <output message="outmsg">
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+        <assign name="Temp File Prefix" to="TempPrefix">TEMP</assign>
+        <assign to="TempRemotePasswd" from="/ProcessData/customftp_RemotePasswd/text()"></assign>  
+        <assign to="TempRev2" from="revealObscured(/ProcessData/customftp_RemotePasswd)"></assign>     
+        <choice name="Check to rename file">
+            <select>
+                <case ref="renameFile?" activity="renameFile"/>
+            </select>
+            <assign name="renameFile" to="RemoteFileName" from="concat(string(TempPrefix),string(RemoteFileName))"/>
+        </choice>
+        <operation name="FTP BEGIN SESSION SERVICE">
+            <participant name="FTPClientBeginSession"/>
+            <output message="BeginSessionRequest">
+                <assign to="FTPClientAdapter">FTPClientAdapter</assign>
+                <assign to="RemoteHost"   from="/ProcessData/customftp_RemoteHost/text()"></assign> 
+                <assign to="RemotePort"   from="/ProcessData/customftp_RemotePort/text()"></assign>
+                <assign to="RemoteUserId" from="/ProcessData/customftp_RemoteUserId/text()"></assign> 
+                <assign to="RemotePasswd" from="revealObscured(/ProcessData/Demo_Remote_FTP)"></assign>   
+                <assign to="UsingRevealedPasswd">true</assign>
+                <assign to="ConnectionRetries" from="/ProcessData/customftp_NoOfRetries/text()"/>
+                <assign to="RetryDelay" from="/ProcessData/customftp_RetriesInterval/text()"/>
+                <assign to="ResponseTimeout" from="/ProcessData/ResponseTimeout/text()"/>
+		<assign to="ClearControlChannel" from="/ProcessData/ClearControlChannel/text()"/>
+                <assign to="." from="*"/>
+            </output>
+            <input message="inmsg">
+                <assign to="FtpBeginSessionServiceResults" from="*"/>
+            </input>
+        </operation>
+        <choice name="Check to change directory">
+            <select>
+                <case ref="changeDirectory?" activity="changeDir"/>
+            </select>
+            <operation name="changeDir">
+                <participant name="FTPClientCd"/> 
+                <output message="CdRequest"> 
+                    <assign to="SessionToken" from="/ProcessData/FtpBeginSessionServiceResults/SessionToken/text()"/> 
+                    <assign to="Directory" from="/ProcessData/FtpBeginSessionServiceResults/TPProfile/Directory/text()"/> 
+                </output> 
+                <input message="inmsg"> 
+                    <assign to="FTPClientCdResults" from="*"></assign> 
+                </input> 
+            </operation>
+        </choice>
+        <operation name="FTP PUT SERVICE">
+            <participant name="FTPClientPut"/>
+            <output message="PutRequest">
+                <assign to="RepresentationType">BINARY</assign>
+                <assign to="SessionToken" from="/ProcessData/FtpBeginSessionServiceResults/SessionToken/text()"/>
+                <assign to="." from="*"/>
+            </output>
+            <input message="inmsg">
+                <assign to="PutResult" from="*"/>
+            </input>
+        </operation>
+        <choice name="Check to move file">
+            <select>
+                <case ref="renameFile?" activity="moveFile"/>
+            </select>
+            <operation name="moveFile">
+                <participant name="FTPClientMove"/>
+                <output message="FTPClientMoveServiceTypeInputMessage">
+                    <assign to="RemoteFromFileName" from="string(RemoteFileName)"/>
+                    <assign to="RemoteToFileName" from="substring-after(string(RemoteFileName),string(TempPrefix))"/>
+                    <assign to="SessionToken" from="/ProcessData/FtpBeginSessionServiceResults/SessionToken/text()"/>
+                </output>
+                <input message="inmsg">
+                    <assign to="FTPClientMoveServiceResults" from="*"/>
+                </input>
+            </operation>
+        </choice>
+        <operation name="FTP END SESSION SERVICE">
+            <participant name="FTPClientEndSession"/>
+            <output message="EndSessionRequest">
+                <assign to="SessionToken" from="/ProcessData/FtpBeginSessionServiceResults/SessionToken/text()"/>
+            </output>
+            <input message="inmsg">
+                <assign to="FtpEndSessionResults" from="*"/>
+            </input>
+        </operation>
+        <onFault>
+            <sequence name="onFault Sequence">
+                <operation name="FTP END SESSION SERVICE">
+                    <participant name="FTPClientEndSession"/>
+                    <output message="EndSessionRequest">
+                        <assign to="SessionToken" from="/ProcessData/FtpBeginSessionServiceResults/SessionToken/text()"/>
+                    </output>
+                    <input message="inmsg">
+                        <assign to="FtpEndSessionResults" from="*"/>
+                    </input>
+                </operation>
+                <operation name="generateException">
+                    <participant name="BPExceptionService"/>
+                    <output message="Xout">
+                        <assign to="exceptionCode">Error, FTP PUT</assign>
+                        <assign to="." from="*"/>
+                    </output>
+                    <input message="Xin">
+                        <assign to="." from="*"/>
+                    </input>
+                </operation>
+            </sequence>
+        </onFault>
+    </sequence>
+</process>
