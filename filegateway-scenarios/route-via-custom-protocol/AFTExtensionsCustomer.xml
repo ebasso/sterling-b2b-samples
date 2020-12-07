@@ -1,0 +1,16 @@
+<AFTExtension name="customprotocol" type="consumer-delivery-protocol"
+         label="customprotocol.protocol.label.protocol" bp="Demo_BP_RouteViaCustomProtocol">
+
+     <GROUP title="customprotocol.instance.group1.title">
+        <VARDEF varname="Param1"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no" label="customprotocol.label.protocol.param1"/>
+        <VARDEF varname="Param2"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no" label="customprotocol.label.protocol.param2" />
+        <VARDEF varname="Param3"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no" label="customprotocol.label.protocol.param3" />
+        <VARDEF varname="Param4"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no" label="customprotocol.label.protocol.param4" />      
+        <VARDEF varname="Param5"     type="String" htmlType="text" validator="ALPHANUMERIC" size="30" maxsize="30"
+          required="no"  label="customprotocol.label.protocol.param5" />
+     </GROUP>
+</AFTExtension>
