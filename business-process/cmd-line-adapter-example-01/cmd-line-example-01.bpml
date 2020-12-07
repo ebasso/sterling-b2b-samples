@@ -1,0 +1,19 @@
+<process name="Demo_BP_CLA_Example_01">
+    <sequence>
+        <operation name="Command Line 2 Adapter">
+            <participant name="CommandLineAdapter2"/>
+            <output message="CmdLine2InputMessage">
+                <assign to="." from="*"/>
+                <assign to="cmdLine">/home/siuser/myscript.sh $0 $1 $2 $Outputs</assign>
+                <assign to="parm0">CLA2</assign>
+                <assign to="parm1">Hello</assign>
+                <assign to="parm2">World!</assign>
+                <assign to="useOutput">true</assign>
+                <assign to="workingDir">/home/siuser/</assign>
+            </output>
+            <input message="inmsg">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+</sequence>
+</process>

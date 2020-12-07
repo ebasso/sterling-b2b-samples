@@ -21,7 +21,7 @@
         <assign to="RemotePort">REMOTE_SFTP_SERVER_PORT</assign>
         <assign to="RemoteUserId">REMOTE_SFTP_PARTNER_NAME</assign>
         <!-- Using revealObscured XPath function here, this will reveal the password obtained from the ObscureParameter service 
-        <assign to="RemotePasswd" from="revealObscured(admin)"></assign> 
+        <assign to="RemotePasswd" from="revealObscured(REMOTE_SFTP_PARTNER_NAME)"></assign> 
         -->
         <assign to="RemotePasswd">REMOTE_SFTP_PARTNER_PASSWORD</assign> 
         <assign to="KnownHostKeyId">REMOTE_SFTP_PARTNER_HOSTKEY</assign>
@@ -36,7 +36,7 @@
     <operation name="SFTP Client GET Service">
         <participant name="SFTPClientGet"/>
         <output message="SFTPClientGetServiceTypeInputMessage">
-        <assign to="RemoteFileName">example_sftp.txt</assign>
+        <assign to="RemoteFileName">REMOTE_FILENAME</assign>
             <assign to="SessionToken" from="SFTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
         </output>
         <input message="inmsg">
