@@ -75,7 +75,7 @@ Given Name:            Demo_Consumer
 Surname:               CP_01
 Partner Role:          Consumer of Data
 Connection Direction:  Listen Connection
-Transport Method:      Custom Protocol
+Transport Method:      Custom XYZ Protocol
 Does Demo_Consumer_FSA_01 require data to be signed by the Router: no
 Does Demo_Consumer_FSA_01 require data to be encrypted by the Router : no
 ```
