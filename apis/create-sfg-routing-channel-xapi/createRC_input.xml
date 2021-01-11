@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- createFgTemplatedRoutingChannel Input XML -->
+<TemplateParticipationScenario>
+  <ProducerOrganization OrganizationKey="TestPartnerA"/>
+  <ConsumerOrganization OrganizationKey="TestPartnerB"/>
+  <RoutingChannelTemplate EntityName="" NameInEntity="" RoutingChannelTemplateKey="202107131611231431123"/>
+  <FgProvisioningFactList TotalNumberOfRecords="">
+    <FgProvisioningFact FactValue="" ProvisioningFactTemplateKey=""/>
+  </FgProvisioningFactList>
+</TemplateParticipationScenario>

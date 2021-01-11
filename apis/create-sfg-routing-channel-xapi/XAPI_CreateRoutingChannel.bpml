@@ -1,0 +1,15 @@
+<process name="XAPI_CreateRoutingChannel">
+  <sequence name="Sequence Start">
+    <operation name="XAPI Service">
+      <participant name="XAPIService"/>
+      <output message="XAPIServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="api">createFgTemplatedRoutingChannel</assign>
+        <assign to="UserId">admin</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+  </sequence>
+</process>

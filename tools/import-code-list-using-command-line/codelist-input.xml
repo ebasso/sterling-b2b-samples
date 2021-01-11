@@ -1,0 +1,47 @@
+<?xml version=”1.0″ encoding=”UTF-8″?>
+<SI_RESOURCES xmlns="”http://www.stercomm.com/SI/SI_IE_Resources“" xmlns:xsi="”http://www.w3.org/2001/XMLSchema-instance“" GISVersion="”6000“" FrameworkVersion="”2“">
+  <CODE_LISTS>
+    <CODE_LIST_XREF>
+      <LIST_NAME>Mobile Suppliers</LIST_NAME>
+      <SENDER_ID/>
+      <RECEIVER_ID/>
+      <LIST_VERSION>2</LIST_VERSION>
+      <SIResourceDefaultVersion>true</SIResourceDefaultVersion>
+      <STATUS>1</STATUS>
+      <COMMENTS/>
+      <USERNAME>Joe User</USERNAME>
+      <CREATE_DATE>2020-01-09 17:52:52.137</CREATE_DATE>
+      <CODE_LIST_XREF_ITEMS>
+        <CODE_LIST_XREF_ITEM>
+          <SENDER_ITEM>Android Device</SENDER_ITEM>
+          <RECEIVER_ITEM>Supplier1</RECEIVER_ITEM>
+          <TEXT1>Android Phone</TEXT1>
+          <TEXT2></TEXT2>
+          <TEXT3></TEXT3>
+          <TEXT4></TEXT4>
+          <TEXT5></TEXT5>
+          <TEXT6></TEXT6>
+          <TEXT7></TEXT7>
+          <TEXT8></TEXT8>
+          <TEXT9></TEXT9>
+          <DESCRIPTION>Just Testing the Auto Import</DESCRIPTION>
+        </CODE_LIST_XREF_ITEM>
+        <CODE_LIST_XREF_ITEM>
+          <SENDER_ITEM>iPhone Device</SENDER_ITEM>
+          <RECEIVER_ITEM>Supplier2</RECEIVER_ITEM>
+          <TEXT1>iPhone 5</TEXT1>
+          <TEXT2>iPhone 6</TEXT2>
+          <TEXT3></TEXT3>
+          <TEXT4></TEXT4>
+          <TEXT5></TEXT5>
+          <TEXT6></TEXT6>
+          <TEXT7></TEXT7>
+          <TEXT8></TEXT8>
+          <TEXT9></TEXT9>
+          <DESCRIPTION>Just Testing the Auto Import</DESCRIPTION>
+        </CODE_LIST_XREF_ITEM>
+      </CODE_LIST_XREF_ITEMS>
+    </CODE_LIST_XREF>
+  </CODE_LISTS>
+
+</SI_RESOURCES>

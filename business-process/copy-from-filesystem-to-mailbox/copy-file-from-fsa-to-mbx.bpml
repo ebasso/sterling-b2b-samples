@@ -1,0 +1,30 @@
+<process name="Demo_BP_CopyFileFromFSA2MBX">
+  <sequence name="Sequence Start">
+    <operation name="File System Adapter">
+      <participant name="Generic_FSA_Adapter"/>
+      <output message="FileSystemInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="Action">FS_COLLECT</assign>
+        <assign to="collectionFolder">C:\Temp\</assign>
+        <assign to="collectMultiple">false</assign>
+        <assign to="deleteAfterCollect">false</assign>
+        <assign to="filter">*.txt</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="Mailbox Add Service">
+      <participant name="MailboxAdd"/>
+      <output message="MailboxAddServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="MailboxPath" from="/Inbox"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+  </sequence>
+</process>

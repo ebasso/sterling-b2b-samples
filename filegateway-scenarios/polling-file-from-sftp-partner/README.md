@@ -46,7 +46,7 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 
 From:
-```
+```XML
  <assign to="RemoteHost">REMOTE_SFTP_SERVER</assign>
  <assign to="RemotePort">REMOTE_SFTP_SERVER_PORT</assign>
  <assign to="RemoteUserId">REMOTE_SFTP_PARTNER_NAME</assign>
@@ -61,7 +61,7 @@ From:
 ```  
 
 To My Example:
-```
+```XML
  <assign to="RemoteHost">127.0.0.1</assign>
  <assign to="RemotePort">22</assign>
  <assign to="RemoteUserId">Demo_Remote_SFTP</assign>

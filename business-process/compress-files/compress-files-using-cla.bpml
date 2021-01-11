@@ -1,0 +1,31 @@
+<process name="Demo_BP_CompressFilesUsingCLA">
+
+  <sequence>
+    <operation name="Command Line Adapter">
+      <participant name="SysInfo"/>
+      <output message="CmdLineInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="cmdLine">/usr/bin/zip ZippedFiles.zip testdata1.csv testadata.csv</assign>
+        <assign to="workingDir">/tmp/files2compress</assign>
+        <assign to="useOutput">YES</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="SetContentType">
+      <participant name="GetDocumentInfoService"/>
+      <output message="xout">
+        <assign to="." from="*"/>
+        <assign to="DocumentContentType">application</assign>
+        <assign to="DocumentContentSubType">x-compressed</assign>
+      </output>
+      <input message="xin">
+        <assign to="." from="*"/>
+      </input>
+    </operation>
+
+  </sequence>
+
+</process>

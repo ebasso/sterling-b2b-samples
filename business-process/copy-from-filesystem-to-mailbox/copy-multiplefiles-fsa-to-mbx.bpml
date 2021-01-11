@@ -1,0 +1,63 @@
+<process name="Demo_BP_CopyMultipleFilesFromFSA2MBX">
+  <rule name="more_docs">
+    <condition>//FSADoc.DONE = 0</condition>
+  </rule>
+
+  <sequence name="Sequence Start">
+    <operation name="File System Adapter">
+      <participant name="Generic_FSA_Adapter"/>
+      <output message="FileSystemInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="Action">FS_COLLECT</assign>
+        <assign to="collectionFolder">C:\Temp\</assign>
+        <assign to="collectMultiple">true</assign>
+        <assign to="deleteAfterCollect">false</assign>
+        <assign to="filter">*.txt</assign>
+        <assign to="noFilesSetSuccess">true</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <sequence name="forEachDoc">
+      <operation name="For Each Document">
+        <participant name="ForEachDocument"/>
+        <output message="ForEachDocumentTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="DOCUMENT_KEY_PREFIX">FSA_Document</assign>
+          <assign to="ITERATOR_NAME">FSADoc</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+
+      <choice name="Choice Start">
+        <select>
+          <case ref="more_docs" activity="addDoc"/>
+        </select>
+
+        <sequence name="addDoc">
+          <assign name="Assign" to="PrimaryDocument" from="FSADoc/@SCIObjectId"></assign>
+          <assign name="Assign" to="MessageName" from="FSADoc.NAME/text()"></assign>
+          <assign name="Assign" to="DocumentId" from="FSADoc/@SCIObjectId"></assign>
+          
+          <operation name="Mailbox Add Service">
+            <participant name="MailboxAdd"/>
+            <output message="MailboxAddServiceTypeInputMessage">
+              <assign to="." from="*"></assign>
+              <assign to="MailboxPath">/Inbox</assign>
+            </output>
+            <input message="inmsg">
+              <assign to="." from="*"></assign>
+            </input>
+          </operation>
+
+          <repeat name="endLoop" ref="forEachDoc"/>
+
+        </sequence>
+      </choice>
+    </sequence>
+  </sequence>
+</process>

@@ -1,0 +1,45 @@
+<process name="Demo_BP_CompressFilesFromFS">
+  <sequence>
+
+    <operation name="FileSystem">
+      <participant name="Generic_FSA_Adapter"/>
+      <output message="outputMessage">
+        <assign to="Action">FS_COLLECT</assign>
+        <assign to="collectionFolder">c:\tmp\files2compress</assign>
+        <assign to="filter">*.csv</assign>
+        <assign to="collectMultiple">true</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inputMessage">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>    
+
+    <operation name="Compress">
+      <participant name="CompressionService"/>
+      <output message="outputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="compression_action">compress</assign>
+        <assign to="compressed_filename">ZippedFiles.zip</assign>
+        <assign to="compression_level">9</assign>
+        <assign to="compression_type">Deflate</assign>
+      </output>
+      <input message="inputMessage">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="FileSystem">
+      <participant name="Generic_FSA_Adapter"/>
+      <output message="outputMessage">
+        <assign to="Action">FS_EXTRACT</assign>
+        <assign to="extractionFolder">c:\tmp\compressedFiles</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inputMessage">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>  
+    
+  </sequence>
+</process>
