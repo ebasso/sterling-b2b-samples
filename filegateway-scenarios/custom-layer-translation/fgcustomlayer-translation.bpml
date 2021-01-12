@@ -1,0 +1,53 @@
+<process name="FGCustomLayer_Translation">
+ <sequence name="mainStart">
+    <operation name="Translation">
+      <participant name="Translation"/>
+      <output message="TranslationTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="map_name" from="/ProcessData/Map_Name/text()"/>
+      </output>
+     <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="FileGatewayRouteEventServiceType">
+      <participant name="FileGatewayRouteEventService"/>
+      <output message="FileGatewayRouteEventServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="." from="RouteEntityType"></assign>
+        <assign to="." from="RouteEntityKey"></assign>
+        <assign to="." from="RouteMetaData"></assign>
+        <assign to="." from="RouteDataflowId"></assign>
+        <assign to="EventCode">CUST_0001</assign>
+        <assign to="ExceptionLevel">Normal</assign>
+        <assign to="EventAttributes/Map_Name" from="/ProcessData/Map_Name/text()" append="true"/>
+      </output>
+      <input message="inmsg">
+        <assign to="RouteEventResults" from="*"></assign>
+      </input>
+    </operation>
+
+    <onFault>
+      <sequence name="End Session">
+        <operation name="FileGatewayRouteEventServiceType">
+          <participant name="FileGatewayRouteEventService"/>
+          <output message="FileGatewayRouteEventServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="." from="RouteEntityType"></assign>
+            <assign to="." from="RouteEntityKey"></assign>
+            <assign to="." from="RouteMetaData"></assign>
+            <assign to="." from="RouteDataflowId"></assign>
+            <assign to="EventCode">CUST_0051</assign>
+            <assign to="ExceptionLevel">Normal</assign>
+            <assign to="EventAttributes/Map_Name" from="/ProcessData/Map_Name/text()" append="true"/>
+          </output>
+          <input message="inmsg">
+            <assign to="End Session" from="*"></assign>
+          </input>
+        </operation>
+
+      </sequence>
+    </onFault>
+ </sequence>
+</process>

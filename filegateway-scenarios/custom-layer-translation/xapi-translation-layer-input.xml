@@ -1,0 +1,29 @@
+<MultiApi>
+    <API Name="manageFgProducerFileLayerType">
+<!-- This API affects the second Producer File Layer Type and the Parameter types associated with it. See the FG_P_FLR_TYPE, FG_P_FLR_PRM_TYPE, and FG_P_FLR_TRANS table information below. -->
+        <Input>
+            <FgProducerFileLayerType ContainsName="N" Description="Translation" DisplayLabel="Translation" IsContainer="N" LayerType="FGC_TXNCN" ProducerFileLayerTypeKey="TXPNCN_GUID">
+                <FgProducerFileLayerParameterTypeList TotalNumberOfRecords="2">
+                    <FgProducerFileLayerParameterType DefaultValue=".+" Description="File name pattern as regular expression" DisplayLabel="File name pattern" DisplayType="String" Ordinal="0" ParameterName="FILENAME_PATTERN" ProducerFileLayerParameterTypeKey="TXPNCN_P1_GUID" ProducerFileLayerTypeKey="TXPNCN_GUID"/>
+                    <FgProducerFileLayerParameterType Description="File name pattern group fact names, comma delimited" DisplayLabel="File name pattern fact names" DisplayType="String" Ordinal="1" ParameterName="FILENAME_PATTERN_FACTNAMES" ProducerFileLayerParameterTypeKey="TXPNCN_P2_GUID" ProducerFileLayerTypeKey="TXPNCN_GUID"/>
+                </FgProducerFileLayerParameterTypeList>
+            </FgProducerFileLayerType>
+        </Input>
+    </API>
+    <API Name="manageFgConsumerFileLayerType">
+            <!-- This API affects the second Consumer File Layer Type (non-container type) and the Parameter types associated with it. See the FG_C_FLR_TYPE, FG_C_FLR_PRM_TYPE, and FG_C_FLR_TRANS table information below. -->
+        <Input>
+            <FgConsumerFileLayerType ConsumerFileLayerTypeKey="TXCNCN_GUID" Description="Translation" DisplayLabel="Translation" IsContainer="N" LayerType="FGC_TXCNCN">
+                <FgConsumerFileLayerParameterTypeList TotalNumberOfRecords="2">
+                    <FgConsumerFileLayerParameterType ConsumerFileLayerParameterTypeKey="TXCNCON_P1_GUID" ConsumerFileLayerTypeKey="TXCNCN_GUID" DefaultValue="${ProducerFilename}" Description="File name format" DisplayLabel="File name format" DisplayType="String" Ordinal="0" ParameterName="FILENAME_FORMAT"/>
+                    <FgConsumerFileLayerParameterType ConsumerFileLayerParameterTypeKey="TXCNCON_P2_GUID" ConsumerFileLayerTypeKey="TXCNCN_GUID" Description="Map Name" DisplayLabel="Map Name" DisplayType="String" Ordinal="1" ParameterName="Map_Name"/>
+                </FgConsumerFileLayerParameterTypeList>
+            </FgConsumerFileLayerType>
+        </Input>
+    </API>
+    <API Name="manageFgConsumerFileLayerTranslation">
+        <Input>
+            <FgConsumerFileLayerTranslation BusinessProcessName="FGCustomLayer_Translation" ConsumerFileLayerTranslationKey="TXCTRAN1_GUID" ConsumerFileLayerTypeKey="TXCNCN_GUID" ProducerFileLayerTypeKey="TXPNCN_GUID"/>
+        </Input>
+    </API>
+</MultiApi>
