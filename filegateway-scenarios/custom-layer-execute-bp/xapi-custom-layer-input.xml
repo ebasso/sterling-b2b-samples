@@ -1,0 +1,50 @@
+<MultiApi>
+<!-- This API affects the second Producer File Layer Type and the Parameter types associated with it. See the FG_P_FLR_TYPE, FG_P_FLR_PRM_TYPE, and FG_P_FLR_TRANS table information below. -->
+    <API Name="manageFgProducerFileLayerType">
+        <Input>
+            <FgProducerFileLayerType ProducerFileLayerTypeKey="P_EXBP_GUID" LayerType="FGC_P_EXBP" Description="Producer Execute Process" DisplayLabel="Producer Execute Process" ContainsName="N" IsContainer="Y" Lockid="0" >
+                <FgProducerFileLayerParameterTypeList TotalNumberOfRecords="3">
+                    <FgProducerFileLayerParameterType 
+                        ProducerFileLayerTypeKey="P_EXBP_GUID" 
+                        ProducerFileLayerParameterTypeKey="P_EXBP_P1_GUID" 
+                        ParameterName="FILENAME_PATTERN" 
+                        DisplayLabel="File name pattern" 
+                        Description="File name pattern as regular expression"  
+                        DisplayType="String" 
+                        Ordinal="0" 
+                        DefaultValue=".+" />
+                    <FgProducerFileLayerParameterType ProducerFileLayerTypeKey="P_EXBP_GUID" ProducerFileLayerParameterTypeKey="P_EXBP_P2_GUID" ParameterName="FILENAME_PATTERN_FACTNAMES" DisplayLabel="File name pattern fact names" Description="File name pattern group fact names, comma delimited"  DisplayType="String" Ordinal="1"  />
+                    <FgProducerFileLayerParameterType ProducerFileLayerTypeKey="P_EXBP_GUID" ProducerFileLayerParameterTypeKey="P_EXBP_P3_GUID" ParameterName="BP_TO_RUN" DisplayLabel="BP to Execute" Description="Business Process to Execute" DisplayType="String" Ordinal="2" />
+                </FgProducerFileLayerParameterTypeList>
+            </FgProducerFileLayerType>
+        </Input>
+    </API>
+<!-- This API affects the second Consumer File Layer Type (non-container type) and the Parameter types associated with it. See the FG_C_FLR_TYPE, FG_C_FLR_PRM_TYPE, and FG_C_FLR_TRANS table information below. -->
+    <API Name="manageFgConsumerFileLayerType">
+        <Input>
+            <FgConsumerFileLayerType ConsumerFileLayerTypeKey="C_EXBP_GUID" LayerType="FGC_C_EXBP" Description="Consumer Execute Process" DisplayLabel="Consumer Execute Process" IsContainer="Y" Lockid="0" >
+                <FgConsumerFileLayerParameterTypeList TotalNumberOfRecords="2">
+                    <FgConsumerFileLayerParameterType ConsumerFileLayerTypeKey="C_EXBP_GUID" ConsumerFileLayerParameterTypeKey="C_EXBP_C1_GUID" ParameterName="FILENAME_FORMAT" DisplayLabel="File name format" Description="File name format"  DisplayType="String" Ordinal="0" DefaultValue="${ProducerFilename}" />
+                    <FgConsumerFileLayerParameterType ConsumerFileLayerTypeKey="C_EXBP_GUID" ConsumerFileLayerParameterTypeKey="C_EXBP_C2_GUID" ParameterName="BP_TO_RUN" DisplayLabel="BP to Execute" Description="Business Process to Execute" DisplayType="String" Ordinal="1" />
+                </FgConsumerFileLayerParameterTypeList>
+            </FgConsumerFileLayerType>
+        </Input>
+    </API>
+    <API Name="manageFgConsumerFileLayerTranslation">
+        <Input>
+            <FgConsumerFileLayerTranslation 
+                BusinessProcessName="FGCustomLayer_ExecuteProcess" 
+                ConsumerFileLayerTypeKey="C_EXBP_GUID" 
+                ConsumerFileLayerTranslationKey="C_EXBP_X_GUID" 
+                ProducerFileLayerTypeKey=""/>    
+        </Input>
+    </API>
+    <API Name="manageFgProducerFileLayerTranslation">
+        <Input>
+            <FgProducerFileLayerTranslation
+                BusinessProcessName="FGCustomLayer_ExecuteProcess" 
+                ProducerFileLayerTypeKey="P_EXBP_GUID"
+                ProducerFileLayerTranslationKey="P_EXBP_X_GUID" />
+        </Input>
+    </API>
+</MultiApi>

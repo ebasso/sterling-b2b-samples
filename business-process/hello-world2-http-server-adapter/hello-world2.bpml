@@ -1,0 +1,34 @@
+<process name="HelloWorld2">
+
+    <sequence>
+        <assign to="ResponseData/data">Hello World 2!</assign>
+        <assign to="ResponseData/newpage">Is New</assign>
+        <assign to="ResponseData/noresult">Now Result</assign>
+
+
+        <operation name="XSLT Service">
+            <participant name="XSLTService" />
+            <output message="XSLTServiceTypeInputMessage">
+                <assign to="input_pd_xpath">/ProcessData/ResponseData</assign>
+                <assign to="xml_input_from">ProcData</assign>
+                <assign to="xml_input_validation">NO</assign>
+                <assign to="xslt_name">HelloWorld2</assign>
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+            <assign to="." from="*"></assign>
+            </input>
+        </operation>
+
+        <operation name="HttpRespond">
+            <participant name="HttpRespond" />
+            <output message="HttpRespondInputMessage">
+                <assign to="doc-has-headers">false</assign> <!-- Implying non-raw mode by default. -->
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+            <assign to="." from="*"></assign>
+            </input>
+        </operation>
+    </sequence>
+</process>

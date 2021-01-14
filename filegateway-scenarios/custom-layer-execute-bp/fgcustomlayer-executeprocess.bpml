@@ -1,0 +1,39 @@
+<process name = "FGCustomLayer_ExecuteProcess"> 
+  <sequence name="Sequence Start">
+    <operation name="Invoke Sub-Process">
+      <participant name="InvokeSubProcessService"/>
+      <output message="InvokeSubProcessServiceTypeInputMessage">
+        <assign to="INVOKE_MODE">SYNC</assign>       <!-- you can change for INLINE too-->
+        <assign to="WFD_NAME" from="/ProcessData/BP_TO_RUN/text()"></assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <assign name="Assign" to="Completed">Y</assign>
+    
+    <operation name="Release Service">
+      <participant name="ReleaseService"/>
+      <output message="ReleaseServiceTypeInputMessage">
+        <assign to="TARGET">/ProcessData/DocumentId</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="Get Document Information Service">
+      <participant name="GetDocumentInfoService"/>
+      <output message="GetDocumentInfoServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+  </sequence>
+</process>

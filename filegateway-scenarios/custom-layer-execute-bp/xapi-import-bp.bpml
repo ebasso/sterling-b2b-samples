@@ -1,0 +1,14 @@
+<process name="FileGatewayCustomLayerXAPI">
+    <sequence>
+        <operation name="XAPI Service">
+            <participant name="XAPIService"/>
+            <output message="XAPIServiceTypeInputMessage">
+                <assign to="." from="*"/>
+                <assign to="api">multiApi</assign>
+            </output>
+            <input message="inmsg">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+    </sequence>
+</process>

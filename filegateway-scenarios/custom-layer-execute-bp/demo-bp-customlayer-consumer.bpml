@@ -1,0 +1,14 @@
+<process name="Demo_BP_CustomLayer_Consumer">
+  <sequence>
+    <operation name="Get Document Information Service">
+      <participant name="GetDocumentInfoService"/>
+      <output message="GetDocumentInfoServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+  </sequence>
+</process>
