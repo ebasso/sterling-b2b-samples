@@ -1,6 +1,6 @@
 # IBM Sterling File Gateway Scenarios
 
-Polling a file from a FTP Partner
+Polling  Multiple files from a FTP Partner
 
 In this scenario business needs to go out to a partner using FTP Server and poll for a file with specific name or extension. Once file is found it needs to be delivered internally.
 

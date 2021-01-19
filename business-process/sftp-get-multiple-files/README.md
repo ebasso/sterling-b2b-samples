@@ -1,6 +1,6 @@
 # IBM Sterling File Gateway Scenarios
 
-Polling a file from a SFTP Partner
+Polling multiple files from a SFTP Partner
 
 In this scenario business needs to go out to a partner using SFTP Server and poll for a file with specific name or extension. Once file is found it needs to be delivered internally.
 
