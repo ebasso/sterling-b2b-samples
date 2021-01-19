@@ -1,0 +1,117 @@
+<process name="Demo_BP_FTP_GetMultipleSmallFiles">
+  <rule name="more_docs">
+    <condition>CurrentDocNum&lt;=TotalDocs</condition>
+  </rule>
+
+  <sequence>
+
+    <operation name="FTP Client Begin Session Service">
+      <participant name="FTPClientBeginSession"/>
+      <output message="FTPClientBeginSessionServiceTypeInputMessage">
+        <assign to="RemoteHost">localhost</assign>
+        <assign to="FTPClientAdapter">FTPClientAdapter</assign>
+        <assign to="UsingRevealedPasswd">True</assign>
+        <assign to="RemotePasswd">passw0rd</assign>
+        <assign to="RemoteUserId">Demo_Remote_FTP</assign>
+        <assign to="RemotePort">21</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="FTPClientBeginSessionServiceResults" from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="Get">
+      <participant name="FTPClientGet"/>
+      <output message="FtpGetRequests">
+        <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
+        <assign to="RepresentationType">BINARY</assign>
+        <assign to="RemoteFilePattern">testdata*.*</assign>
+      </output>
+      <input message="FtpGetResults">
+        <assign to="FTPClientGetResults" from="*"></assign>
+      </input>
+    </operation>
+
+    <assign name="Assign" to="TotalDocs" from="count(/ProcessData/FTPClientGetResults/DocumentList/DocumentId)"></assign>
+    <assign name="Assign" to="CurrentDocNum">1</assign>
+    <choice name="Count">
+      <select>
+        <case ref="more_docs" activity="proceed"/>
+      </select>
+
+      <sequence name="proceed">
+        <assign name="Assign" to="CurrentDocumentId" from="/ProcessData/FTPClientGetResults/DocumentList/DocumentId[position() = //CurrentDocNum/text()]/text()"></assign>
+        <operation name="This Service">
+          <participant name="This"/>
+          <output message="takeDocumentRequest">
+            <assign to="." from="*"></assign>
+            <assign to="documentId" from="/ProcessData/FTPClientGetResults/DocumentList/DocumentId[position() = //CurrentDocNum/text()]/text()"></assign>
+            <assign to="documentKey" from="&apos;PrimaryDocument&apos;"></assign>
+          </output>
+          <input message="takeDocumentResponse">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="GetDocumentInfoService">
+          <participant name="GetDocumentInfoService"/>
+          <output message="xout">
+            <assign to="." from="*"></assign>
+          </output>
+          <input message="xin">
+            <assign to="GetDocInfoResults" from="*"></assign>
+          </input>
+        </operation>
+
+        <assign name="Assign" to="docList" from="/GetDocInfoResults/DocumentName/text() + &quot;, &quot;" append="true"></assign>
+        
+        <operation name="Mailbox Add Service">
+          <participant name="MailboxAdd"/>
+          <output message="MailboxAddServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="Extractable">YES</assign>
+            <assign to="MessageName" from="/ProcessData/GetDocInfoResults/DocumentName/text()"></assign>
+            <assign to="DocumentId" from="/ProcessData/GetDocInfoResults/DocumentId/text()"></assign>
+            <assign to="MailboxPath">/Inbox</assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+<!--
+        <operation name="FTP Client DELETE Service">
+          <participant name="FTPClientDelete"/>
+          <output message="FTPClientDeleteServiceTypeInputMessage">
+            <assign to="RemoteFileName" from="/ProcessData/GetDocInfoResults/DocumentName/text()"></assign>
+            <assign to="." from="*"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="FTPClientDeleteResults" from="*"></assign>
+          </input>
+        </operation>
+-->
+        <assign name="Assign" to="CurrentDocNum" from="CurrentDocNum/text()+1"></assign>
+        <repeat name="Repeat" ref="Count"/>
+
+      </sequence>
+    </choice>
+    <operation name="FTP Client End Session Service">
+      <participant name="FTPClientEndSession"/>
+      <output message="FTPClientEndSessionServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <onFault>
+      <sequence name="SequenceStart">
+        <assign name="Assign" to="error">FTP_errror</assign>
+      </sequence>
+    </onFault>
+
+  </sequence>
+</process>

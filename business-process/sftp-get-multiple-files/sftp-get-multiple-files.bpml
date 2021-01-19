@@ -1,0 +1,101 @@
+<process name="Demo_BP_SFTPGetMultipleFiles">
+  <rule name="FileCounter">
+    <condition>/ProcessData/FileCounter/text()>0</condition>
+  </rule>
+
+  <sequence>
+
+    <operation name="SFTP Client Begin Session Service">
+      <participant name="SFTPClientBeginSession"/>
+      <output message="SFTPClientBeginSessionServiceTypeInputMessage">
+        <assign to="." from="*"/>
+        <assign to="KnownHostKeyId">442297176384f4ba2node1</assign>
+        <assign to="RemoteHost">localhost</assign>
+        <assign to="RemotePasswd">passw0rd</assign>
+        <assign to="RemotePort">22</assign>
+        <assign to="RemoteUserId">Demo_Remote_SFTP</assign>
+        <assign to="SFTPClientAdapter">SFTPClientAdapter</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="SFTPClientBeginSessionServiceResults" from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="SFTP Client LIST Service">
+      <participant name="SFTPClientList"/>
+      <output message="SFTPClientListServiceTypeInputMessage">
+        <assign to="." from="*"/>
+        <assign to="RemoteFileName">testdata*</assign>
+        <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+      </output>
+      <input message="inmsg">
+        <assign to="SFTPClientListResults" from="*"/>
+      </input>
+    </operation>
+
+    <assign name="Assign" to="FileCounter" from="count(/ProcessData/SFTPClientListResults/Files/File)"></assign>
+
+    <choice name="forEachFile">
+      <select>
+        <case ref="FileCounter" activity="proceed"/>
+      </select>
+
+      <sequence name="proceed">
+
+        <operation name="SFTP Client GET Service">
+          <participant name="SFTPClientGet"/>
+          <output message="SFTPClientGetServiceTypeInputMessage">
+            <assign to="." from="*"/>
+            <assign to="RemoteFileName" from="/ProcessData/SFTPClientListResults/Files/File[1]/Name/text()"/>
+            <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+          </output>
+          <input message="inmsg">
+            <assign to="SFTPClientGetResults" from="*"/>
+          </input>
+        </operation>
+
+        <!--
+        <operation name="Mailbox Add Service"> 
+            <participant name="MailboxAdd"/> 
+            <output message="MailboxAddServiceTypeInputMessage"> 
+                <assign to="DocumentId" from="/ProcessData/DocumentList/DocumentId[1]/text()"></assign> 
+                <assign to="Extractable">YES</assign> 
+                <assign to="MailboxPath">/Inbox</assign> 
+                <assign to="." from="*"></assign> 
+            </output> 
+            <input message="inmsg"> 
+                <assign to="MailboxAdd" from="*"></assign> 
+            </input> 
+        </operation> -->
+        
+        <assign name="Assign" to="FileCounter" from="number(/ProcessData/FileCounter/text())-1"></assign>
+
+        <operation name="Release Service">
+          <participant name="ReleaseService"/>
+          <output message="ReleaseServiceTypeInputMessage">
+            <assign to="TARGET">/ProcessData/DocumentList/DocumentId[1] | /ProcessData/SFTPClientListResults/Files/File[1] | /ProcessData/MailboxAdd</assign>
+            <assign to="." from="*"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <repeat name="endLoop" ref="forEachFile"/>
+
+      </sequence>
+    </choice>
+
+    <operation name="SFTP Client End Session Service">
+      <participant name="SFTPClientEndSession"/>
+      <output message="SFTPClientEndSessionServiceTypeInputMessage">
+        <assign to="." from="*"/>
+        <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"/>
+      </input>
+    </operation>
+    
+  </sequence>
+</process>
