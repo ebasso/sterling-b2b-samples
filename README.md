@@ -19,8 +19,11 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 | cmd-line-adapter-example-01     | Sample code that use Command Line Adapter 2 on Linux |
 | compress-files                  | Samples BPs to compress files using Compress Service and Zip with command line |
 | copy-from-filesystem-to-mailbox | Copy File(s) From File System to a Mailbox |
+| ftp-get-multiple-files          | Polling  Multiple files from a FTP Partner |
 | hello-world2-http-server-adapter| Hello World 2 example on  HTTP Server Adapter |
 | polling-file-from-sftp-parner   | Poll a file from a SFTP Partner and delivery it internally  |
+| sftp-get-multiple-files          | Polling  Multiple files from a SFTP Partner |
+
 
 # Filegateway Scenarios
 
