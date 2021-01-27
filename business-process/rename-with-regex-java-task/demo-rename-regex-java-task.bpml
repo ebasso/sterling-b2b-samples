@@ -1,0 +1,38 @@
+<process name="Demo_BP_RenameRegexJavaTask">
+<sequence>
+<assign to="fileName">XYZ_AB_0193_20012021_001594.TXT</assign>
+<assign to="matchPattern">XYZ_(.+)_(\d{4})_(\d{2})(\d{2})(\d{4})_(\d{3})(\d{3}).TXT</assign>
+<assign to="replacePattern">CB_$5$4$3_$7.TXT</assign>
+
+<operation name="RegexMapTest">
+	<participant name="JavaTask"/>
+	<output message="Xout" >
+	<assign to="srcLocationMode">inline</assign>
+	<assign to="javaSrc">
+  import java.util.regex.Matcher;
+  import java.util.regex.Pattern;
+
+	String fileName = (String)wfc.getWFContent("fileName");
+	String matchPattern = (String)wfc.getWFContent("matchPattern");
+	String replacePattern = (String)wfc.getWFContent("replacePattern");
+
+  Pattern p1 = Pattern.compile(matchPattern);
+  Matcher m1 = p1.matcher(fileName);
+
+  if (m1.find( )) {
+    String output = m1.replaceFirst(replacePattern);
+    wfc.addWFContent("resultFilename", output);
+  } else {
+    wfc.addWFContent("resultFilename", fileName);
+    wfc.addWFContent("nomatch", "true");
+  }
+
+	return "OK";</assign>
+	<assign to="." from="*"></assign>
+	</output>
+	<input message="Xin" >
+	<assign to="." from="*"></assign>
+	</input>
+</operation>
+</sequence>
+</process>

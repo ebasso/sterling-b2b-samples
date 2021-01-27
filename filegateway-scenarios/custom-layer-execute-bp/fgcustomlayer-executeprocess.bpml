@@ -3,7 +3,7 @@
     <operation name="Invoke Sub-Process">
       <participant name="InvokeSubProcessService"/>
       <output message="InvokeSubProcessServiceTypeInputMessage">
-        <assign to="INVOKE_MODE">SYNC</assign>       <!-- you can change for INLINE too-->
+        <assign to="INVOKE_MODE">INLINE</assign>       <!-- you can change for INLINE too-->
         <assign to="WFD_NAME" from="/ProcessData/BP_TO_RUN/text()"></assign>
         <assign to="." from="*"></assign>
       </output>

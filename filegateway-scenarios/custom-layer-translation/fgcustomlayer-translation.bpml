@@ -19,7 +19,7 @@
         <assign to="." from="RouteEntityKey"></assign>
         <assign to="." from="RouteMetaData"></assign>
         <assign to="." from="RouteDataflowId"></assign>
-        <assign to="EventCode">CUST_0001</assign>
+        <assign to="EventCode">CUST_0002</assign>
         <assign to="ExceptionLevel">Normal</assign>
         <assign to="EventAttributes/Map_Name" from="/ProcessData/Map_Name/text()" append="true"/>
       </output>
@@ -38,7 +38,7 @@
             <assign to="." from="RouteEntityKey"></assign>
             <assign to="." from="RouteMetaData"></assign>
             <assign to="." from="RouteDataflowId"></assign>
-            <assign to="EventCode">CUST_0051</assign>
+            <assign to="EventCode">CUST_0052</assign>
             <assign to="ExceptionLevel">Normal</assign>
             <assign to="EventAttributes/Map_Name" from="/ProcessData/Map_Name/text()" append="true"/>
           </output>
