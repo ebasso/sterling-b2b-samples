@@ -1,0 +1,24 @@
+<AFTExtensions>
+
+<!-- Custom HTTP Protocol-->
+<AFTExtension name="customhttp" type="consumer-delivery-protocol"
+         label="customhttp.protocol.label.protocol" bp="Demo_BP_RouteViaHttpPost">
+
+    <GROUP title="customhttp.instance.group1.title">
+          <VARDEF varname="customhttp_RemoteHost" type="String" htmlType="text"
+               validator="ALPHANUMERIC" size="30" maxsize="250" label="customhttp.label.protocol.hostname" required="yes"/>
+          <VARDEF varname="customhttp_RemotePort" type="String" htmlType="text"
+               validator="ALPHANUMERIC" size="30" maxsize="250" label="customhttp.label.protocol.port" required="yes"/>
+	     <VARDEF varname="customhttp_URI" type="String" htmlType="text"
+               validator="ALPHANUMERIC" size="30" maxsize="250" label="customhttp.label.protocol.uri" required="yes"/>
+	     <VARDEF varname="customhttp_CertID" type="String" htmlType="text"
+               validator="ALPHANUMERIC" size="30" maxsize="250" label="customhttp.label.protocol.certid" required="yes"/>
+     </GROUP>
+</AFTExtension>
+
+<OPTION name="CUSTOMHTTPYESNO">
+  <ELE value="yes" displayname="customhttp.custom.yes"/>
+  <ELE value="no" displayname="customhttp.custom.no"/>
+</OPTION>
+
+</AFTExtensions>

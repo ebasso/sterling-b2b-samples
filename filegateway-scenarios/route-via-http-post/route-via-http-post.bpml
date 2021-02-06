@@ -1,0 +1,47 @@
+<process name="Demo_BP_RouteViaHttpPost">
+  <sequence name="HTTPSStart">
+    <operation name="HTTP Client Begin Session Service">
+      <participant name="HTTPClientBeginSession"/>
+      <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+        <assign to="HTTPClientAdapter">HTTPClientAdapter</assign>
+        <assign to="RemoteHost" from="customhttp_RemoteHost/text()"></assign>
+        <assign to="RemotePort" from="customhttp_RemotePort/text()"></assign>
+        <assign to="SSL">Must</assign>
+        <assign to="CACertificateId" from="customhttp_CertID/text()"></assign>
+        <assign to="CipherStrength">All</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="HTTP Client POST Service">
+      <participant name="HTTPClientPost"/>
+      <output message="HTTPClientPostServiceTypeInputMessage">
+        <assign to="RawRequest">false</assign>
+        <assign to="RawResponse">false</assign>
+        <assign to="ResponseTimeout">1500</assign>
+        <assign to="SessionToken" from="//SessionToken/text()"></assign>
+        <assign to="ShowResponseCode">true</assign>
+        <assign to="URI" from="customhttp_URI/text()"></assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="HTTP Client End Session Service">
+      <participant name="HTTPClientEndSession"/>
+      <output message="HTTPClientEndSessionServiceTypeInputMessage">
+        <assign to="SessionToken" from="//SessionToken/text()"></assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+  </sequence>
+</process>

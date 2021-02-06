@@ -6,8 +6,7 @@
 
   <GROUP title="fsa.instance.group1.title">
     <VARDEF varname="fsa_RemoteFileSystem" type="String" htmlType="text"
-        validator="ALPHANUMERIC" size="50" maxsize="250" label="fsa.label.protocol.remotefilesystem"
-        required="yes"/>
+        validator="ALPHANUMERIC" size="50" maxsize="250" label="fsa.label.protocol.remotefilesystem" required="yes"/>
   </GROUP>
 </AFTExtension>
    
