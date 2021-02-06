@@ -23,28 +23,16 @@ B2B_URL = 'https://<REPLACE_HERE_IP_AND_PORT_B2B>:<PORT>'
 B2B_API_USERNAME = '<REPLACE_HERE>'
 B2B_API_PASSWORD = '<REPLACE_HERE>'
 
+auth=HTTPBasicAuth(B2B_API_USERNAME, B2B_API_PASSWORD)
+comm_api_url = B2B_URL + '/B2BAPIs/svc/communities/'
 trading_api_url = B2B_URL + '/B2BAPIs/svc/tradingpartners/'
 
 
-comm_api_url = B2B_URL + '/B2BAPIs/svc/communities/'
-
-def doCreateCommunity(communityName, cdListening=True, ftpListening=True):
-    
-    data = {
-        'name': communityName,
-        'cdListening': cdListening,
-        'ftpListening': ftpListening,
-        'partnerNotificationsEnabled': True,
-        'partnersInitiateConnections': False,
-        'partnersListenForConnections': True,
-        'sshListening': False,
-        'wsListening': True
-    }
+def doCreateCommunity(communityData):
 
     headers = { 'Accept': 'application/json' }
-    auth=HTTPBasicAuth(B2B_API_USERNAME, B2B_API_PASSWORD)
 
-    res = requests.post(url=comm_api_url, auth=auth, json=data)
+    res = requests.post(url=comm_api_url, auth=auth, json=communityData)
 
     if (res.status_code == 201):
         print ( 'Community Created with Sucess %s\n' % (res) )
@@ -56,7 +44,6 @@ def doCreateCommunity(communityName, cdListening=True, ftpListening=True):
 def doCreateTradingPartner(partnerData):
     
     headers = { 'Accept': 'application/json' }
-    auth=HTTPBasicAuth(B2B_API_USERNAME, B2B_API_PASSWORD)
 
     res =  requests.post(url=trading_api_url, auth=auth, json=partnerData)
 
@@ -74,7 +61,6 @@ def doReadTradingPartners(params):
 
     url = trading_api_url + '?'+ urllib.parse.urlencode(params)
     headers = { 'Accept': 'application/json'}
-    auth=HTTPBasicAuth(B2B_API_USERNAME, B2B_API_PASSWORD)
 
     res = requests.get(url=url,headers=headers,auth=auth)
 
@@ -90,39 +76,52 @@ print ('Connecting to B2B...\n')
 
 strnow = datetime.now().strftime("_%Y%m%d_%H%M%S")
 
+
+
+communityData = {
+    'name': 'DEMO_SFG_COMMUNITY',
+    'cdListening': True,
+    'ftpListening': True,
+    'partnerNotificationsEnabled': True,
+    'partnersInitiateConnections': True,
+    'partnersListenForConnections': True,
+    'sshListening': True,
+    'wsListening': True
+}
+
+print('----- Create Community: "' + communityData['name'] + '"\n')
+print( doCreateCommunity(communityData) )
+print ('\n\n')
+
 partnerData = {
     'username': 'demopartner' + strnow,
     'partnerName': 'REST_API_Partner' + strnow,
     'authenticationType': 'Local',
-    'community': 'REST_UI_Community' + strnow,
+    'community': 'DEMO_SFG_COMMUNITY',
     'emailAddress': 'kk@ibm.com',
     'givenName': 'Demo',
-    'isInitiatingConsumer': False,
+    'isInitiatingConsumer': True,
     'isInitiatingProducer': True,
     'isListeningConsumer': False,
     'isListeningProducer': False,
-    'doesUseSSH': False,
+    'doesUseSSH': True,
     'password': 'password',
     'phone':'1234567891',
     'postalCode': '12345',
     'surname': 'Partner'
 }
 
-print ('----- Create Community \n')
-doCreateCommunity('REST_UI_Community' + strnow)
-
 print ('----- Create Trading Partners: "' + partnerData['username'] + '":"' + partnerData['partnerName'] + '"\n')
 print ( doCreateTradingPartner(partnerData) )
-print ('--------------------------------------------------------\n')
+print ('\n\n')
+
 
 print ('----- Read Trading Partners: \n')
-
 # you can remove _include to print all fields
 params = {
     '_range': '0-100',
     'searchFor': '',
     '_include':'community'
 }
-
 print ( doReadTradingPartners(params) )
-print ('--------------------------------------------------------\n')
+print ('\n\n')

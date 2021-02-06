@@ -6,10 +6,13 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 | APIs Name                       |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| create-communities              | Create Communities using B2Bi API, code example with Python             |
-| create-read-trading-partners    | Create and read Trading Partners using B2Bi API, code example with Python |
-| create-sfg-routing-channel-xapi | Sample code that Creates a Routing Channel in Sterling File Gateway using XAPI. |
+| code-lists                      | Python code to Create, Read, Update and Delete Code Lists using B2Bi API. Create Code List stored from CSV file|
 | create-user-using-xapi          | Create user using XAPI in a business process |
+| sfg-communities-apis            | Python code to create Communities using B2Bi API,           |
+| sfg-routing-channel-api         | Python code to Creates a Routing Channel in Sterling File Gateway. |
+| sfg-routing-channel-xapi        | Sample code that Creates a Routing Channel in Sterling File Gateway using XAPI. |
+| trading-partners-apis           | Python code to Create, Read and Update Trading Partners using B2Bi API. List stored on CSV file|
+
 
 # Business Process
 
@@ -19,10 +22,11 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 | cmd-line-adapter-example-01     | Sample code that use Command Line Adapter 2 on Linux |
 | compress-files                  | Samples BPs to compress files using Compress Service and Zip with command line |
 | copy-from-filesystem-to-mailbox | Copy File(s) From File System to a Mailbox |
+| file-folding                    | Samples BPs to put a new line character every N caracters. Use a Java Task |
 | ftp-get-multiple-files          | Polling  Multiple files from a FTP Partner |
 | hello-world2-http-server-adapter| Hello World 2 example on  HTTP Server Adapter |
 | polling-file-from-sftp-parner   | Poll a file from a SFTP Partner and delivery it internally  |
-| sftp-get-multiple-files          | Polling  Multiple files from a SFTP Partner |
+| sftp-get-multiple-files         | Polling  Multiple files from a SFTP Partner |
 
 
 # Filegateway Scenarios
@@ -51,3 +55,4 @@ Samples using Tools provided by IBBM Sterling B2B
 | Scenarios                           |            Description of Role                                          |
 |-------------------------------------|-------------------------------------------------------------------------|
 | import-code-list-using-command-line | Sample code that creates a Code List in Sterling B2B using import.cmd utility |
+| create-local-users-for-connect-direct | Sample code that creates a Local Users at MS Windows. For use with Connect:Direct |

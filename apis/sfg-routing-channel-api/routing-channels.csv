@@ -1,0 +1,3 @@
+RoutingTemplate,Producer,Consumer,Fact1,Fact2,Fact3,Fact4,Fact5,Fact6,Fact7,Fact8,Fact9
+Demo_RC_SendFile,9001,SystemX,,,,,,,,
+Demo_RC_SendFile,9002,SystemX,,,,,,,,
