@@ -1,0 +1,358 @@
+<process name="Sample_HttpClientRedirect">
+  <sequence>
+    <sequence name="GetCookies">
+      <assign name="Assign" to="OriginalDoc" from="PrimaryDocument/@SCIObjectID"></assign>
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+      <operation name="HTTP Client GET Service">
+        <participant name="HTTPClientGet"/>
+        <output message="HTTPClientGetServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text())"></assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/my-uri/</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="HTTPClientGetServiceResults1" from="*" append="true"></assign>
+        </input>
+      </operation>
+       <operation name="HTTP Client End Session Service">
+        <participant name="HTTPClientEndSession"/>
+        <output message="HTTPClientEndSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+     </sequence>
+    <sequence name="doGET1">
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+       <operation name="HTTP Client GET Service">
+        <participant name="HTTPClientGet"/>
+        <output message="HTTPClientGetServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text())"></assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/redirect_uri</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="HTTPClientGetServiceResults2" from="*" append="true"></assign>
+        </input>
+      </operation>
+       <operation name="releaseCookies">
+        <participant name="ReleaseService"/>
+        <output message="releaseOut">
+          <assign to="TARGET">HTTPClientGetServiceResults1</assign>
+        </output>
+        <input message="inmsg">
+        </input>
+      </operation>
+      <operation name="HTTP Client End Session Service">
+        <participant name="HTTPClientEndSession"/>
+        <output message="HTTPClientEndSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+    </sequence>
+    <sequence name="doGET2">
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+      <operation name="HTTP Client GET Service">
+        <participant name="HTTPClientGet"/>
+        <output message="HTTPClientGetServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text(),&apos;;&apos;, //Set-Cookie[3]/text())"></assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/my_uri/</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="HTTPClientGetServiceResults3" from="*" append="true"></assign>
+        </input>
+      </operation>
+       <operation name="HTTP Client End Session Service">
+        <participant name="HTTPClientEndSession"/>
+        <output message="HTTPClientEndSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+    </sequence>
+     <sequence name="doPOST">
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+ 
+      <assign name="Assign" to="PrimaryDocument" from="OriginalDoc/@SCIObjectID"></assign>
+       <operation name="HTTP Client POST Service">
+        <participant name="HTTPClientPost"/>
+        <output message="HTTPClientPostServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text(),&apos;;&apos;, //Set-Cookie[3]/text())"></assign>
+          <assign to="RawRequest">false</assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/uri_to_post_doc/</assign>
+       </output>
+       <input message="inmsg">
+          <assign to="HTTPClientPOSTServiceResults1" from="*"></assign>
+        </input>
+      </operation>
+    </sequence>
+  </sequence>
+</process>
+<process name="Sample_HttpClientRedirect">
+  <sequence>
+    <sequence name="GetCookies">
+      <assign name="Assign" to="OriginalDoc" from="PrimaryDocument/@SCIObjectID"></assign>
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+      <operation name="HTTP Client GET Service">
+        <participant name="HTTPClientGet"/>
+        <output message="HTTPClientGetServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text())"></assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/my-uri/</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="HTTPClientGetServiceResults1" from="*" append="true"></assign>
+        </input>
+      </operation>
+       <operation name="HTTP Client End Session Service">
+        <participant name="HTTPClientEndSession"/>
+        <output message="HTTPClientEndSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+     </sequence>
+    <sequence name="doGET1">
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+       <operation name="HTTP Client GET Service">
+        <participant name="HTTPClientGet"/>
+        <output message="HTTPClientGetServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text())"></assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/redirect_uri</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="HTTPClientGetServiceResults2" from="*" append="true"></assign>
+        </input>
+      </operation>
+       <operation name="releaseCookies">
+        <participant name="ReleaseService"/>
+        <output message="releaseOut">
+          <assign to="TARGET">HTTPClientGetServiceResults1</assign>
+        </output>
+        <input message="inmsg">
+        </input>
+      </operation>
+      <operation name="HTTP Client End Session Service">
+        <participant name="HTTPClientEndSession"/>
+        <output message="HTTPClientEndSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+    </sequence>
+    <sequence name="doGET2">
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+      <operation name="HTTP Client GET Service">
+        <participant name="HTTPClientGet"/>
+        <output message="HTTPClientGetServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text(),&apos;;&apos;, //Set-Cookie[3]/text())"></assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/my_uri/</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="HTTPClientGetServiceResults3" from="*" append="true"></assign>
+        </input>
+      </operation>
+       <operation name="HTTP Client End Session Service">
+        <participant name="HTTPClientEndSession"/>
+        <output message="HTTPClientEndSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+    </sequence>
+     <sequence name="doPOST">
+      <operation name="HTTP Client Begin Session Service">
+        <participant name="HTTPClientBeginSession"/>
+        <output message="HTTPClientBeginSessionServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="CACertificateId">SBI_SSLCertificateID</assign>
+          <assign to="CipherStrength">Strong</assign>
+          <assign to="ConnectionRetries">4</assign>
+          <assign to="DelayWaitingOnIO">10</assign>
+          <assign to="HTTPClientAdapter">HttpClientAdapterName</assign>
+          <assign to="RemoteHost">hostname.com</assign>
+          <assign to="RemotePort">443</assign>
+          <assign to="SSL">Must</assign>
+          <assign to="SystemCertificateId">SBI_SysCertificateId</assign>
+        </output>
+        <input message="inmsg">
+          <assign to="." from="*"></assign>
+        </input>
+      </operation>
+ 
+      <assign name="Assign" to="PrimaryDocument" from="OriginalDoc/@SCIObjectID"></assign>
+       <operation name="HTTP Client POST Service">
+        <participant name="HTTPClientPost"/>
+        <output message="HTTPClientPostServiceTypeInputMessage">
+          <assign to="." from="*"></assign>
+          <assign to="Cookie" from="concat(//Set-Cookie[1]/text(),&apos;;&apos;, //Set-Cookie[2]/text(),&apos;;&apos;, //Set-Cookie[3]/text())"></assign>
+          <assign to="RawRequest">false</assign>
+          <assign to="RawResponse">true</assign>
+          <assign to="ResponseTimeout">60</assign>
+          <assign to="ShowResponseCode">true</assign>
+          <assign to="URI">/uri_to_post_doc/</assign>
+       </output>
+       <input message="inmsg">
+          <assign to="HTTPClientPOSTServiceResults1" from="*"></assign>
+        </input>
+      </operation>
+    </sequence>
+  </sequence>
+</process>

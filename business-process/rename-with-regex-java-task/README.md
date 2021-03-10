@@ -4,6 +4,8 @@ Samples BPs to rename files using Regular Expressions and Java Classes (Match an
 
 **Tip**: you can use a code list to store matchPattern and replacePattern to your BP be more dynamic. 
 
+**Note**: Java Task is compiled every time it is executed and can affect performance. Using the code as part of Custom Service is much better from performance point of view.
+
 ## Sample 1: Rename file **XYZ_AB_0193_20012021_001594.TXT** to **CB_202101220_594.TXT**
 
 ```XML

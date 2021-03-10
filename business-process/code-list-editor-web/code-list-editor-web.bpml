@@ -1,0 +1,176 @@
+<process name="CodeListEditorWeb">
+  <rule name="list_name">
+    <condition>string-length(/ProcessData/sLN) &gt; 0</condition>
+  </rule>
+
+  <rule name="http_method_post">
+    <condition>string(/ProcessData/http-method) = &quot;POST&quot;</condition>
+  </rule>
+
+  <rule name="http_method_get">
+    <condition>string(/ProcessData/http-method) = &quot;GET&quot;</condition>
+  </rule>
+
+  <rule name="no_parameters">
+    <condition>string-length(/ProcessData/sLN) = 0 and
+        string-length(/ProcessData/sSIt) = 0 and
+        string-length(/ProcessData/sRIt) = 0</condition>
+  </rule>
+
+  <rule name="is_new_page">
+    <condition>string(/ProcessData/ResponseData/newpage) = &quot;New Page&quot;</condition>
+  </rule>
+
+  <rule name="search_has_results">
+    <condition>string(/ProcessData/ResponseData/searchpage) = &quot;Search Page&quot; and count(/ProcessData/Result1/Row1) &gt; 0</condition>
+  </rule>
+
+  <rule name="update_has_results">
+    <condition>string(/ProcessData/ResponseData/updatepage) = &quot;Update Page&quot; and count(/ProcessData/Result1/Row1) &gt; 0</condition>
+  </rule>
+
+  <sequence>
+    <assign to="/ProcessData/This/databasePool">db2Pool</assign>
+    <choice>
+      <select>
+        <case ref="http_method_get" activity="GET"/>
+        <case ref="http_method_post" activity="POST"/>
+      </select>
+
+      <sequence name="GET">
+        <choice>
+          <select>
+            <case ref="list_name" activity="SearchListName"/>
+            <case ref="no_parameters" activity="NewPage"/>
+          </select>
+
+          <sequence name="SearchListName">
+            <operation name="AssignService">
+              <participant name="AssignService"/>
+              <output message="AssignOutputMessage">
+                <assign to="." from="*"/>
+                <assign to="/ProcessData/ResponseData/searchpage">Search Page</assign>
+                <assign to="This/sqlMain" from="concat(&quot;SELECT * FROM CODELIST_XREF_ITEM WHERE CODELIST_XREF_ITEM.LIST_NAME = &apos;&quot;,/ProcessData/sLN/text(),&quot;&apos; AND CODELIST_XREF_ITEM.LIST_VERSION = (SELECT DEFAULT_VERSION FROM CODELIST_XREF_VERS WHERE CODELIST_XREF_VERS.LIST_NAME = &apos;&quot;,/ProcessData/sLN/text(),&quot;&apos;)&quot;)"></assign>
+                <assign to="This/sqlSender" from="if (string-length(/ProcessData/sSIt) &gt; 0,concat(&quot; AND SENDER_ITEM like &apos;%&quot;,/ProcessData/sSIt/text(),&quot;%&apos;&quot;),&quot;&quot;)"></assign>
+                <assign to="This/sqlReceiver" from="if (string-length(/ProcessData/sRIt) &gt; 0,concat(&quot; AND RECEIVER_ITEM like &apos;%&quot;,/ProcessData/sRIt/text(),&quot;%&apos;&quot;),&quot;&quot;)"></assign>
+                <assign to="This/sqlSelect" from="concat(This/sqlMain,This/sqlSender,This/sqlReceiver)"></assign>
+              </output>
+              <input message="AssignInputMessage">
+                <assign to="." from="*"/>
+              </input>
+            </operation>
+
+            <operation name="Lightweight JDBC Adapter">
+              <participant name="LightweightJDBCAdapterQuery"/>
+              <output message="LightweightJDBCAdapterTypeInputMessage">
+                <assign to="." from="*"></assign>
+                <assign to="pool" from="/ProcessData/This/databasePool/text()"></assign>
+                <assign to="query_type">SELECT</assign>
+                <assign to="result_name">Result1</assign>
+                <assign to="row_name">Row1</assign>
+                <assign to="sql" from="/ProcessData/This/sqlSelect/text()"></assign>
+              </output>
+              <input message="inmsg">
+                <assign to="." from="DocToDOM(PrimaryDocument)"></assign>
+              </input>
+            </operation>
+          </sequence>
+          <sequence name="NewPage">
+            <assign to="/ProcessData/ResponseData/newpage">New Page</assign>
+          </sequence>
+        </choice>
+      </sequence>
+
+      <sequence name="POST">
+
+
+        <operation name="AssignService">
+          <participant name="AssignService"/>
+          <output message="AssignOutputMessage">
+            <assign to="." from="*"/>
+            <assign to="/ProcessData/ResponseData/updatepage">Update Page</assign>
+            <assign to="This/P1">UPDATE CODELIST_XREF_ITEM SET</assign>
+            <assign to="This/F1" from="concat(&quot; SENDER_ITEM = &apos;&quot;,/ProcessData/HttpURLDecodedValues/mSIt/text(),&quot;&apos;,&quot;)"></assign>
+            <assign to="This/F2" from="concat(&quot; RECEIVER_ITEM = &apos;&quot;,/ProcessData/HttpURLDecodedValues/mRIt/text(),&quot;&apos;,&quot;)"></assign>
+            <assign to="This/F3" from="concat(&quot; DESCRIPTION = &apos;&quot;,/ProcessData/HttpURLDecodedValues/mDesc/text(),&quot;&apos;,&quot;)"></assign>
+            <assign to="This/F4" from="concat(&quot; TEXT1 = &apos;&quot;,/ProcessData/HttpURLDecodedValues/mT1/text(),&quot;&apos;,&quot;)"></assign>
+            <assign to="This/F5" from="concat(&quot; TEXT2 = &apos;&quot;,/ProcessData/HttpURLDecodedValues/mT2/text(),&quot;&apos;,&quot;)"></assign>
+            <assign to="This/F6" from="concat(&quot; TEXT3 = &apos;&quot;,/ProcessData/HttpURLDecodedValues/mT3/text(),&quot;&apos;&quot;)"></assign>
+            <assign to="This/W1" from="concat(&quot; WHERE LIST_NAME = &apos;&quot;,/ProcessData/HttpURLDecodedValues/LN,&quot;&apos;&quot;)"></assign>
+            <assign to="This/W2" from="concat(&quot; AND LIST_VERSION = &apos;&quot;,/ProcessData/HttpURLDecodedValues/LV,&quot;&apos;&quot;)"></assign>
+            <assign to="This/W3"> AND SENDER_ID IS NULL AND RECEIVER_ID IS NULL</assign>
+            <assign to="This/W4" from="concat(&quot; AND SENDER_ITEM = &apos;&quot;,/ProcessData/HttpURLDecodedValues/SIt,&quot;&apos;&quot;)"></assign>
+            <assign to="This/W5" from="concat(&quot; AND RECEIVER_ITEM = &apos;&quot;,/ProcessData/HttpURLDecodedValues/RIt,&quot;&apos;&quot;)"></assign>
+            <assign to="This/sqlUpdate" from="concat(This/P1,This/F1,This/F2,This/F3,This/F4,This/F5,This/F6,This/W1,This/W2,This/W3,This/W4,This/W5)"></assign>
+          </output>
+          <input message="AssignInputMessage">
+            <assign to="." from="*"/>
+          </input>
+        </operation>
+
+
+        <operation name="Lightweight JDBC Adapter">
+          <participant name="LightweightJDBCAdapterQuery"/>
+          <output message="LightweightJDBCAdapterTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="pool" from="/ProcessData/This/databasePool/text()"></assign>
+            <assign to="query_type">UPDATE</assign>
+            <assign to="result_name">Result1</assign>
+            <assign to="row_name">Row1</assign>
+            <assign to="sql" from="/ProcessData/This/sqlUpdate/text()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="DocToDOM(PrimaryDocument)"></assign>
+          </input>
+        </operation>
+      </sequence>
+    </choice>
+
+    <choice>
+      <select>
+        <case ref="is_new_page" activity="OutputNewPage"/>
+        <case ref="search_has_results" activity="OutputSearchResults"/>
+        <case ref="update_has_results" activity="OutputUpdateResults"/>
+        <case ref="search_has_results" negative="true" activity="OutputSearchNoResults"/>
+      </select>
+
+      <sequence name="OutputNewPage">
+        <assign to="/ProcessData/ResponseData/newpage">New Page</assign>
+      </sequence>
+      <sequence name="OutputSearchResults">
+        <assign to="/ProcessData/ResponseData/data" from="/ProcessData/Result1/Row1"></assign>
+      </sequence>
+      <sequence name="OutputSearchNoResults">
+        <assign to="/ProcessData/ResponseData/result">Query return 0 results!</assign>
+      </sequence>
+      <sequence name="OutputUpdateResults">
+        <assign to="/ProcessData/ResponseData/result" from="concat(&quot;Update Affected: &quot;,/ProcessData/Result1/Row1/Rows_Affected/text(),&quot; rows. &quot;)"></assign>
+      </sequence>
+    </choice>
+    <operation name="XSLT Service">
+      <participant name="XSLTService"/>
+      <output message="XSLTServiceTypeInputMessage">
+        <assign to="input_pd_xpath">/ProcessData/ResponseData</assign>
+        <assign to="xml_input_from">ProcData</assign>
+        <assign to="xml_input_validation">NO</assign>
+        <assign to="xslt_name">CodeListEditorWeb</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="HttpRespond">
+      <participant name="HttpRespond"/>
+      <output message="HttpRespondInputMessage">
+        <assign to="doc-has-headers">false</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+  </sequence>
+</process>
