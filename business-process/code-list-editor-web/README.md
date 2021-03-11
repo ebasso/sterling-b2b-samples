@@ -4,9 +4,11 @@ Allow you to search a Code list and update a record. Solved a problem when Code 
 
 Screenshot from web page:
 
+## Code List Editor Web - List
 ![Code List Editor Web - List](/readme_images/code-list-editor-web-01.png)
 
-![Code List Editor Web - Update Code list](/readme_images/code-list-editor-web-01.png)
+## Code List Editor Web - Update Code list
+![Code List Editor Web - Update Code list](/readme_images/code-list-editor-web-02.png)
 
 # Files
 
