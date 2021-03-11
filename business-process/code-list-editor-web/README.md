@@ -1,23 +1,19 @@
-# Advanced Search for Sterling File Gateway
+# Code List Editor Web
  
-Create a Web Page to Search for File Gateway' Partners using these fields:
-
-* Partner Name
-* Partner Code
-* Login ID
-* First Name
-* Last Name
+Allow you to search a Code list and update a record. Solved a problem when Code List has multiples pages.
 
 Screenshot from web page:
 
-![Result](/readme_images/sfg-advanced-search.png)
+![Code List Editor Web - List](/readme_images/code-list-editor-web-01.png)
+
+![Code List Editor Web - Update Code list](/readme_images/code-list-editor-web-01.png)
 
 # Files
 
 | File name                          |            Description of BP                                          |
 |------------------------------------|-------------------------------------------------------------------------|
-| sfg-advanced-search-web.bpml       | Business Process to generate a HTML page for Search |
-| sfg-advanced-search.xslt           | XSLT to generate a HTML page for Search |
+| code-list-editor-web.bpml          | Business Process to generate a HTML page for Search |
+| code-list-editor-web.xslt          | XSLT to generate a HTML page for Search |
 
 
 
@@ -29,9 +25,9 @@ Screenshot from web page:
 1) Login o Sterling B2B Console
 
 
-2) Create a new XSLT: **SFGAdvancedSearchWeb**, using file **sfg-advanced-search.xslt** 
+2) Create a new XSLT: **CodeListEditorWeb**, using file **code-list-editor-web.xslt** 
 
-3) Create a new Business Process: **SFGAdvancedSearchWeb**, using file **sfg-advanced-search-web.bpml** 
+3) Create a new Business Process: **CodeListEditorWeb**, using file **code-list-editor-web.bpml** 
 
 **Important**: You must change the pool for your environment, at line 103 of bpml, my database is DB2 so my pool is db2Pool. For oracle, the default value is oraclePool
 
@@ -41,8 +37,8 @@ Screenshot from web page:
 
 4) Create a new  URI on **HTTP Server Adapter**
 
-* field **URI**: /search
-* field **Business Process**: SFGAdvancedSearchWeb
+* field **URI**: /codelisteditor
+* field **Business Process**: CodeListEditorWeb
 
 
 
@@ -51,5 +47,5 @@ Screenshot from web page:
 1) Open a Browser and access the url of HTTP Server adapter
 
 ```
-http://localhost:5033/search
+http://localhost:5033/codelisteditor
 ```
