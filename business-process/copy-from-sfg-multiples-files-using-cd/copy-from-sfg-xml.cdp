@@ -1,0 +1,15 @@
+COPYSFG PROCESS 
+	SNODE=VM_SI_CD
+	SNODEID=(demo_drjohndoe,passw0rd)
+
+COPYIDX COPY 
+	FROM (
+		FILE="/businessprocess/MAILBOX_GET_INDEX_XML"
+		SNODE
+	)
+	TO (
+		FILE="C:\CDProcesses\index.xml"
+		PNODEde
+		DISP=RPL
+	)
+PEND 

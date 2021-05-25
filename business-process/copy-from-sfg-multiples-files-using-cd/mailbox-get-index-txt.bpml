@@ -1,0 +1,42 @@
+<process name="MAILBOX_GET_INDEX_TXT">
+ <sequence name="CDServerSnodeCallbackBP">
+    <operation name="Mailbox Query Service">
+        <participant name="MailboxQuery"/>
+        <output message="MailboxQueryServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="MailboxPath">/Inbox</assign>
+        <assign to="MessageExtractable">YES</assign>
+        <assign to="MessageNamePattern">*</assign>
+        <assign to="OrderBy">MessageId</assign>
+        </output>
+        <input message="inmsg">
+        <assign to="PullList" from="Message/MessageName"></assign>
+        </input>
+    </operation>
+
+    <operation name="XSLT Service">
+            <participant name="XSLTService" />
+            <output message="XSLTServiceTypeInputMessage">
+                <assign to="input_pd_xpath">/ProcessData/PullList</assign>
+                <assign to="xml_input_from">ProcData</assign>
+                <assign to="xml_input_validation">NO</assign>
+                <assign to="xslt_name">PullListTxt</assign>
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+            <assign to="." from="*"></assign>
+            </input>
+        </operation>
+
+    <assign to="RemoteFileName">PullFileList</assign>
+    <operation name="CD Server BP Response Service">
+        <participant name="CDServerBPResponse"/>
+        <output message="CDServerBPResponseServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+        <assign to="." from="*"></assign>
+        </input>
+    </operation>
+ </sequence>
+</process>

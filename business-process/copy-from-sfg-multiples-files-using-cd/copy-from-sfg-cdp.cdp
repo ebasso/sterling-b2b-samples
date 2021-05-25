@@ -1,0 +1,29 @@
+/*BEGIN_REQUESTER_COMMENTS 
+    $PNODE$="CD_WIN2012" $PNODE_OS$="Windows" 
+    $SNODE$="VM_SI_CD" $SNODE_OS$="" 
+    $OPTIONS$="" 
+  END_REQUESTER_COMMENTS*/
+
+COPYSFG PROCESS 
+	&CAMINHO=C:\CDProcesses
+	SNODE=VM_SI_CD
+	SNODEID=(demo_drjohndoe,passw0rd)
+
+COPYIDX COPY 
+	FROM (
+		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP"
+		SNODE
+	)
+	TO (
+		FILE="&CAMINHO\index.cdp"
+		PNODEde
+		DISP=RPL
+	)
+
+SLAST SUBMIT FILE=&CAMINHO\index.cdp &path=&CAMINHO &node=VM_SI_CD &user=demo_drjohndoe &pw=passw0rd
+
+//SYSOPTS="cmd(c:\blablabbla\pega_arquivos_2.bat)"
+//WAITSTP5 RUN TASK PNODE (PGM=Windows)
+//SYSOPTS="cmd(C:\CDProcesses\timeout.exe) args(5)"
+
+PEND 

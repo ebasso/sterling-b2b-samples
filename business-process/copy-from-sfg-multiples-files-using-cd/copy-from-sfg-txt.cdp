@@ -1,0 +1,19 @@
+COPYSFG PROCESS 
+	SNODE=VM_SI_CD
+	SNODEID=(demo_drjohndoe,passw0rd)
+
+COPYIDX COPY 
+	FROM (
+		FILE="/businessprocess/MAILBOX_GET_INDEX_TXT"
+		SNODE
+	)
+	TO (
+		FILE="C:\CDProcesses\index.txt"
+		PNODEde
+		DISP=RPL
+	)
+
+//WAITSTP5 RUN TASK PNODE (PGM=Windows)
+//SYSOPTS="cmd(C:\CDProcesses\timeout.exe) args(5)"
+
+PEND 
