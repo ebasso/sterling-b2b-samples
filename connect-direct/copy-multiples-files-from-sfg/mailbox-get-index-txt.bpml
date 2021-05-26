@@ -20,7 +20,7 @@
                 <assign to="input_pd_xpath">/ProcessData/PullList</assign>
                 <assign to="xml_input_from">ProcData</assign>
                 <assign to="xml_input_validation">NO</assign>
-                <assign to="xslt_name">PullListTxt</assign>
+                <assign to="xslt_name">PullListTXT</assign>
                 <assign to="." from="*"></assign>
             </output>
             <input message="inmsg">

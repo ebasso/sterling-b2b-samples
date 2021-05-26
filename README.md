@@ -32,6 +32,12 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 | sftp-get-multiple-files         | Polling  Multiple files from a SFTP Partner |
 
 
+# Connect Direct
+
+| BPs Name                        |            Description of Role                                          |
+|---------------------------------|-------------------------------------------------------------------------|
+| [copy-multiples-files-from-sfg](connect-direct/copy-multiple-files-from-sfg) | CD Process that copy multiples files FROM SFG |
+
 # Filegateway Scenarios
 
 Samples scenarios to be used on IBM Sterling FileGateway
@@ -63,7 +69,7 @@ Samples using Tools provided by IBBM Sterling B2B
 
 # Authors
 
-* **Enio Basso** - *Initial work* - [My Repository](https://github.com/ebasso)
+* **Enio Basso** - [My Repository](https://github.com/ebasso) - [My Site](https://ebasso.net) - [My Wiki](https://ebasso.net/wiki)
 
 
 # License
