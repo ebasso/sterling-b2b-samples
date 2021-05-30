@@ -29,6 +29,10 @@
         </operation>
 
     <assign to="RemoteFileName">PullFileList</assign>
+
+     <!-- Return (0) as failure success to caller  -->
+     <assign to="CDServerNodeData/CallbackReturnCount">0</assign>
+
     <operation name="CD Server BP Response Service">
         <participant name="CDServerBPResponse"/>
         <output message="CDServerBPResponseServiceTypeInputMessage">
@@ -38,5 +42,22 @@
         <assign to="." from="*"></assign>
         </input>
     </operation>
+
+    <onFault>
+     <sequence name="On Fault Sequence Start">
+        <!-- Return (8) as failure status to caller  -->
+       <assign to="CDServerNodeData/CallbackReturnCount">8</assign>
+
+       <operation name="CD Server BP Response Service">
+         <participant name="CDServerBPResponse"/>
+         <output message="CDServerBPResponseServiceTypeInputMessage">
+           <assign to="." from="*"></assign>
+         </output>
+         <input message="inmsg">
+           <assign to="OnFaultCDServerBPResponseResults" from="*"></assign>
+         </input>
+       </operation>
+     </sequence>
+   </onFault>
  </sequence>
 </process>

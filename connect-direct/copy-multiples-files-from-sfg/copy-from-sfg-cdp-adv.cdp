@@ -11,7 +11,8 @@ COPYSFG PROCESS
 
 COPYIDX COPY 
 	FROM (
-		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP"
+		// use backslash for Windows Paths
+		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP_ADV/var1=value1;var2=value2;backslash"
 		SNODE
 	)
 	TO (
