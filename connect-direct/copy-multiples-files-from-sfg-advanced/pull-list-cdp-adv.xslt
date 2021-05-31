@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:urn="someurn">
 <xsl:output method="text" />
-<xsl:template match="/This/PullList">/* Process Index Copy */
+<xsl:template match="/">/* Process Index Copy */
 PIDXCPY PROCESS
    SNODE=<xsl:text>&#38;</xsl:text>node
    SNODEID=(<xsl:text>&#38;</xsl:text>user,<xsl:text>&#38;</xsl:text>pw)
-<xsl:for-each select="MessageName">
+<xsl:for-each select="/This/PullList/MessageName">
 CPY<xsl:value-of select="position()" /> COPY
      FROM (
          FILE="/mailbox/Inbox/<xsl:value-of select="text()"/>"

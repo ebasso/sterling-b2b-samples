@@ -12,7 +12,7 @@ COPYSFG PROCESS
 COPYIDX COPY 
 	FROM (
 		// use backslash for Windows Paths
-		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP_ADV/var1=value1;var2=value2;backslash"
+		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP_ADV/var1=value1;var2=value2;"
 		SNODE
 	)
 	TO (

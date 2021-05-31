@@ -1,0 +1,90 @@
+<process name="MAILBOX_DELETE_FILE_RUNTASK">
+<rule name="DelMsgCntGreaterZero">
+  <condition>count(/ProcessData/DeleteResults/Message/MessageId)&gt;0</condition>
+ </rule>
+  <rule name="has_mailboxpath">
+   <condition>contains(/ProcessData/CDServerNodeData/RemoteFileName/text(),'mbx=')</condition>
+  </rule>
+
+ <sequence name="CDServerSnodeCallbackBP">
+
+    <operation name="AssignService">
+      <participant name="AssignService"/>
+      <output message="AssignOutputMessage">
+        <assign to="." from="*"/>
+        <assign to="This/ReturnCode">0</assign>
+        <assign to="This/MailboxPath">/Inbox</assign>
+      </output>
+      <input message="AssignInputMessage">
+        <assign to="." from="*"/>
+      </input>
+    </operation>
+
+   <assign to="This/MessageNamePattern" from="substring-before(substring-after(/ProcessData/CDServerNodeData/Forwarding/Sysopts/text(),'filename='),';')"/>
+
+    <choice name="HasMailboxPath">
+      <select>
+        <case ref="has_mailboxpath" activity="setMailboxPath"/>
+      </select>
+
+      <sequence name="setMailboxPath">
+        <assign to="This/MailboxPath" from="translate(substring-before(substring-after(/ProcessData/CDServerNodeData/Forwarding/Sysopts/text(),'mbx='),';'),'˜','/')"/>
+      </sequence>
+    </choice>                                  
+   
+
+    <operation name="Mailbox Delete Service">
+    <participant name="MailboxDelete"/>
+    <output message="DeleteRequest">
+      <assign to="." from="*"></assign>
+      <assign to="MailboxPath" from="string(/ProcessData/This/MailboxPath)"/>
+      <assign to="MessageNamePattern" from="string(/ProcessData/This/MessageNamePattern)"/>
+      <assign to="MailboxSelection">choose</assign>
+      <assign to="MessageExtractable">ALL</assign>
+    </output>
+    <input message="inmsg">
+      <assign to="DeleteResults" from="*"></assign>
+    </input>
+    </operation>
+
+    <choice name="MessagenNotDeleted">
+    <select>
+      <case ref="DelMsgCntGreaterZero" negative="true" activity="message_not_deleted"/>
+    </select>
+    <sequence name="message_not_deleted">
+      <assign name="Assign" to="CDServerNodeData/CallbackReturnCount">8</assign>
+    </sequence>
+    </choice>	
+
+
+     <!-- Return (0) as failure success to caller  -->
+     <assign to="CDServerNodeData/CallbackReturnCount" from="/ProcessData/This/ReturnCode/text()"></assign>
+
+    <operation name="CD Server BP Response Service">
+        <participant name="CDServerBPResponse"/>
+        <output message="CDServerBPResponseServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        </output>
+        <input message="inmsg">
+        <assign to="." from="*"></assign>
+        </input>
+    </operation>
+
+    <onFault>
+     <sequence name="On Fault Sequence Start">
+        <!-- Return (8) as failure status to caller  -->
+       <assign to="CDServerNodeData/CallbackReturnCount">8</assign>
+
+       <operation name="CD Server BP Response Service">
+         <participant name="CDServerBPResponse"/>
+         <output message="CDServerBPResponseServiceTypeInputMessage">
+           <assign to="." from="*"></assign>
+         </output>
+         <input message="inmsg">
+           <assign to="OnFaultCDServerBPResponseResults" from="*"></assign>
+         </input>
+       </operation>
+     </sequence>
+   </onFault>
+ </sequence>
+</process>

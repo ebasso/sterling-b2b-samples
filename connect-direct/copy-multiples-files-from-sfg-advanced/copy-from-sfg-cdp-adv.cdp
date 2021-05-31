@@ -1,0 +1,57 @@
+/*BEGIN_REQUESTER_COMMENTS 
+    $PNODE$="CD_WIN2012" $PNODE_OS$="Windows" 
+    $SNODE$="VM_SI_CD" $SNODE_OS$="" 
+    $OPTIONS$="" 
+  END_REQUESTER_COMMENTS*/
+
+/*
+Every parameter must be on format var1=value;
+
+Parameters:
+- "os=windows;" : return \ in index.cdp
+- "os=unix;" : return / in index.cdp
+- "os=other;" : return empty in index.cdp
+- "fi=xyz*;" : filter for filenames on mailox (Message Name Pattern)
+- "mbx=@Inbox;" : define Mailbox Path. the character @ was replaced with  /
+*/
+
+COPYSFG PROCESS 
+	&MYPATH=C:\CDProcesses
+	&MYUSER=demo_drjohndoe
+	&MYPW=passw0rd
+	&MYNODE=VM_SI_CD
+	SNODE=VM_SI_CD
+	SNODEID=(demo_drjohndoe,passw0rd)
+
+COPYIDX COPY 
+	FROM (
+		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP_ADV/os=windows;fi=xyz*;mbx=@Inbox;"
+		SNODE
+	)
+	TO (
+		FILE="&MYPATH\index_xyz.cdp"
+		PNODE
+		DISP=RPL
+	)
+
+SLAST SUBMIT FILE=&MYPATH\index_xyz.cdp &path=&MYPATH\XYZ &node=&MYNODE &user=&MYUSER &pw=&MYPW
+
+
+COPYIDX2 COPY 
+	FROM (
+		FILE="/businessprocess/MAILBOX_GET_INDEX_CDP_ADV/os=windows;fi=abc*;mbx=@Inbox;"
+		SNODE
+	)
+	TO (
+		FILE="&MYPATH\index_abc.cdp"
+		PNODE
+		DISP=RPL
+	)
+
+SLAST2 SUBMIT FILE=&MYPATH\index_abc.cdp &path=&MYPATH\ABC &node=&MYNODE &user=&MYUSER &pw=&MYPW
+
+//SYSOPTS="cmd(c:\blablabbla\pega_arquivos_2.bat)"
+//WAITSTP5 RUN TASK PNODE (PGM=Windows)
+//SYSOPTS="cmd(C:\CDProcesses\timeout.exe) args(5)"
+
+PEND 
