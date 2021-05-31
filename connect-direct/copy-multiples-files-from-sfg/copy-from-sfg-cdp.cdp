@@ -16,7 +16,7 @@ COPYIDX COPY
 	)
 	TO (
 		FILE="&MYPATH\index.cdp"
-		PNODEde
+		PNODE
 		DISP=RPL
 	)
 

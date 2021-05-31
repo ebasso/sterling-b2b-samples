@@ -36,8 +36,8 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 | BPs Name                        |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| [copy-multiples-files-from-sfg](connect-direct/copy-multiple-files-from-sfg) | CD Process that copy multiples files FROM SFG |
-| [copy-multiples-files-from-sfg-advanced](connect-direct/copy-multiple-files-from-sfg-advanced) | CD Process that copy multiples files FROM SFG and run a runtask to delete from mailbox |
+| [copy-multiples-files-from-sfg](connect-direct/copy-multiples-files-from-sfg) | CD Process that copy multiples files FROM SFG |
+| [copy-multiples-files-from-sfg-advanced](connect-direct/copy-multiples-files-from-sfg-advanced) | CD Process that copy multiples files FROM SFG and run a runtask to delete from mailbox |
 | [silent-install](connect-direct/silent-install) | C:D silent install for Windows |
 
 # Filegateway Scenarios
