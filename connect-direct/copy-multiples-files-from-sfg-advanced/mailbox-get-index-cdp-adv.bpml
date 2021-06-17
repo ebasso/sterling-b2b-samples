@@ -22,6 +22,7 @@
       <output message="AssignOutputMessage">
         <assign to="." from="*"/>
         <assign to="This/SlashType">\</assign>
+        <assign to="This/Dummy">/* Dummy Comment */</assign>
         <assign to="This/MailboxPath">/Inbox</assign>
         <assign to="This/MessageNamePattern">*</assign>
       </output>
@@ -43,6 +44,7 @@
       
       <sequence name="osUnix">
         <assign to="This/SlashType">/</assign>
+        <assign to="This/Dummy">RUNECHO RUN TASK PNODE SYSOPTS="echo Dummy"</assign>
       </sequence>
       
       <sequence name="osOther">

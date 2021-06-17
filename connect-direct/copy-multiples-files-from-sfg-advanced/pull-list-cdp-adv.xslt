@@ -18,11 +18,14 @@ CPY<xsl:value-of select="position()" /> COPY
      )
 
 IFCPY<xsl:value-of select="position()" /> IF (CPY<xsl:value-of select="position()" /> EQ 0) THEN
+            /* PGM=MAILBOX_DELETE_FILE_RUNTASK  --> Need to implement this */
             RUN TASK SNODE
-               PGM=MAILBOX_DELETE_FILE_RUNTASK
                SYSOPTS="filename=<xsl:value-of select="text()"/>;"
         EIF
 </xsl:for-each>
+
+<xsl:value-of select="/This/Dummy" />
+
 PEND
 </xsl:template>
 </xsl:stylesheet>

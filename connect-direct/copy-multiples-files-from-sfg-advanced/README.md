@@ -1,7 +1,7 @@
 # Copy Multiple Files FROM Sterling File Gateway
 
 
-Currently Sterling File Gateway don't support copy multiple files using Connect:Direct Protocol
+Currently Connect:Direct Protocol don't support copy multiple files when the partner is using Sterling File Gateway.
 
 ```
  COPYIDX COPY 
@@ -15,6 +15,8 @@ Currently Sterling File Gateway don't support copy multiple files using Connect:
 		DISP=RPL
 	)
 ```
+
+But in this example i show how to acomplish this
 
 # Copy from SFG using CDP file and delete after download
 
@@ -39,7 +41,9 @@ Every parameter must be on format var1=value;
 
 Parameters:
 * **os=windows;** : return \ in index.cdp. Default Value: /
-* **os=unix;** : return / in index.cdp. Default Value: /
+* **os=unix;** : 
+  * return / in index.cdp. Default Value: /
+  * add a run task runecho in the case of no files to return
 * **os=other;**" : return empty in index.cdp. Default Value: /
 * **fi=xyz*;** : filter for filenames on mailox (Message Name Pattern). Default Value: *
 * **mbx=@Inbox@SubMbx;** : define Mailbox Path. the character ~ was replaced with  /. Default Value: /Inbox
