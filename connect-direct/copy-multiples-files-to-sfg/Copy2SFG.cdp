@@ -1,0 +1,58 @@
+/* BEGIN_REQUESTER_COMMENTS
+   $PNODE$='CD_LINUX' $PNODE_OS$='UNIX'
+   $SNODE$='VM_SI_CD' $SNODE_OS$='UNIX'
+   $OPTIONS$=''
+   END_REQUESTER_COMMENTS*/
+
+COPY2SFG PROCESS
+	SNODE=VM_SI_CD
+	SNODEID=(demo_drjohndoe,passw0rd)
+
+CPY0 COPY
+  FROM (
+    FILE='/tmp/testdata01fsa.txt'
+    PNODE
+  )
+  TO (
+    FILE='/MAILBOX/Inbox'
+    SNODE
+    DISP=RPL
+  )
+
+/*IFCPY0 IF (CPY0 EQ 0) THEN
+  RUN TASK PNODE SYSOPTS='mv /tmp/testdata01fsa.txt /tmp/testdata01fsa.txt.delete'
+EIF*/
+
+CPY1 COPY
+  FROM (
+    FILE='/tmp/testdata01mbx.txt'
+    PNODE
+  )
+  TO (
+    FILE='/MAILBOX/Inbox'
+    SNODE
+    DISP=RPL
+  )
+
+/*IFCPY1 IF (CPY1 EQ 0) THEN
+  RUN TASK PNODE SYSOPTS='mv /tmp/testdata01mbx.txt /tmp/testdata01mbx.txt.delete'
+EIF*/
+
+CPY2 COPY
+  FROM (
+    FILE='/tmp/teste20201111-scp.txt'
+    PNODE
+  )
+  TO (
+    FILE='/MAILBOX/Inbox'
+    SNODE
+    DISP=RPL
+  )
+
+/*IFCPY2 IF (CPY2 EQ 0) THEN
+  RUN TASK PNODE SYSOPTS='mv /tmp/teste20201111-scp.txt /tmp/teste20201111-scp.txt.delete'
+EIF*/
+
+RUNECHO RUN TASK PNODE SYSOPTS='echo Dummy'
+
+PEND
