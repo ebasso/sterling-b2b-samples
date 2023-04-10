@@ -1,0 +1,96 @@
+<process name="ColetaArquivoViaCDstoreMbx">
+  <rule name="FileCounterMaiorQueZero">
+    <condition>number(/ProcessData/This/Counter) &gt; 0</condition>
+  </rule>
+
+  <rule name="MailboxPathNotEmpty">
+    <condition>string-length(/ProcessData/This/MailboxPath/text()) &gt; 0</condition>
+  </rule>
+
+  <sequence>
+    <assign to="This/Counter">10</assign>
+    <operation name="InformacoesConexao">
+      <participant name="AssignService"/>
+      <output message="AssignServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="This/LocalCDNodeName">SINODE01</assign>
+        <assign to="This/LocalUserId">demo_connectdirect</assign>
+        <assign to="This/RemoteCDNodeName">CDNODE01</assign>
+        <assign to="This/RemotePasswd">passw0rd</assign>
+        <assign to="This/RemoteUserId">Administrator</assign>
+        <assign to="This/LocalPasswd">passw0rd</assign>
+        <assign to="This/RemoteFileName">C:\MyTempDir\myfile.dat</assign>
+        <assign to="This/MailboxPath">/Demo_ConnectDirect/Inbox</assign>
+        <assign to="This/MessageName">myfile.dat</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <choice name="ForEachFile">
+      <select>
+        <case ref="FileCounterMaiorQueZero" activity="GetFilesStart"/>
+      </select>
+
+      <sequence name="GetFilesStart">
+        <operation name="CD Server Begin Session Service">
+          <participant name="CDServerBeginSession"/>
+          <output message="CDServerBeginSessionServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="LocalCDNodeName" from="/ProcessData/This/LocalCDNodeName/text()"></assign>
+            <assign to="LocalUserId" from="/ProcessData/This/LocalUserId/text()"></assign>
+            <assign to="LocalPasswd" from="/ProcessData/This/LocalPasswd/text()"></assign>
+            <assign to="RemoteCDNodeName" from="/ProcessData/This/RemoteCDNodeName/text()"></assign>
+            <assign to="RemoteUserId" from="/ProcessData/This/RemoteUserId/text()"></assign>
+            <assign to="RemotePasswd" from="/ProcessData/This/RemotePasswd/text()"></assign>
+            <assign to="UsingObscuredPasswd">NO</assign>
+          </output>
+          <input message="inmsg">
+            <assign to="BeginSessionResults" from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="CD Server CopyFrom Service">
+          <participant name="CDServerCopyFrom"/>
+          <output message="CDServerCopyFromServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="RemoteFileName" from="/ProcessData/This/RemoteFileName/text()"></assign>
+            <assign to="SessionToken" from="//BeginSessionResults/SessionToken/node()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="CD Server End Session Service">
+          <participant name="CDServerEndSession"/>
+          <output message="CDServerEndSessionServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="SessionToken" from="//BeginSessionResults/SessionToken/node()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="Mailbox Add Service">
+          <participant name="MailboxAdd"/>
+          <output message="MailboxAddServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="ExtractableCount">1</assign>
+            <assign to="MailboxPath" from="/ProcessData/This/MailboxPath/text()"></assign>
+            <assign to="MessageName" from="/ProcessData/This/MessageName/text()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <assign name="Assign" to="This/Counter" from="number(/ProcessData/This/Counter)-1"></assign>
+        <repeat name="Repeat" ref="ForEachFile"/>
+
+      </sequence>
+    </choice>
+  </sequence>
+</process>

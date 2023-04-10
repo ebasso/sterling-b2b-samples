@@ -1,0 +1,110 @@
+<process name = "WriteReadFileOnCD"> 
+  <rule name="FileCounterMaiorQueZero">
+    <condition>number(/ProcessData/This/Counter) &gt; 0</condition>
+  </rule>
+
+  <rule name="MailboxPathNotEmpty">
+    <condition>string-length(/ProcessData/This/MailboxPath/text()) &gt; 0</condition>
+  </rule>
+
+  <sequence name="Sequence Start">
+    <assign name="Assign" to="This/Counter">10</assign>
+    <operation name="InformacoesConexao">
+      <participant name="AssignService"/>
+      <output message="AssignServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="This/LocalCDNodeName">SINODE01</assign>
+        <assign to="This/LocalUserId">demo_connectdirect</assign>
+        <assign to="This/RemoteCDNodeName">CDNODE01</assign>
+        <assign to="This/RemotePasswd">passw0rd</assign>
+        <assign to="This/RemoteUserId">Administrator</assign>
+        <assign to="This/LocalPasswd">passw0rd</assign>
+        <assign to="This/RemoteFilePrefix">C:\Program Files\ibm\Connect Direct v6.0.0\Server\Download\</assign>
+        <assign to="This/MessageName">ArquivoXPTO</assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <assign to="EmptyDummy">12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890</assign>
+    <assign to="." from="DOMToDoc(/ProcessData/EmptyDummy,&apos;PrimaryDocument&apos; )"></assign>
+    <choice name="ForEachFile">
+      <select>
+        <case ref="FileCounterMaiorQueZero" activity="GetFilesStart"/>
+      </select>
+
+      <sequence name="GetFilesStart">
+        <assign to="MessageName" from="concat(/ProcessData/This/MessageName/text(),/ProcessData/This/Counter/text())"></assign>
+        <operation name="CD Server Begin Session Service">
+          <participant name="CDServerBeginSession"/>
+          <output message="CDServerBeginSessionServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="LocalCDNodeName" from="/ProcessData/This/LocalCDNodeName/text()"></assign>
+            <assign to="LocalUserId" from="/ProcessData/This/LocalUserId/text()"></assign>
+            <assign to="LocalPasswd" from="/ProcessData/This/LocalPasswd/text()"></assign>
+            <assign to="RemoteCDNodeName" from="/ProcessData/This/RemoteCDNodeName/text()"></assign>
+            <assign to="RemoteUserId" from="/ProcessData/This/RemoteUserId/text()"></assign>
+            <assign to="RemotePasswd" from="/ProcessData/This/RemotePasswd/text()"></assign>
+            <assign to="UsingObscuredPasswd">NO</assign>
+          </output>
+          <input message="inmsg">
+            <assign to="BeginSessionResults" from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="CD Server CopyTo Service">
+          <participant name="CDServerCopyTo"/>
+          <output message="CDServerCopyToServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="RemoteFileName" from="MessageName/text()"></assign>
+            <assign to="SessionToken" from="//BeginSessionResults/SessionToken/node()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="CD Server CopyFrom Service">
+          <participant name="CDServerCopyFrom"/>
+          <output message="CDServerCopyFromServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="RemoteFileName" from="concat(//This/RemoteFilePrefix/text(),//MessageName/text())"></assign>
+            <assign to="SessionToken" from="//BeginSessionResults/SessionToken/node()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <operation name="CD Server End Session Service">
+          <participant name="CDServerEndSession"/>
+          <output message="CDServerEndSessionServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="SessionToken" from="//BeginSessionResults/SessionToken/node()"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <assign name="Assign" to="This/Counter" from="number(/ProcessData/This/Counter)-1"></assign>
+        <operation name="Release Service">
+          <participant name="ReleaseService"/>
+          <output message="ReleaseServiceTypeInputMessage">
+            <assign to="." from="*"></assign>
+            <assign to="TARGET">PrimaryDocument</assign>
+          </output>
+          <input message="inmsg">
+            <assign to="." from="*"></assign>
+          </input>
+        </operation>
+
+        <repeat name="Repeat" ref="ForEachFile"/>
+
+      </sequence>
+    </choice>
+  </sequence>
+</process>
+
+  
