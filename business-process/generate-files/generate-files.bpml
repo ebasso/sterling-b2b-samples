@@ -1,0 +1,90 @@
+<process name="GenerateFiles">
+    <rule name="This/FileCounter">
+        <condition>/ProcessData/This/FileCounter/text()>0</condition>
+    </rule>
+
+    <sequence name="main">,
+        <assign name="Assign" to="This/FileCounter">10</assign>
+        <assign name="Assign" to="This/FilenamePrefix">ABCD123.12345678</assign>
+        <assign name="Assign" to="This/MailboxPath">10</assign>
+
+        <assign to="/ProcessData/EmptyDummy">DSDOWLEHDOSDLSHWODLWHDOLWEHNDOLSHEWNDO
+DKSJDJSDADWEWEWEWQJLKDJLSDKSJDJSDADWEWEWEWQJLKDJLSDKSJDJSDADWEWEWEWQJLKDJLSDKSJDJSDADWEWEWEWQJLKDJLS</assign>
+
+        <operation name="Get_Current_Time">
+            <participant name="TimestampUtilService" />
+            <output message="xout">
+                <assign to="action" from="'current_time'" />
+                <assign to="format">'D'yyyyMMdd.'S'HHmm</assign>
+            </output>
+            <input message="xin">
+            <assign to="This/TimeStamp" from="*" />
+            </input>
+        </operation>
+
+
+        <assign name="Assign" to="." from="DOMToDoc(/ProcessData/EmptyDummy, &apos;PrimaryDocument&apos;)"></assign>
+
+        <operation name="Document Keyword Replace">
+            <participant name="DocKeywordReplace" />
+            <output message="DocKeywordReplaceInputMessage">
+                <assign to="literal_bufferSize">102400</assign>
+                <assign to="literal_mode">true</assign>
+                <assign to="literal_readAheadSize">8192</assign>
+                <assign to="keyword1"
+                    from="string(&apos;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&apos;)">
+                </assign>
+                <assign to="keywordtype1">string</assign>
+                <assign to="replace1" from="string(&apos;&apos;)"></assign>
+                <assign to="keyword2" from="string(&apos;&lt;ProcessData/&gt;&apos;)"></assign>
+                <assign to="keywordtype2">string</assign>
+                <assign to="replace2" from="string(&apos;&apos;)"></assign>
+                <assign to="keyword3">X</assign>
+                <assign to="keywordtype3">string</assign>
+                <assign to="replace3" from="string(&apos;&apos;)"></assign>
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+            <assign to="." from="*"></assign>
+            </input>
+        </operation>
+
+        <operation name="Get Document Information Service">
+            <participant name="GetDocumentInfoService" />
+            <output message="GetDocumentInfoServiceTypeInputMessage">
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+            <assign to="TestInfo" from="*"></assign>
+            </input>
+        </operation>
+
+
+
+        <choice name="forEachFile">
+            <select>
+                <case ref="This/FileCounter" activity="proceed" />
+            </select>
+
+            <sequence name="proceed">
+                <assign name="Assign" to="MessageName" from="concat(This/FilenamePrefix, This/TimeStamp/time/text(), '.' ,This/FileCounter/text())"></assign>
+
+                <operation name="Mailbox Add Service">
+                    <participant name="MailboxAdd" />
+                    <output message="MailboxAddServiceTypeInputMessage">
+                        <assign to="." from="*"></assign>
+                        <assign to="MailboxPath" from="/ProcessData/This/MailboxPath"></assign>
+                    </output>
+                    <input message="inmsg">
+                    <assign to="." from="*"></assign>
+                    </input>
+                </operation>
+
+                <assign name="Assign" to="This/FileCounter" from="number(/ProcessData/This/FileCounter/text())-1">
+                </assign>
+
+                <repeat name="endLoop" ref="forEachFile" />
+            </sequence>
+        </choice>
+    </sequence>
+</process>
