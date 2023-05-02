@@ -9,7 +9,7 @@ COPYIDX COPY
 	)
 	TO (
 		FILE="C:\CDProcesses\index.txt"
-		PNODEde
+		PNODE
 		DISP=RPL
 	)
 
