@@ -1,0 +1,5 @@
+<process name="DEMO_AsyncChildBP">
+    <sequence>
+        <assign to="This/MyVar1">Teste 01</assign>
+    </sequence>
+</process>
