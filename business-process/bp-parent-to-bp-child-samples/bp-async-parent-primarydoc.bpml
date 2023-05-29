@@ -1,0 +1,21 @@
+<process name="DEMO_AsyncParentBP_PrimaryDoc"> 
+  <sequence name="simple"> 
+    <assign to="Msg1" from="'Hello'" append="true"/> 
+    <assign to="Msg2" from="Msg1" append="true"/> 
+    <assign to="Msg3" from="Msg1"/> 
+     <assign to="OtherMsg4" from="//Msg2" append="true"/> 
+    <assign to="OtherMsg5/OtherMsg6" from="//Msg2/Msg1/text()" append="true"/> 
+    <assign to="message_to_child" from="//PrimaryDocument | // OtherMsg5 " append="true"/> 
+  <operation> 
+     <participant name="InvokeBusinessProcessService"/> 
+       <output message="Xout"> 
+         <assign to="." from="*"></assign> 
+         <assign to="WFD_NAME">DEMO_AsyncChildBP</assign> 
+         <assign to="INVOKE_MODE">ASYNC</assign> 
+       </output> 
+       <input message="Xin" > 
+          <assign to="." from="*"></assign> 
+       </input> 
+    </operation> 
+ </sequence> 
+</process> 
