@@ -1,0 +1,20 @@
+<process name="DEMO_Async_ParentBP">
+    <sequence>
+        <assign to="LocalVar1">Hello</assign>
+        <assign to="LocalVar2">Hello World</assign>
+        <assign to="This/MyParentVar1">Hello World 2</assign>
+
+        <assign to="message_to_child" from="//This" /> 
+        <operation name="CallSubProcessService">
+            <participant name="InvokeSubProcessService"/>
+            <output message="InvokeSubProcessServiceTypeInputMessage">
+                <assign to="INVOKE_MODE">ASYNC</assign>
+                <assign to="WFD_NAME">DEMO_AsyncChildBP</assign>
+                <assign to="NOTIFY_PARENT_ON_ERROR">ALL</assign>
+            </output>
+            <input message="inmsg">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+    </sequence>
+</process>
