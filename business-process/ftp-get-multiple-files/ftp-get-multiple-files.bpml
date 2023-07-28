@@ -60,7 +60,6 @@
       </output>
       <input message="inmsg">
         <assign to="." from="*"></assign>
-        <assign to="FTPClientListServiceResults" from="*"></assign>
       </input>
     </operation>
 
@@ -72,15 +71,17 @@
       </select>
 
       <sequence name="proceed">
+
+        <!-- FTP Get and output to primary document-->
         <operation name="FTP Client GET Service">
           <participant name="FTPClientGet"/>
           <output message="FtpGetRequests">
-            <assign to="RemoteFileName" from="/ProcessData/ListNames/Name[1]/text()"></assign>
+            <assign to="RemoteFileName" from="//ListNames/Name[1]/text()"></assign>
             <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
             <assign to="ConnectionType">PASSIVE</assign> 
           </output>
           <input message="FtpGetResults">
-            <assign to="FTPClientGetResults" from="*"></assign>
+            <assign to="." from="*"></assign>
           </input>
         </operation>
 
@@ -94,7 +95,7 @@
             <assign to="." from="*"></assign>
           </output>
           <input message="inmsg">
-            <assign to="MailboxAdd" from="*"></assign>
+            <assign to="MailboxAddResults" from="*"></assign>
           </input>
         </operation>
 <!--
@@ -116,7 +117,7 @@
         <operation name="Release Service">
           <participant name="ReleaseService"/>
           <output message="ReleaseServiceTypeInputMessage">
-            <assign to="TARGET">/ProcessData/DocumentList/DocumentId[1] | /ProcessData/ListNames/Name[1] | /ProcessData/MailboxAdd</assign>
+            <assign to="TARGET">/ProcessData/PrimaryDocument | /ProcessData/DocumentList/DocumentId[1] | /ProcessData/ListNames/Name[1] | /ProcessData/MailboxAddResults</assign>
             <assign to="." from="*"></assign>
           </output>
           <input message="inmsg">
