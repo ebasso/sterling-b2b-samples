@@ -4,19 +4,47 @@
   </rule>
 
   <sequence>
-    <operation name="FTP Client Begin Session Service">
-      <participant name="FTPClientBeginSession"/>
-      <output message="FTPClientBeginSessionServiceTypeInputMessage">
+    <operation name="AssignService">
+      <participant name="AssignService"/>
+      <output message="AssignOutputMessage">
         <assign to="RemoteHost">localhost</assign>
         <assign to="FTPClientAdapter">FTPClientAdapter</assign>
-        <assign to="UsingRevealedPasswd">True</assign>
         <assign to="RemotePasswd">passw0rd</assign>
         <assign to="RemoteUserId">Demo_Remote_FTP</assign>
         <assign to="RemotePort">21</assign>
+        <assign to="RemoteDirectory">/home/username/documents</assign>
+        <assign to="MailboxPath">/Inbox</assign>
+      </output>
+      <input message="AssignInputMessage">
+        <assign to="." from="*"/>
+      </input>
+    </operation>
+
+
+    <operation name="FTP Client Begin Session Service">
+      <participant name="FTPClientBeginSession"/>
+      <output message="FTPClientBeginSessionServiceTypeInputMessage">
+        <assign to="RemoteHost" from="//RemoteHost/text()"></assign>
+        <assign to="FTPClientAdapter" from="//FTPClientAdapter/text()"></assign>
+        <assign to="UsingRevealedPasswd">True</assign>
+        <assign to="RemotePasswd" from="//RemotePasswd/text()"></assign>
+        <assign to="RemoteUserId" from="//RemoteUserId/text()"></assign>
+        <assign to="RemotePort" from="//RemotePort/text()"></assign>
         <assign to="." from="*"></assign>
       </output>
       <input message="inmsg">
         <assign to="FTPClientBeginSessionServiceResults" from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="FTP CD SERVICE">
+      <participant name="FTPClientCd"/>
+      <output message="CdRequest">
+        <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
+        <assign to="Directory" from="//RemoteDirectory/text()"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="FTPClientCdResults" from="*"></assign>
       </input>
     </operation>
 
@@ -53,8 +81,20 @@
             <assign to="FTPClientGetResults" from="*"></assign>
           </input>
         </operation>
-        <!-- <operation name="Mailbox Add Service"> <participant name="MailboxAdd"/> <output message="MailboxAddServiceTypeInputMessage"> <assign to="DocumentId" from="/ProcessData/DocumentList/DocumentId[1]/text()"></assign> <assign
-        to="Extractable">YES</assign> <assign to="MailboxPath">/Inbox</assign> <assign to="." from="*"></assign> </output> <input message="inmsg"> <assign to="MailboxAdd" from="*"></assign> </input> </operation> -->
+
+        <operation name="Mailbox Add Service">
+          <participant name="MailboxAdd"/>
+          <output message="MailboxAddServiceTypeInputMessage">
+            <assign to="DocumentId" from="/ProcessData/DocumentList/DocumentId[1]/text()"></assign>
+            <assign to="Extractable">YES</assign>
+            <assign to="MailboxPath" from="//RemotePasswd/text()"></assign>
+            <assign to="." from="*"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="MailboxAdd" from="*"></assign>
+          </input>
+        </operation>
+
         <assign name="Assign" to="FileCounter" from="number(/ProcessData/FileCounter/text())-1"></assign>
 
         <operation name="Release Service">
