@@ -93,7 +93,7 @@
           <participant name="MailboxAdd"/>
           <output message="MailboxAddServiceTypeInputMessage">
             <assign to="Extractable">YES</assign>
-            <assign to="MailboxPath" from="//RemotePasswd/text()"></assign>
+            <assign to="MailboxPath" from="//MailboxPath/text()"></assign>
             <assign to="MessageName" from="//ListNames/Name[1]/text()"></assign> 
             <assign to="." from="*"></assign>
           </output>
