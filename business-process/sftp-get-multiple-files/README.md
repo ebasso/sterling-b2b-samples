@@ -10,12 +10,12 @@ You can schedule this BP to run every 30 minutes to check for files.
 
 | BP Name                           |            Description of Role                                          |
 |-----------------------------------|-------------------------------------------------------------------------|
-| sftp-get-multiple-small-files.bpml | Business Process that do a FTP get multiple small files on partner. In this BP, i do a FTP GET to bring all files |
+| sftp-get-multiple-small-files.bpml | Business Process that do a SFTP get multiple small files on partner. In this BP, i do a SFTP GET to bring all files |
 
 
 # Steps to Run:
 
-**On Remote FTP Server**
+**On Remote SFTP Server**
 
 1) Create a user on remote SFTP server. Example: 
 
