@@ -2,6 +2,9 @@
   <rule name="FileCounter">
     <condition>/ProcessData/FileCounter/text()>0</condition>
   </rule>
+  <rule name="DELETE_FILES?">
+    <condition>/ProcessData/DELETE_FILES/text()=&apos;YES&apos;</condition>
+  </rule>
 
   <sequence>
     <operation name="AssignService">
@@ -98,7 +101,14 @@
             <assign to="MailboxAddResults" from="*"></assign>
           </input>
         </operation>
-<!--
+
+	    <choice name="DELETE_FILE">
+      <select>
+        <case ref="DELETE_FILES?" activity="DELETE_FILE_YES"/>
+      </select>
+
+      <sequence name="DELETE_FILE_YES">
+
         <operation name="FTP Client DELETE Service"> 
           <participant name="FTPClientDelete"/> 
           <output message="FTPClientDeleteServiceTypeInputMessage"> 
@@ -110,7 +120,8 @@
             <assign to="." from="*"></assign> 
           </input> 
         </operation> 
--->
+      </sequence>
+      </choice>
 
         <assign name="Assign" to="FileCounter" from="number(/ProcessData/FileCounter/text())-1"></assign>
 
