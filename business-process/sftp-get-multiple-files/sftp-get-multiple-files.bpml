@@ -2,6 +2,9 @@
   <rule name="FileCounter">
     <condition>/ProcessData/FileCounter/text()>0</condition>
   </rule>
+  <rule name="DELETE_FILES?">
+    <condition>/ProcessData/DELETE_FILES/text()=&apos;YES&apos;</condition>
+  </rule>
 
   <sequence>
     <operation name="AssignService">
@@ -85,7 +88,30 @@
                 <assign to="MailboxAdd" from="*"></assign> 
             </input> 
         </operation>
-        
+
+
+	    <choice name="DELETE_FILE">
+      <select>
+        <case ref="DELETE_FILES?" activity="DELETE_FILE_YES"/>
+      </select>
+
+      <sequence name="DELETE_FILE_YES">
+
+        <operation name="SFTP Client DELETE Service"> 
+          <participant name="SFTPClientDelete"/> 
+          <output message="SFTPClientDeleteServiceTypeInputMessage"> 
+            <assign to="." from="*"></assign> 
+            <assign to="RemoteFileName" from="/ProcessData/SFTPClientListResults/Files/File[1]/Name/text()"/>
+            <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+          </output> 
+          <input message="inmsg"> 
+            <assign to="." from="*"></assign> 
+          </input> 
+        </operation> 
+      </sequence>
+      </choice>
+
+
         <assign name="Assign" to="FileCounter" from="number(/ProcessData/FileCounter/text())-1"></assign>
 
         <operation name="Release Service">
