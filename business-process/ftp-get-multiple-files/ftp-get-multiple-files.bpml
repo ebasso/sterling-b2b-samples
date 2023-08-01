@@ -50,7 +50,7 @@
       <participant name="FTPClientCd"/>
       <output message="CdRequest">
         <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
-        <assign to="Directory" from="//RemoteDirectory/text()"></assign>
+        <assign to="Directory" from="//REMOTE_DIRECTORY/text()"></assign>
       </output>
       <input message="inmsg">
         <assign to="FTPClientCdResults" from="*"></assign>
