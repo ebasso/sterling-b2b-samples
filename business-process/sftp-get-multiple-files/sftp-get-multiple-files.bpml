@@ -5,41 +5,62 @@
   <rule name="DELETE_FILES?">
     <condition>/ProcessData/DELETE_FILES/text()=&apos;YES&apos;</condition>
   </rule>
+  <rule name="MOVE_FILES?">
+    <condition>/ProcessData/MOVE_FILES/text()=&apos;YES&apos;</condition>
+  </rule>
 
   <sequence>
     <operation name="AssignService">
       <participant name="AssignService"/>
       <output message="AssignOutputMessage">
+        <assign to="SFTP_CLIENT_ADAPTER">SFTPClientAdapter</assign>
+        <assign to="SSH_PROFILEID">2356001890249e5e3node1</assign>
+        <!-- 
         <assign to="KnownHostKeyId">442297176384f4ba2node1</assign>
-        <assign to="RemoteHost">localhost</assign>
-        <assign to="SFTPClientAdapter">SFTPClientAdapter</assign>
-        <assign to="RemotePasswd">passw0rd</assign>
-        <assign to="RemoteUserId">Demo_Remote_SFTP</assign>
-        <assign to="RemotePort">22</assign>
-        <assign to="RemoteDirectory">/home/Demo_Remote_SFTP</assign>
-        <assign to="RemoteFileName">*</assign>
-        <assign to="MailboxPath">/Demo_Remote_SFTP/Inbox</assign>
+        <assign to="REMOTE_HOST">localhost</assign>
+        <assign to="REMOTE_PORT">22</assign>
+        <assign to="REMOTE_USER">Demo_Remote_SFTP</assign>
+        <assign to="REMOTE_PASSWORD">passw0rd</assign>
+        --> 
+        <assign to="REMOTE_DIRECTORY">/home/sistema_sftp</assign>
+        <assign to="REMOTE_FILENAME">*.txt</assign>
+        <assign to="MAILBOX_PATH">/Parceiro_SFTP/Inbox</assign>
+        <!-- <assign to="DELETE_FILES">YES</assign> -->
+        <!-- <assign to="MOVE_FILES">YES</assign> -->
       </output>
       <input message="AssignInputMessage">
         <assign to="." from="*"/>
       </input>
     </operation>
 
-
     <operation name="SFTP Client Begin Session Service">
       <participant name="SFTPClientBeginSession"/>
       <output message="SFTPClientBeginSessionServiceTypeInputMessage">
         <assign to="." from="*"/>
-        <assign to="KnownHostKeyId" from="//KnownHostKeyId/text()></assign>
+        <assign to="SFTPClientAdapter" from="//SFTP_CLIENT_ADAPTER/text()"></assign>
+        <assign to="ProfileId" from="/ProcessData/SSH_PROFILEID/text()"></assign>
+        <!-- 
+        <assign to="KnownHostKeyId" from="//KnownHostKeyId/text()"></assign>
         <assign to="RemoteHost" from="//RemoteHost/text()"></assign>
-        <assign to="SFTPClientAdapter" from="//SFTPClientAdapter/text()"></assign>
         <assign to="UsingRevealedPasswd">True</assign>
         <assign to="RemotePasswd" from="//RemotePasswd/text()"></assign>
         <assign to="RemoteUserId" from="//RemoteUserId/text()"></assign>
         <assign to="RemotePort" from="//RemotePort/text()"></assign>
+        -->
       </output>
       <input message="inmsg">
         <assign to="SFTPClientBeginSessionServiceResults" from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="SFTP CD SERVICE">
+      <participant name="SFTPClientCd"/>
+      <output message="CdRequest">
+        <assign to="Directory" from="//REMOTE_DIRECTORY/text()"></assign>
+        <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+      </output>
+      <input message="inmsg">
+        <assign to="SFTPClientCdResults" from="*"></assign>
       </input>
     </operation>
 
@@ -47,7 +68,7 @@
       <participant name="SFTPClientList"/>
       <output message="SFTPClientListServiceTypeInputMessage">
         <assign to="." from="*"/>
-        <assign to="RemoteFileName" from="//RemoteFileName/text()"></assign>
+        <assign to="RemoteFileName" from="//REMOTE_FILENAME/text()"></assign>
         <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
       </output>
       <input message="inmsg">
@@ -72,44 +93,65 @@
             <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
           </output>
           <input message="inmsg">
-            <assign to="SFTPClientGetResults" from="*"/>
+            <assign to="." from="*"/>
           </input>
         </operation>
 
-        <operation name="Mailbox Add Service"> 
-            <participant name="MailboxAdd"/> 
-            <output message="MailboxAddServiceTypeInputMessage"> 
-                <assign to="DocumentId" from="/ProcessData/DocumentList/DocumentId[1]/text()"></assign> 
-                <assign to="Extractable">YES</assign> 
-                <assign to="MailboxPath" from="//MailboxPath/text()"></assign>
-                <assign to="." from="*"></assign> 
-            </output> 
-            <input message="inmsg"> 
-                <assign to="MailboxAdd" from="*"></assign> 
-            </input> 
+        <operation name="Mailbox Add Service">
+          <participant name="MailboxAdd"/>
+          <output message="MailboxAddServiceTypeInputMessage">
+            <assign to="DocumentId" from="/ProcessData/DocumentList/DocumentId[1]/text()"></assign>
+            <assign to="Extractable">YES</assign>
+            <assign to="MailboxPath" from="//MAILBOX_PATH/text()"></assign>
+            <assign to="." from="*"></assign>
+          </output>
+          <input message="inmsg">
+            <assign to="MailboxAdd" from="*"></assign>
+          </input>
         </operation>
 
 
-	    <choice name="DELETE_FILE">
-      <select>
-        <case ref="DELETE_FILES?" activity="DELETE_FILE_YES"/>
-      </select>
+        <choice name="MOVE_FILE">
+          <select>
+            <case ref="MOVE_FILES?" activity="MOVE_FILE_YES"/>
+          </select>
 
-      <sequence name="DELETE_FILE_YES">
+          <sequence name="MOVE_FILE_YES">
 
-        <operation name="SFTP Client DELETE Service"> 
-          <participant name="SFTPClientDelete"/> 
-          <output message="SFTPClientDeleteServiceTypeInputMessage"> 
-            <assign to="." from="*"></assign> 
-            <assign to="RemoteFileName" from="/ProcessData/SFTPClientListResults/Files/File[1]/Name/text()"/>
-            <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
-          </output> 
-          <input message="inmsg"> 
-            <assign to="." from="*"></assign> 
-          </input> 
-        </operation> 
-      </sequence>
-      </choice>
+            <operation name="SFTP Client MOVE Service">
+              <participant name="SFTPClientMove"/>
+              <output message="SFTPClientMoveServiceTypeInputMessage">
+                <assign to="." from="*"></assign>
+                <assign to="RemoteFileName" from="/ProcessData/SFTPClientListResults/Files/File[1]/Name/text()"/>
+                <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+              </output>
+              <input message="inmsg">
+                <assign to="." from="*"></assign>
+              </input>
+            </operation>
+          </sequence>
+        </choice>
+
+        <choice name="DELETE_FILE">
+          <select>
+            <case ref="DELETE_FILES?" activity="DELETE_FILE_YES"/>
+          </select>
+
+          <sequence name="DELETE_FILE_YES">
+
+            <operation name="SFTP Client DELETE Service">
+              <participant name="SFTPClientDelete"/>
+              <output message="SFTPClientDeleteServiceTypeInputMessage">
+                <assign to="." from="*"></assign>
+                <assign to="RemoteFileName" from="/ProcessData/SFTPClientListResults/Files/File[1]/Name/text()"/>
+                <assign to="SessionToken" from="/ProcessData/SFTPClientBeginSessionServiceResults/SessionToken/text()"/>
+              </output>
+              <input message="inmsg">
+                <assign to="." from="*"></assign>
+              </input>
+            </operation>
+          </sequence>
+        </choice>
 
 
         <assign name="Assign" to="FileCounter" from="number(/ProcessData/FileCounter/text())-1"></assign>
@@ -140,6 +182,6 @@
         <assign to="." from="*"/>
       </input>
     </operation>
-    
+
   </sequence>
 </process>
