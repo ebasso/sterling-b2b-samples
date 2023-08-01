@@ -1,0 +1,23 @@
+<process name="Demo_BP_test_smtp">
+  <sequence name="email">
+    <assign to="mailhost" from="sci-get-property('sandbox.cfg','SI_ADMIN_SMTP_HOST')"></assign>
+    <assign to="MAIL_SUBJECT">Test 2023-07-31</assign>
+    <assign to="." from="DOMToDoc(MAIL_SUBJECT,'PrimaryDocument')"></assign>
+    <operation name="Send">
+      <participant name="SMTP_SEND_ADAPTER"/>
+      <output message="Xout">
+        <assign to="." from="*"></assign>
+            <assign to="xport-smtp-mailhost" from="//mailhost/text()"></assign>
+            <assign to="xport-smtp-mailport">25</assign>
+            <assign to="xport-smtp-mailfrom">a@company.com</assign>
+            <assign to="xport-smtp-mailto">b@company.com</assign>
+            <assign to="xport-smtp-mailCC">c@company.com</assign>
+            <assign to="xport-smtp-mailsubject" from="//MAIL_SUBJECT/text()"></assign>
+            <assign to="." from="*"></assign>
+      </output>
+      <input message="Xin">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+  </sequence> 
+</process>
