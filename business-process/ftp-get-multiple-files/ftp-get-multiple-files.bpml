@@ -5,19 +5,24 @@
   <rule name="DELETE_FILES?">
     <condition>/ProcessData/DELETE_FILES/text()=&apos;YES&apos;</condition>
   </rule>
+  <rule name="MOVE_FILES?">
+    <condition>/ProcessData/MOVE_FILES/text()=&apos;YES&apos;</condition>
+  </rule>
 
   <sequence>
     <operation name="AssignService">
       <participant name="AssignService"/>
       <output message="AssignOutputMessage">
-        <assign to="RemoteHost">localhost</assign>
-        <assign to="FTPClientAdapter">FTPClientAdapter</assign>
-        <assign to="RemotePasswd">passw0rd</assign>
-        <assign to="RemoteUserId">sistema_ftp</assign>
-        <assign to="RemotePort">21</assign>
-        <assign to="RemoteDirectory">/home/sistema_ftp</assign>
-        <assign to="RemoteFileName">*</assign>
-        <assign to="MailboxPath">/Sistema_ftp/Inbox</assign>
+        <assign to="REMOTE_HOST">localhost</assign>
+        <assign to="REMOTE_PORT">21</assign>
+        <assign to="FTP_CLIENT_ADAPTER">FTPClientAdapter</assign>
+        <assign to="REMOTE_USER">sistema_ftp</assign>
+        <assign to="REMOTE_PASSWORD">passw0rd</assign>
+        <assign to="REMOTE_DIRECTORY">/home/sistema_ftp</assign>
+        <assign to="REMOTE_FILENAME">*.txt</assign>
+        <assign to="MAILBOX_PATH">/Sistema_ftp/Inbox</assign>
+        <!-- <assign to="DELETE_FILES">YES</assign> -->
+        <!-- <assign to="MOVE_FILES">YES</assign> -->
       </output>
       <input message="AssignInputMessage">
         <assign to="." from="*"/>
@@ -28,12 +33,12 @@
     <operation name="FTP Client Begin Session Service">
       <participant name="FTPClientBeginSession"/>
       <output message="FTPClientBeginSessionServiceTypeInputMessage">
-        <assign to="RemoteHost" from="//RemoteHost/text()"></assign>
-        <assign to="FTPClientAdapter" from="//FTPClientAdapter/text()"></assign>
+        <assign to="RemoteHost" from="//REMOTE_HOST/text()"></assign>
+        <assign to="FTPClientAdapter" from="//FTP_CLIENT_ADAPTER/text()"></assign>
         <assign to="UsingRevealedPasswd">True</assign>
-        <assign to="RemotePasswd" from="//RemotePasswd/text()"></assign>
-        <assign to="RemoteUserId" from="//RemoteUserId/text()"></assign>
-        <assign to="RemotePort" from="//RemotePort/text()"></assign>
+        <assign to="RemotePasswd" from="//REMOTE_PASSWORD/text()"></assign>
+        <assign to="RemoteUserId" from="//REMOTE_USER/text()"></assign>
+        <assign to="RemotePort" from="//REMOTE_PORT/text()"></assign>
         <assign to="." from="*"></assign>
       </output>
       <input message="inmsg">
@@ -57,7 +62,7 @@
       <output message="FTPClientListServiceTypeInputMessage">
         <assign to="." from="*"></assign>
         <assign to="NamesOnly">YES</assign>
-        <assign to="RemoteFileName" from="//RemoteFileName/text()"></assign>
+        <assign to="RemoteFileName" from="//REMOTE_FILENAME/text()"></assign>
         <assign to="ResponseTimeout">60</assign>
         <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
       </output>
@@ -81,20 +86,20 @@
           <output message="FtpGetRequests">
             <assign to="RemoteFileName" from="//ListNames/Name[1]/text()"></assign>
             <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
-            <assign to="ConnectionType">PASSIVE</assign> 
+            <assign to="ConnectionType">PASSIVE</assign>
           </output>
           <input message="FtpGetResults">
             <assign to="." from="*"></assign>
           </input>
         </operation>
 
-        
+
         <operation name="Mailbox Add Service">
           <participant name="MailboxAdd"/>
           <output message="MailboxAddServiceTypeInputMessage">
             <assign to="Extractable">YES</assign>
-            <assign to="MailboxPath" from="//MailboxPath/text()"></assign>
-            <assign to="MessageName" from="//ListNames/Name[1]/text()"></assign> 
+            <assign to="MailboxPath" from="//MAILBOX_PATH/text()"></assign>
+            <assign to="MessageName" from="//ListNames/Name[1]/text()"></assign>
             <assign to="." from="*"></assign>
           </output>
           <input message="inmsg">
@@ -102,26 +107,48 @@
           </input>
         </operation>
 
-	    <choice name="DELETE_FILE">
-      <select>
-        <case ref="DELETE_FILES?" activity="DELETE_FILE_YES"/>
-      </select>
+        <choice name="MOVE_FILE">
+          <select>
+            <case ref="MOVE_FILES?" activity="MOVE_FILE_YES"/>
+          </select>
 
-      <sequence name="DELETE_FILE_YES">
+          <sequence name="MOVE_FILE_YES">
 
-        <operation name="FTP Client DELETE Service"> 
-          <participant name="FTPClientDelete"/> 
-          <output message="FTPClientDeleteServiceTypeInputMessage"> 
-            <assign to="." from="*"></assign> 
-            <assign to="RemoteFileName" from="/ProcessData/ListNames/Name[1]/text()"></assign> 
-            <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
-          </output> 
-          <input message="inmsg"> 
-            <assign to="." from="*"></assign> 
-          </input> 
-        </operation> 
-      </sequence>
-      </choice>
+            <operation name="FTP Client MOVE Service">
+              <participant name="FTPClientMove"/>
+              <output message="FTPClientMoveServiceTypeInputMessage">
+                <assign to="." from="*"></assign>
+                <assign to="RemoteFileName" from="/ProcessData/ListNames/Name[1]/text()"></assign>
+                <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
+              </output>
+              <input message="inmsg">
+                <assign to="." from="*"></assign>
+              </input>
+            </operation>
+          </sequence>
+        </choice>
+
+        <choice name="DELETE_FILE">
+          <select>
+            <case ref="DELETE_FILES?" activity="DELETE_FILE_YES"/>
+          </select>
+
+          <sequence name="DELETE_FILE_YES">
+
+            <operation name="FTP Client DELETE Service">
+              <participant name="FTPClientDelete"/>
+              <output message="FTPClientDeleteServiceTypeInputMessage">
+                <assign to="." from="*"></assign>
+                <assign to="RemoteFileName" from="/ProcessData/ListNames/Name[1]/text()"></assign>
+                <assign to="SessionToken" from="/ProcessData/FTPClientBeginSessionServiceResults/SessionToken/text()"></assign>
+              </output>
+              <input message="inmsg">
+                <assign to="." from="*"></assign>
+              </input>
+            </operation>
+          </sequence>
+        </choice>
+
 
         <assign name="Assign" to="FileCounter" from="number(/ProcessData/FileCounter/text())-1"></assign>
 
