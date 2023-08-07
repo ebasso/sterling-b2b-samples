@@ -47,9 +47,9 @@ Record **Header**
 
 Record **Details** 
 
-| Field    | Description of Role  | Type   | Source Value  | Default Value |
-|----------|----------------------|--------|---------------|---------------|
-| ID01     | Register description | String |               | 01 |
+| Field    | Description of Role  | Type   | Source Value  | 
+|----------|----------------------|--------|---------------|
+| ID01     | Register description | String | "01"          | 
 | CNT      | # of register        | Number |               |
 | FULL_NAME| Full Name            | String | FULL_NAME     |
 | AMOUNT   | Amount Value         | Number | AMOUNT        |
