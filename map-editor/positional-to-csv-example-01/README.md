@@ -33,16 +33,16 @@ Record **Header**
 |----------|----------------------|--------|---------------|
 | ID01     | Register description | String | 01 |
 | TOTAL    | Number of Registers  | Number | |
-| TODAY    | Current date         | Date | |
+| TODAY    | Current date         | Date   | |
 | ACCOUNT  | Ammout Value         | String | |
 | IDN      | Constant             | String | N |
 
 Record **Details** 
 
-| Field    | Description of Role  | Type   | Default Value |
-|----------|----------------------|--------|---------------|
-| ID01     | Register description | String | 01 |
-| CNT      | # of register        | Number | |
-| FULL_NAME| Full Name            | String | |
-| AMOUNT   | Amount Value         | Number | |
-| CODE10   | Constant             | String | |
+| Field    | Description of Role  | Type   | Source Value  | Default Value |
+|----------|----------------------|--------|---------------|---------------|
+| ID01     | Register description | String |               | 01 |
+| CNT      | # of register        | Number |               |
+| FULL_NAME| Full Name            | String | NAME1 + NAME2 |
+| AMOUNT   | Amount Value         | Number | AMOUNT        |
+| CODE10   | Constant             | String | CODE              |
