@@ -39,11 +39,11 @@ Record **Header**
 
 | Field    | Description of Role  | Type   | Default Value |
 |----------|----------------------|--------|---------------|
-| ID01     | Register description | String | 01 |
+| ID01     | Register description | String | "01" |
 | TOTAL    | Number of Registers  | Number | |
 | TODAY    | Current date         | Date   | |
 | ACCOUNT  | Ammout Value         | String | |
-| IDN      | Constant             | String | N |
+| IDN      | Constant             | String | #IDN = "N"; |
 
 Record **Details** 
 
