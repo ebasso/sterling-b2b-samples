@@ -16,8 +16,6 @@ In this scenario,
 
 Positional file 
 
-123ENIO   BASSO  00030000111234567890
-
 | Field    | Description of Role  | Type   | Pos | Size | Default Value 
 |----------|----------------------|---------------------------------------------------|
 | Register | Register description | Number |   1 |    3 | 123
