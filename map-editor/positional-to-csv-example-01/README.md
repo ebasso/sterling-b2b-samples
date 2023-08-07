@@ -73,10 +73,10 @@ Tag: 123, Pos=1, Size= 3
 | NAME2       | Surname              | String |  11 |    7 | |
 | AMOUNT      | Amount Value         | Number |  18 |   10 | |
 | CODE        | Code (Sample)        | String |  28 |   10 | |
-| * CNT       | computed counter     | NUMBER |  55 |   5  | #CNT = cnt; cnt = cnt + 1;   |
-| * FULL_NAME | computed full name   | String |  60 |   20 | #FULL_NAME = #NAME1 + " " + #NAME2|
+| * CNT       | computed counter     | NUMBER |  38 |   5  | #CNT = cnt; cnt = cnt + 1;   |
+| * FULL_NAME | computed full name   | String |  43 |   20 | #FULL_NAME = #NAME1 + " " + #NAME2|
 
-Important: computed fields must be put in the end of map
+Important: computed fields must be put in the end of record in positional files
 
 ### Records Temp - 0 to 1
 
