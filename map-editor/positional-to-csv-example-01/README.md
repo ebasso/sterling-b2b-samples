@@ -23,15 +23,15 @@ Records **123**
 | NAME2    | Surname              | String |  11 |    7 | |
 | AMOUNT   | Amount Value         | Number |  18 |   10 | |
 | CODE     | Code (Sample)        | String |  28 |   10 | |
-| * CNT       | counter           | NUMBER |  55 |   5  | #CNT = cnt; cnt = cnt + 1;   |
-| * FULL_NAME | full name         | String |  60 |   20 | #FULL_NAME = #NAME1 + " " + #NAME2|
+| * CNT       | computed counter           | NUMBER |  55 |   5  | #CNT = cnt; cnt = cnt + 1;   |
+| * FULL_NAME | computed full name         | String |  60 |   20 | #FULL_NAME = #NAME1 + " " + #NAME2|
 
 Records **Temp**
 
 | Field    | Description of Role  | Type   | Pos | Size | Value |
 |----------|----------------------|--------|-----|------|---------------|
-| * TempID | Register description | String |   1 |    0 | "01" |
-| * TempTotal | # of records      | Number |   4 |    0 | #TempTotal = cnt + 1; |
+| * TempID | computed ID | String |   1 |    0 | "01" |
+| * TempTotal | computed # of records | Number |   4 |    0 | #TempTotal = cnt + 1; |
 
 ## Output File (Delimited File/CSV)
 
