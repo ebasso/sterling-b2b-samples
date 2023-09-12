@@ -1,0 +1,41 @@
+<process name="HelloWorldJSON">
+  <sequence>
+    <operation name="XmlJsonTransformer">
+      <participant name="xmljsontransformer"/>
+      <output message="xout">
+        <assign to="Input">&lt;book&gt;&lt;title&gt;The Lord of Rings&lt;/title&gt;&lt;author&gt;J.R.R. Tolkien&lt;/author&gt;&lt;/book&gt;</assign>
+        <assign to="InputType">XML</assign>
+        <assign to="OutputPath">output.json</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="xin">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="SetContenType">
+      <participant name="GetDocumentInfoService"/>
+      <output message="xout">
+        <assign to="." from="*"></assign>
+        <assign to="DocumentContentType">application</assign>
+        <assign to="DocumentContentSubType">json</assign>
+        <assign to="updateMetaDataOnly">true</assign>
+      </output>
+      <input message="xin">
+        <assign to="docdata" from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="HttpRespond">
+      <participant name="HttpRespond"/>
+      <output message="HttpRespondInputMessage">
+        <assign to="doc-has-headers">false</assign>
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+
+  </sequence>
+</process>
