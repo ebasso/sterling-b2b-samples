@@ -1,6 +1,6 @@
-# Script get-sel-pro
+# Script cd-check-queues-shell
 
 
-Sample Script that get output from "sel pro" command and generate files with quantity of process in queues HOLD and WAIT.
+Sample Script that get output from "select process" command and generate files with quantity of process in queues HOLD and WAIT.
 
 The script generate files for process by name.
