@@ -1,0 +1,41 @@
+<process name="Demo_Kafka_Producer">
+	<sequence>
+		<operation name="Kafka Client Begin Session Service">
+			<participant name='KafkaBeginSessionService'/>
+			<output message="xout">
+				<assign to='Action'>put</assign>
+				<assign to='BootStrapServers'>localhost:29092</assign>
+				<assign to='KafkaClientAdapter'>KafkaClientAdapter</assign>
+				<assign to='SecurityAction'>PLAINTEXT</assign>
+				<assign to='ProducerConfig'>buffer.memory=102400;compression.type=gzip</assign>
+				<assign to='.' from='PrimaryDocument'/>
+			</output>
+			<input message="xin">
+				<assign to="KafkaBeginSessionServiceResults" from="*"/>
+			</input>
+		</operation>
+		<operation name="Kafka Client Producer Service">
+			<participant name="KafkaProducerService"/>
+			<output message="xout">
+				<assign to="SessionID" from="//KafkaBeginSessionServiceResults/SessionID/text()"/>
+				<assign to="KafkaClientAdapter" from="//KafkaBeginSessionServiceResults/KafkaClientAdapter/text()"/>
+				<assign to='Topic'>sb2b-kfk-outbound</assign>
+				<assign to='.' from='PrimaryDocument'/>
+			</output>
+			<input message="xin">
+				<assign to="." from="*"/>
+			</input>
+		</operation>
+		<operation name="Kafka Client End Session Service">
+			<participant name='KafkaEndSessionService'/>
+			<output message="xout">
+				<assign to="SessionID" from="//KafkaBeginSessionServiceResults/SessionID/text()"/>
+				<assign to="KafkaClientAdapter" from="//KafkaBeginSessionServiceResults/KafkaClientAdapter/text()"/>
+				<assign to='Action'>put</assign>
+			</output>
+			<input message="xin">
+				<assign to="." from="*"/>
+			</input>
+		</operation>
+	</sequence>
+</process>
