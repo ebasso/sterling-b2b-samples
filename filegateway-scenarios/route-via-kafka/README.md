@@ -1,6 +1,6 @@
 # IBM Sterling File Gateway Scenarios
 
-In this scenario, we enable SFG to put a file on a Kafka Top
+In this scenario, we enable SFG to put a file on a Kafka Topic. This feature is only available on Sterling B2Bi 6.2
 
 We need to add a Custom Protocol on SFG. And after need to define this protocol to a partner.
 
@@ -123,7 +123,7 @@ Does Kafka_Topic_001 require data to be encrypted by the Router : no
 
 **On Kafka**
 
-1) Create a topic: **Dsfg-kfk-outbound**. I use Kowl to create topics.
+1) Create a topic: **sfg-kfk-outbound**. I use Kowl to create topics.
 
 ![Create a Topic](../../readme_images/sfg-kfk-outbound-create.png)
 
