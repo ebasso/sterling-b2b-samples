@@ -88,14 +88,51 @@ Does Kafka_Topic_001 require data to be encrypted by the Router : no
 
 3) Create a Routing Channel Template.
 
+```
+ Routing Channel Template:
+    Template Name: W_SEND_FILE
+    Consumer Identification: Not Dynamic
+
+    Special Character Handling: No special character handling is specified
+    Provisioning Fact List:
+    Group Permissions:
+        Producer Group: All Partners
+        Consumer Group: All Partners
+    Producer Mailbox Path: /${ProducerName}/${ConsumerName}
+    Producer File Structures:
+        Producer File Structure: Unknown{.+}
+        Layer: Unknown
+            File name pattern as regular expression: .+
+            File name pattern group fact names, comma delimited:
+    Delivery Channel Templates:
+        Delivery Channel Template:
+            Consumer Mailbox Path: /${ConsumerName}/Inbox
+            Consumer Mailbox: Created at runtime
+            Consumer Protocol: protocol or mailbox
+            Consumer File Structure: Unknown{${ProducerFileName}}
+            Layer: Unknown
+                File name format: ${ProducerFileName}
+```
+
 4) Create a Route Channel.
 
 * Routing Channel Template: W_SEND_FILE
 * Producer: Demo_Producer_01
 * Consumer: Kafka_Topic_001
 
+
+**On Kafka**
+
+1) Create a topic: **Demo_BP_RouteViaKafka**, using file **route-via-kafka.bpml** 
+
+![Create a Topic](../../readme_images/sfg-kfk-outbound-create.png)
+
 # Running
 
 1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/Kafka_Topic_001**
+
+2) Check at Topic
+
+![File at Topic](../../readme_images/sfg-kfk-outbound.png)
 
 

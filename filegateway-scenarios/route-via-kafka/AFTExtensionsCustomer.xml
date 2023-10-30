@@ -13,7 +13,7 @@
       <VARDEF varname="customkafka_Topic" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
         maxsize="250" label="customkafka.label.protocol.Topic" required="yes" />
       <VARDEF varname="customkafka_ProducerConfig" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
-        maxsize="250" label="customkafka.label.protocol.ProducerConfig" required="no" defaultVal="buffer.memory=102400;compression.type=gzip" />
+        maxsize="250" label="customkafka.label.protocol.ProducerConfig" required="no" />
     </GROUP>
   </AFTExtension>
 

@@ -7,7 +7,7 @@
 				<assign to='BootStrapServers' from="//customkafka_BootStrapServers/text()" />
 				<assign to='KafkaClientAdapter' from="//customkafka_KafkaClientAdapter/text()" />
 				<assign to='SecurityAction' from="//customkafka_SecurityAction/text()" />
-				<assign to='ProducerConfig'  from="if(string-length(//customkafka_ProducerConfig/text())>0,//customkafka_ProducerConfig/text(),'buffer.memory=102400;compression.type=gzip')" />
+				<assign to='ProducerConfig'  from="//customkafka_ProducerConfig/text()" />
 				<assign to='.' from='PrimaryDocument'/>
 			</output>
 			<input message="xin">
