@@ -1,0 +1,41 @@
+<process name="Demo_BP_RouteViaKafka">
+	<sequence>
+		<operation name="Kafka Client Begin Session Service">
+			<participant name='KafkaBeginSessionService'/>
+			<output message="xout">
+				<assign to='Action'>put</assign>
+				<assign to='BootStrapServers' from="//customkafka_BootStrapServers/text()" />
+				<assign to='KafkaClientAdapter' from="//customkafka_KafkaClientAdapter/text()" />
+				<assign to='SecurityAction' from="//customkafka_SecurityAction/text()" />
+				<assign to='ProducerConfig'  from="if(string-length(//customkafka_ProducerConfig/text())>0,//customkafka_ProducerConfig/text(),'buffer.memory=102400;compression.type=gzip')" />
+				<assign to='.' from='PrimaryDocument'/>
+			</output>
+			<input message="xin">
+				<assign to="KafkaBeginSessionServiceResults" from="*"/>
+			</input>
+		</operation>
+		<operation name="Kafka Client Producer Service">
+			<participant name="KafkaProducerService"/>
+			<output message="xout">
+				<assign to="SessionID" from="//KafkaBeginSessionServiceResults/SessionID/text()"/>
+				<assign to="KafkaClientAdapter" from="//KafkaBeginSessionServiceResults/KafkaClientAdapter/text()"/>
+				<assign to='Topic' from="//customkafka_Topic/text()" />
+				<assign to='.' from='PrimaryDocument'/>
+			</output>
+			<input message="xin">
+				<assign to="." from="*"/>
+			</input>
+		</operation>
+		<operation name="Kafka Client End Session Service">
+			<participant name='KafkaEndSessionService'/>
+			<output message="xout">
+				<assign to="SessionID" from="//KafkaBeginSessionServiceResults/SessionID/text()"/>
+				<assign to="KafkaClientAdapter" from="//KafkaBeginSessionServiceResults/KafkaClientAdapter/text()"/>
+				<assign to='Action'>put</assign>
+			</output>
+			<input message="xin">
+				<assign to="." from="*"/>
+			</input>
+		</operation>
+	</sequence>
+</process>
