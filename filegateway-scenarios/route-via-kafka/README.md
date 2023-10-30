@@ -123,7 +123,7 @@ Does Kafka_Topic_001 require data to be encrypted by the Router : no
 
 **On Kafka**
 
-1) Create a topic: **Demo_BP_RouteViaKafka**, using file **route-via-kafka.bpml** 
+1) Create a topic: **Dsfg-kfk-outbound**. I use Kowl to create topics.
 
 ![Create a Topic](../../readme_images/sfg-kfk-outbound-create.png)
 
