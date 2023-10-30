@@ -90,14 +90,12 @@ Does Kafka_Topic_001 require data to be encrypted by the Router : no
 
 4) Create a Route Channel.
 
-* Routing Channel Template: Demo_RouteFileViaFSA
+* Routing Channel Template: W_SEND_FILE
 * Producer: Demo_Producer_01
 * Consumer: Kafka_Topic_001
 
 # Running
 
-1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/fsa**
-
-2) After delivery, check files on mailboxes **Demo_Consumer_FSA_01s** and filesystem **/home/siuser/FSADemo**.
+1) Logon on Myfilegateway with user **Demo_Producer_01**, and upload any file to virtual directory **/Kafka_Topic_001**
 
 
