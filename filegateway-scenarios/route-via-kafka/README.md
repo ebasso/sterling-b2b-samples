@@ -80,7 +80,7 @@ Transport Method:  	Custom Kafka Protocol
   Kafka Client Adapter: KafkaClientAdapter 
   Security Action: PLAINTEXT
   Topic: sfg-kfk-outbound 
-  Procer Configs: buffer.memory=102400;compression.type=gzip 
+  Producer Configs: buffer.memory=102400;compression.type=gzip 
 
 Does Kafka_Topic_001 require data to be signed by the Router: no
 Does Kafka_Topic_001 require data to be encrypted by the Router : no
