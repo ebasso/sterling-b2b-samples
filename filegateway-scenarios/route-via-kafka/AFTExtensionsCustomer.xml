@@ -1,0 +1,21 @@
+<AFTExtensions>
+  <!-- Custom Kafka Protocol-->
+  <AFTExtension name="customkafka" type="consumer-delivery-protocol" label="customkafka.protocol.label.protocol" bp="Demo_BP_RouteViaKafka">
+
+    <GROUP title="customkafka.instance.group1.title">
+      <VARDEF varname="customkafka_BootStrapServers" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
+        maxsize="250" label="customkafka.label.protocol.BootStrapServers" required="yes" />
+      <VARDEF varname="customkafka_KafkaClientAdapter" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
+        maxsize="250" label="customkafka.label.protocol.KafkaClientAdapter" required="yes"
+        defaultVal="KafkaClientAdapter" />
+      <VARDEF varname="customkafka_SecurityAction" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
+        maxsize="250" label="customkafka.label.protocol.SecurityAction" required="yes" />
+      <VARDEF varname="customkafka_Topic" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
+        maxsize="250" label="customkafka.label.protocol.Topic" required="yes" />
+      <VARDEF varname="customkafka_ProducerConfig" type="String" htmlType="text" validator="ALPHANUMERIC" size="30"
+        maxsize="250" label="customkafka.label.protocol.ProducerConfig" required="no" defaultVal="buffer.memory=102400;compression.type=gzip" />
+    </GROUP>
+  </AFTExtension>
+
+
+</AFTExtensions>
