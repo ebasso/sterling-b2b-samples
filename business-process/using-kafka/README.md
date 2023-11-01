@@ -60,3 +60,9 @@ and define a topic
 3) Create a new Business Process: **Demo_Kafka_Consumer**, using file **demo-kafka-consumer.bpml** 
 
 4) Run the BP and check result on steps on B2Bi Dashboard.
+
+**Important**
+
+1) Important: key must be the filename of file..
+
+![Create a Topic](../../readme_images/sb2b-kdk-key-value.png)
