@@ -61,6 +61,14 @@ and define a topic
 
 4) Run the BP and check result on steps on B2Bi Dashboard.
 
+
+To test you can use my python scritps producer.py and consumer.py
+
+For any problem check BP 
+
+![Demo_Kafka_Consumer](../../readme_images/sb2b-kfk-consumer-01.png)
+
+
 **Important**
 
 1) Important: key must be the filename of file..
