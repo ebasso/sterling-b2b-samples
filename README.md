@@ -47,6 +47,8 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 | BPs Name                        |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
+| cd-check-process-queues-shell   | Sample Script that get output from "select process" command and generate files with quantity of process in queues HOLD and WAIT |
+| cd-watch-shell                   | Sample Script that monitor Connect:Direct Unix |
 | [copy-multiples-files-from-sfg](connect-direct/copy-multiples-files-from-sfg) | CD Process that copy multiples files FROM SFG |
 | [copy-multiples-files-from-sfg-advanced](connect-direct/copy-multiples-files-from-sfg-advanced) | CD Process that copy multiples files FROM SFG and run a runtask to delete from mailbox |
 | [copy-multiples-files-to-sfg](connect-direct/copy-multiples-files-to-sfg) | CD Process that copy multiples files TO SFG |
@@ -70,8 +72,22 @@ Samples scenarios to be used on IBM Sterling FileGateway
 | route-via-custom-ftp-protocol       | Put a file on FTP Partner using a custom FTP protocol on SFG |
 | route-via-custom-protocol           | Sample of a custom protocol that write a file to a filesystem with a custom filename|
 | route-via-custom-sftp-client-adapter| Put a file on SFTP Partner using a custom SFTP Client Adapter on Perimeter Server|
-| route-via-file-system-adapter       | Put a file on network shared directory.|
-| route-via-http-post                 | Put a file on HTTP Server.|
+| route-via-file-system-adapter       | Sample of a custom protocol that write a file on network shared directory.|
+| route-via-http-post                 | Sample of a custom protocol that send a file on HTTP Server.|
+| route-via-kafka                     | Sample of a custom protocol that write a file in a Kafka topic|
+
+# Sterling Map Editor
+
+| Scenarios                           |            Description of Role                                          |
+|-------------------------------------|-------------------------------------------------------------------------|
+| content-based-routing-01            | Map that extract field from CSV file and put in Process Data |
+| positional-to-csv-example-01        | Sample map that convert from a Positional file to CSV file |
+
+# Sterling Secure Proxy
+
+| Scenarios                           |            Description of Role                                          |
+|-------------------------------------|-------------------------------------------------------------------------|
+| secure-proxy-restapi                | Python scritps to configure IBM Sterling Secure Proxy (SSP) using RestAPI  |
 
 # Tools
 
