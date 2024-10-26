@@ -1,0 +1,26 @@
+process name="CDSubmitProcess">
+  <sequence>
+    <operation name="CDSubProc">
+      <participant name="CDRequesterSubmit"/>
+      <output message="CDRequesterSubmit">
+        <assign to="CDRequesterName">CDRequester</assign>
+        <assign to="." from="*"></assign>
+        <assign to="ProcessText">
+SENDFILE PROCESS 
+    SNODE=CDNODE02
+SEND01 COPY 
+    FROM (
+        FILE=C:\Temp\sample.txt
+    )
+    TO (
+        FILE=sample.txt
+        DISP=RPL
+    )
+PEND</assign>
+     </output>
+     <input message="inmsg">
+       <assign to="." from="*"></assign>
+     </input>
+   </operation>
+  </sequence>
+</process>
