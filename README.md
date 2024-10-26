@@ -6,6 +6,7 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 | APIs Name                       |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
+| cdws-restapi                    | Python code to submit a file using C:D WebServices (RestAPI)|
 | code-lists                      | Python code to Create, Read, Update and Delete Code Lists using B2Bi API. Create Code List stored from CSV file|
 | create-user-using-xapi          | Create user using XAPI in a business process |
 | sfg-communities-apis            | Python code to create Communities using B2Bi API,           |
@@ -18,18 +19,28 @@ Sterling B2B Samples/Exemplos. Exemplos de BPs, Services, uso de APIs
 
 | BPs Name                        |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
+| bp-parent-to-bp-child-samples   | Examples of BPs that exchange information between parent and child subprocess |
 | bp-xml-json-transformation      | Examples of BPs that convert XML to Json format, using XML Json Transformer Service |
 | bps-from-ibm-support-com        | IBM Support provide many solutions for Business problems. I will concentrate some of this solutions here for reference|
+| check-sum-java-task             | Sample JavaTask that do a checksum of file |
 | cmd-line-adapter-example-01     | Sample code that use Command Line Adapter 2 on Linux |
 | [code-list-editor-web](business-process/code-list-editor-web) | The UI to manipulate Code List is poor. This solution helps to search and update codes in Code List |
 | compress-files                  | Samples BPs to compress files using Compress Service and Zip with command line |
+| connect-direct-requester-submit | Sample BP that submit a file on C:D |
 | copy-from-filesystem-to-mailbox | Copy File(s) From File System to a Mailbox |
 | file-folding                    | Samples BPs to put a new line character every N caracters. Use a Java Task |
 | ftp-get-multiple-files          | Polling  Multiple files from a FTP Partner |
-| hello-world2-http-server-adapter| Hello World 2 example on  HTTP Server Adapter |
+| generate-files                  | BP to generate files and write to a mailbox |
+| generate-load-on-connect-direct | Business Process to do load on Connect:Direct |
+| gzip-compress-java-task         | Compress file using Gzip with Java Task |
+| hello-world-json-http-server-adapter| Hello World example on  HTTP Server Adapter |
+| hello-world-xml-http-server-adapter| Hello World example on  HTTP Server Adapter |
 | polling-file-from-sftp-parner   | Poll a file from a SFTP Partner and delivery it internally  |
 | rename-with-regex-java-task     | Samples BP to rename files using Regular Expressions and Java Classes (Match and Pattern).  |
+| send-smtp-email                 | Send Email from BP |
 | sftp-get-multiple-files         | Polling  Multiple files from a SFTP Partner |
+| using-kafka                     | Sample BPs to interact with Kafka, as a producer, consumer |
+
 
 
 # Connect Direct
