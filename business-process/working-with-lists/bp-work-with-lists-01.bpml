@@ -1,7 +1,4 @@
 <process name = "Demo_ListHandling">
-    <rule name="more_docs">
-        <condition>//FSADoc.DONE = 0</condition>
-    </rule>
     <sequence>
         <assign to="SourceList/User">U001</assign>
         <assign to="SourceList/User" append ="true">U002</assign>
