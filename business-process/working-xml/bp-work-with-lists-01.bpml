@@ -1,0 +1,15 @@
+<process name = "Demo_ListHandling">
+    <sequence>
+        <assign to="SourceList/User">U001</assign>
+        <assign to="SourceList/User" append ="true">U002</assign>
+        <assign to="SourceList/User" append ="true">U003</assign>
+        <assign to="SourceList/User" append ="true">U004</assign>
+        <assign to="DestList/User">U001</assign>
+        <assign to="DestList/User" append ="true">U002</assign>
+        <assign to="DestList/User" append ="true">U005</assign>
+        <assign to="DeleteList" from="/ProcessData/DestList/User[not(. = /ProcessData/SourceList/User)]"></assign>
+        <assign to="AddList" from="/ProcessData/SourceList/User[not(. = /ProcessData/DestList/User)]"></assign>
+        <assign to="UpdateList" from="/ProcessData/SourceList/User[(. = /ProcessData/DestList/User)]"></assign>
+        <assign to="FullList" from="/ProcessData/SourceList/User|/ProcessData/DestList/User[not(. = /ProcessData/SourceList/User)]"></assign>
+    </sequence>
+</process>
