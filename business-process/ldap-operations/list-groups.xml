@@ -1,0 +1,7 @@
+<LDAPAdapter>
+    <request scope="subtree" operation="Read" baseDN="ou=Group,dc=test,dc=net">
+        <param.1 usage="Search">(objectClass=groupOfNames)</param.1>
+        <param.2 name="cn" usage="Input"/>
+        <param.3 name="member" usage="Input"/>
+    </request>
+</LDAPAdapter>

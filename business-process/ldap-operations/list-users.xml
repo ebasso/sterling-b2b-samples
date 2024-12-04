@@ -1,0 +1,5 @@
+<LDAPAdapter>
+    <request scope="subtree" operation="Read" baseDN="ou=People,dc=test,dc=net">
+        <param.1 usage="Search">(&amp;(objectClass=account)(uid=ebasso))</param.1>
+    </request>
+</LDAPAdapter>

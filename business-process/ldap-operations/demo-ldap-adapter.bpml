@@ -1,0 +1,15 @@
+<process name="Demo_LDAPAdapter">
+    <sequence>
+
+        <operation name="LDAP">
+            <participant name="LDAPAdapter"/>
+            <output message="LDAPInputMessage">
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+                <assign to="." from="*"></assign>
+            </input>
+        </operation>
+
+    </sequence>
+</process>
