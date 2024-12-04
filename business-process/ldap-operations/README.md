@@ -5,9 +5,10 @@
 
 | BP Name                         |            Description of Role                                          |
 |---------------------------------|-------------------------------------------------------------------------|
-| demo-ldap-adapter.bpml          | Business Process that do LDAP Query |
-| list-users.xml           | XSLT file to generate html output |
-| list-groups.xml         | Business Process that do RestAPI Get |
+| demo-ldap-01.bpml               | Business Process that do LDAP Query providing input files|
+| list-users.xml                  | XSLT file to generate html output |
+| list-groups.xml                 | Business Process that do RestAPI Get |
+| demo-ldap-02.bpml               | Business Process that do LDAP Query providing from process data|
 
 
 # Steps to Run:

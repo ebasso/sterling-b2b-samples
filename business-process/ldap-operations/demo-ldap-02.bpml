@@ -1,0 +1,33 @@
+<process name="Demo_LDAPExtraction">
+    <sequence>
+        <operation name="AssignService">
+            <participant name="AssignService"/>
+            <output message="AssignOutputMessage">
+                <assign to="." from="*"/>
+                <assign to="LDAPAdapter/request/@scope">subtree</assign>
+                <assign to="LDAPAdapter/request/@operation">Read</assign>
+                <assign to="LDAPAdapter/request/@baseDN">ou=Group,dc=test,dc=net</assign>
+                <assign to="LDAPAdapter/request/param.1">(objectClass=groupOfNames)</assign>
+                <assign to="LDAPAdapter/request/param.1/@usage">Search</assign>
+                <assign to="LDAPAdapter/request/param.2/@name">cn</assign>
+                <assign to="LDAPAdapter/request/param.2/@usage">Input</assign>
+                <assign to="LDAPAdapter/request/param.3/@name">member</assign>
+                <assign to="LDAPAdapter/request/param.3/@usage">Input</assign>
+            </output>
+            <input message="AssignInputMessage">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+        <assign to="." from="DOMToDoc(/ProcessData/LDAPAdapter, 'PrimaryDocument', 'no', 'LDAPAdapter')"></assign>
+        <operation name="LDAP">
+            <participant name="LDAPAdapter"/>
+            <output message="LDAPInputMessage">
+                <assign to="." from="*"></assign>
+            </output>
+            <input message="inmsg">
+                <assign to="." from="*"></assign>
+            </input>
+        </operation>
+
+    </sequence>
+</process>
