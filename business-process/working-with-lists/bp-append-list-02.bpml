@@ -1,0 +1,47 @@
+<process name="Demo_BP_Append_List">
+    <rule name="has_next">
+        <condition>count(/ProcessData/List/Item) &gt; 0</condition>
+    </rule>
+
+    <rule name="skip_item">
+        <condition>/ProcessData/List/Item[1]/text = &apos;U002&apos;</condition>
+    </rule>
+
+    <sequence>
+        <assign to="List/Item">U001</assign>
+        <assign to="List/Item" append="true">U002</assign>
+        <assign to="List/Item" append="true">U003</assign>
+        <assign to="List/Item" append="true">U004</assign>
+        <assign to="ItemsList">.</assign>
+        <choice name="forEachItem">
+            <select>
+                <case ref="has_next" activity="nextItem"/>
+            </select>
+
+            <sequence name="nextItem">
+                <choice name="AddItem">
+                    <select>
+                        <case ref="skip_item" negative="true" activity="AddItemSeq"/>
+                    </select>
+
+                    <sequence name="AddItemSeq">
+                        <assign name="Assign" to="ItemsList" from="if( ItemsList = &apos;.&apos;, List/Item[1]/text(), concat(ItemsList, &apos;,&apos; ,List/Item[1]/text()))"></assign>
+                    </sequence>
+                </choice>
+                <operation name="Release Service">
+                    <participant name="ReleaseService"/>
+                    <output message="ReleaseServiceTypeInputMessage">
+                        <assign to="TARGET">/ProcessData/List/Item[1]</assign>
+                        <assign to="." from="*"></assign>
+                    </output>
+                    <input message="inmsg">
+                        <assign to="." from="*"></assign>
+                    </input>
+                </operation>
+
+                <repeat name="endLoop" ref="forEachItem"/>
+
+            </sequence>
+        </choice>
+    </sequence>
+</process>
