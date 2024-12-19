@@ -1,0 +1,32 @@
+<process name="Demo_BP_Append_List">
+    <rule name="moreItens">
+        <condition>total &gt;= number(counter/text())</condition>
+    </rule>
+
+    <sequence>
+        <assign to="List/Item">U001</assign>
+        <assign to="List/Item" append="true">U002</assign>
+        <assign to="List/Item" append="true">U003</assign>
+        <assign to="List/Item" append="true">U004</assign>
+        <assign to="total" from="count(/ProcessData/List/Item)"></assign>
+        <assign to="ItemsList">.</assign>
+        <assign to="counter">1</assign>
+        <sequence name="loopStart">
+            <choice>
+                <select>
+                    <case ref="moreItens" activity="choiceStart"/>
+                </select>
+                <sequence name="choiceStart">
+                    <sequence name="taskStart">
+
+                        <assign to="CurrentItem" from="List/Item[number(/ProcessData/counter/text())]/text()"/>
+                        <assign to="ItemsList" from="if( ItemsList = &apos;.&apos;, CurrentItem/text(), concat(ItemsList, &apos;,&apos; ,CurrentItem/text()))"></assign>
+
+                        <assign to="counter" from="counter + 1"/>
+                    </sequence>
+                    <repeat ref="loopStart"/>
+                </sequence>
+            </choice>
+        </sequence>
+    </sequence>
+</process>
