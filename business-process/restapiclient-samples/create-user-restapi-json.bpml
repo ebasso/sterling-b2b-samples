@@ -1,0 +1,73 @@
+<process name="create-user-restapi-json">
+    <sequence>
+
+
+        <operation name="AssignService">
+            <participant name="AssignService"/>
+            <output message="AssignOutputMessage">
+                <assign to="." from="*"/>
+                <assign to="This/server">http://127.0.0.1:5078</assign>
+                <assign to="This/url" from="concat(This/server/text(),&apos;/B2BAPIs/svc/tradingpartners/&apos;)"></assign>
+                <assign to="This/auth">admin:passw0rd</assign>
+                <assign to="This/emailAddress">kk@ibm.com</assign>
+                <assign to="Partner/username">demopartner01</assign>
+                <assign to="Partner/partnerName">demopartner01</assign>
+                <assign to="Partner/givenName">demo</assign>
+                <assign to="Partner/surname">demopartner01</assign>
+                <assign to="Partner/authenticationType">Local</assign>
+                <assign to="Partner/community">Demo_Community</assign>
+                <assign to="Partner/emailAddress">kk@ibm.com</assign>
+                <assign to="Partner/password">passw0rd</assign>
+                <assign to="Partner/postalCode">12345-678</assign>
+                <assign to="Partner/isInitiatingConsumer">True</assign>
+                <assign to="Partner/isInitiatingProducer">True</assign>
+                <assign to="Partner/isListeningConsumer">False</assign>
+                <assign to="Partner/isListeningProducer">False</assign>
+                <assign to="Partner/doesUseSSH">true</assign>
+                <assign to="Partner/phone">555-5555</assign>
+                <assign to="." from="DOMToDoc(/ProcessData/Partner,&apos;PrimaryDocument&apos;)"></assign>
+            </output>
+            <input message="AssignInputMessage">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+
+        <operation name="Convert to Json">
+            <participant name="xmljsontransformer"/>
+            <output message="xout">
+                <assign to="." from="PrimaryDocument/@SCIObjectID"></assign>
+                <assign to="InputType">XML</assign>
+                <assign to="OutputPath">output.json</assign>
+                <assign to="." from="*" />
+            </output>
+            <input message="xin">
+                <assign to="." from="*" />
+            </input>
+        </operation>
+
+
+        <operation name="Create Partner">
+            <participant name="RESTAPIClient"/>
+            <output message="xout">
+                <assign to="url" from="This/url/text()"></assign>
+                <assign to="restoperation">POST</assign>
+                <assign to="auth" from="This/auth/text()"></assign>
+                <assign to="Authorization">Basic</assign>
+                <assign to="Content-type">Application/json</assign>
+                <assign to="Accept">Application/json</assign>
+                <assign to="isProxy">false</assign>
+                <assign to="jsoninput1">false</assign>
+                <assign to="." from="*" />
+            </output>
+            <input message="xin">
+                <assign to="HTTPResponse" from="*" />
+            </input>
+        </operation>
+
+        <onFault>
+            <sequence>
+                <assign to="status">FAIL</assign>
+            </sequence>
+        </onFault>
+    </sequence>
+</process>
