@@ -1,0 +1,45 @@
+<process name="ldapsync-create-group-restapi-xml">
+    <sequence>
+
+        <operation name="AssignService">
+            <participant name="AssignService"/>
+            <output message="AssignOutputMessage">
+                <assign to="." from="*"/>
+                <assign to="This/server">http://127.0.0.1:5078</assign>
+                <assign to="This/api">/B2BAPIs/svc/partnergroups/</assign>
+                <assign to="This/url" from="concat(This/server/text(),This/api/text())"></assign>
+                <assign to="This/auth">admin:passw0rd</assign>
+                <assign to="create/@groupName">Group01</assign>
+                <assign to="create/@groupMembers">Sistema_100,Sistema_110</assign>
+                <assign to="." from="DOMToDoc(/ProcessData/create,&apos;PrimaryDocument&apos;)"></assign>
+            </output>
+            <input message="AssignInputMessage">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+
+        <operation name="Create Partner">
+            <participant name="RESTAPIClient"/>
+            <output message="xout">
+                <assign to="url" from="This/url/text()"></assign>
+                <assign to="restoperation">POST</assign>
+                <assign to="auth" from="This/auth/text()"></assign>
+                <assign to="Authorization">Basic</assign>
+                <assign to="Content-type">Application/XML</assign>
+                <assign to="Accept">Application/XML</assign>
+                <assign to="isProxy">false</assign>
+                <assign to="jsoninput1">false</assign>
+                <assign to="." from="*" />
+            </output>
+            <input message="xin">
+                <assign to="HTTPResponse" from="*" />
+            </input>
+        </operation>
+
+        <onFault>
+            <sequence>
+                <assign to="status">FAIL</assign>
+            </sequence>
+        </onFault>
+    </sequence>
+</process>
