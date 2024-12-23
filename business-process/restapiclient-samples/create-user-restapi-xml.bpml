@@ -1,0 +1,59 @@
+<process name="create-user-restapi-xml">
+    <sequence>
+
+        <operation name="AssignService">
+            <participant name="AssignService"/>
+            <output message="AssignOutputMessage">
+                <assign to="." from="*"/>
+                <assign to="This/server">http://127.0.0.1:5078</assign>
+                <assign to="This/url" from="concat(This/server/text(),&apos;/B2BAPIs/svc/tradingpartners/&apos;)"></assign>
+                <assign to="This/auth">admin:passw0rd</assign>
+                <assign to="create/@username">demopartner01</assign>
+                <assign to="create/@partnerName">demopartner01</assign>
+                <assign to="create/@givenName">demo</assign>
+                <assign to="create/@surname">demopartner01</assign>
+                <assign to="create/@authenticationType">Local</assign>
+                <assign to="create/@community">Demo_Community</assign>
+                <assign to="create/@emailAddress">kk@ibm.com</assign>
+                <assign to="create/@password">passw0rd</assign>
+                <assign to="create/@postalCode">12345-678</assign>
+                <assign to="create/@isInitiatingConsumer">true</assign>
+                <assign to="create/@isInitiatingProducer">true</assign>
+                <assign to="create/@isListeningConsumer">false</assign>
+                <assign to="create/@isListeningProducer">false</assign>
+                <assign to="create/@doesUseSSH">true</assign>
+                <assign to="create/@phone">555-5555</assign>
+                <assign to="create/@timeZone">-031</assign>
+                <assign to="create/@countryOrRegion">BR</assign>
+                <assign to="." from="DOMToDoc(/ProcessData/create,&apos;PrimaryDocument&apos;)"></assign>
+            </output>
+            <input message="AssignInputMessage">
+                <assign to="." from="*"/>
+            </input>
+        </operation>
+
+        <operation name="Create Partner">
+            <participant name="RESTAPIClient"/>
+            <output message="xout">
+                <assign to="url" from="This/url/text()"></assign>
+                <assign to="restoperation">POST</assign>
+                <assign to="auth" from="This/auth/text()"></assign>
+                <assign to="Authorization">Basic</assign>
+                <assign to="Content-type">Application/XML</assign>
+                <assign to="Accept">Application/XML</assign>
+                <assign to="isProxy">false</assign>
+                <assign to="jsoninput1">false</assign>
+                <assign to="." from="*" />
+            </output>
+            <input message="xin">
+                <assign to="HTTPResponse" from="*" />
+            </input>
+        </operation>
+
+        <onFault>
+            <sequence>
+                <assign to="status">FAIL</assign>
+            </sequence>
+        </onFault>
+    </sequence>
+</process>
