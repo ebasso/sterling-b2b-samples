@@ -1,0 +1,21 @@
+<process name="REST_CreatePartnerGroups">
+  <sequence>
+    <operation name="Request">
+      <participant name='RESTAPIClient'/>
+      <output message='xout'>
+        <assign to="url">http:/127.0.0.1:5078/B2BAPIs/svc/partnergroups/</assign>
+        <assign to="restoperation">POST</assign>
+        <assign to='auth'>admin:passw0rd</assign>
+        <assign to='Authorization'>Basic</assign>
+        <assign to="Content-type">Application/json</assign>
+        <assign to="Accept">Application/json</assign>
+        <assign to="isProxy">false</assign>
+        <assign to='jsoninput1'>"groupName": "GrupoTest02", "groupMembers": "Sistema_100,Sistema_110"</assign>
+        <assign to="." from="*" />
+      </output>
+      <input message="xin">
+        <assign to="." from="*" />
+      </input>
+    </operation>
+  </sequence>
+</process>
