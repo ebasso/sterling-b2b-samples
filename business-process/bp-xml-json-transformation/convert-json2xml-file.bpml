@@ -4,8 +4,8 @@
 <participant name='xmljsontransformer'/>
 <output message='xout'>
 <assign to='.' from='PrimaryDocument/@SCIObjectID'></assign>
-<assign to='inputtype'>JSON</assign>
-<assign to='outputpath'>output.xml</assign>
+<assign to='InputType'>JSON</assign>
+<assign to='OutputPath'>output.xml</assign>
 <assign to='.' from='*' />
 </output>
 <input message="xin">

@@ -4,8 +4,8 @@
     <participant name='xmljsontransformer'/> 
     <output message='xout'>
     <assign to='input'>{"student":{"name":"Anakin Skywalker","age":"22"}}</assign>
-    <assign to='inputtype'>JSON</assign> 
-    <assign to='outputpath'>output.xml</assign> 
+    <assign to='InputType'>JSON</assign> 
+    <assign to='OutputPath'>output.xml</assign> 
     <assign to='.' from='*'/> 
     </output>
     <input message="xin">
