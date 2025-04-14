@@ -1,0 +1,49 @@
+<process name = "HttpPostToMailbox">
+  <sequence>
+
+    <operation name="AssignService">
+      <participant name="AssignService"/>
+      <output message="AssignOutputMessage">
+        <assign to="MAILBOX_PATH">/Sistema_ftp/Inbox</assign>
+      </output>
+      <input message="AssignInputMessage">
+        <assign to="." from="*"/>
+      </input>
+    </operation>
+
+    <operation name="set user token">
+      <participant name="SetUserToken"/>
+      <output message="SetUserTokenMessage">
+        <assign to="USER_TOKEN">admin</assign>
+        <assign to="." from="*"/>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"/>
+      </input>
+    </operation>
+
+    <operation name="Mailbox Add Service">
+      <participant name="MailboxAdd"/>
+      <output message="MailboxAddServiceTypeInputMessage">
+        <assign to="." from="*"></assign>
+        <assign to="Extractable">Yes</assign>
+        <assign to="DocumentId" from="/PrimaryDocument/@SCIObjectID"/>
+        <assign to="MailboxPath" from="//MAILBOX_PATH/text()"/>
+      </output>
+      <input message="inmsg">
+        <assign to="MailboxAddResult" from="*"></assign>
+      </input>
+    </operation>
+
+    <operation name="HttpRespond">
+      <participant name="HttpRespond"/>
+      <output message="HttpRespondInputMessage">
+        <assign to="doc-has-headers">false</assign>        <!-- Implying non-raw mode by default. -->
+        <assign to="." from="*"></assign>
+      </output>
+      <input message="inmsg">
+        <assign to="." from="*"></assign>
+      </input>
+    </operation>
+  </sequence>
+</process>
