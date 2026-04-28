@@ -12,7 +12,9 @@ import base64
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from requests.auth import HTTPBasicAuth
 
-#json_process_file = {'processFile': "/home/cdadmin01/copy.cdp" }
+# You must put the cdp file content into CDWS container 
+#json_process_file = {'processFile': "/opt/MFTWebServices/mftws/BOOT-INF/classes/configFiles/send_file.cdp" } 
+
 #json_process_file = {'processFile': "COPY2CD PROCESS SNODE=CDNODE03 CPY0 COPY FROM (FILE=/home/cdadmin02/sample1.txt PNODE) TO (FILE=/home/cdadmin02/sample1.txt SNODE DISP=RPL) PEND" }
 json_process_file = {
     'processFile': 'COPY2CD PROCESS SNODE=&DST_NODE CPY0 COPY FROM (FILE="&SRC_FILE" PNODE) TO (FILE="&DST_FILE" SNODE DISP=RPL) PEND',
